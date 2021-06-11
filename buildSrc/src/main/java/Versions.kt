@@ -29,12 +29,8 @@ object Versions {
     // Decoder
     const val kotlin_reflect = "1.4.32"
     const val jackson_cbor = "2.12.3"
-    const val java_cose = "1.1.0"
-    const val bouncy_castle = "1.68"
-
-    // Validation
-    const val json_validation = "2.2.6"
-    const val json_validation_rhino = "1.0"
+    const val jackson_kotlin = "2.12.0"
+    const val appache_commons = "2.9.0"
 
     // Tests
     const val junit = "4.13.1"

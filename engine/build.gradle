@@ -43,10 +43,14 @@ android {
 dependencies {
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_reflect
+    implementation Deps.jackson_cbor
 
     testImplementation Deps.test_junit
     testImplementation Deps.test_junit_jupiter_api
     testImplementation Deps.test_junit_jupiter_params
     testImplementation Deps.test_hamcrest
     testRuntimeOnly Deps.test_runtime_only
+
+    testImplementation Deps.appache_commons
+    testImplementation Deps.jackson_kotlin
 }

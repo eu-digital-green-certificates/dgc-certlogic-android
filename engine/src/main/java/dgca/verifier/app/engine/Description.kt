@@ -1,5 +1,7 @@
 package dgca.verifier.app.engine
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgc-certlogic-android
@@ -21,4 +23,7 @@ package dgca.verifier.app.engine
  *
  * Created by osarapulov on 11.06.21 11:00
  */
-data class Description(val lang: String, val desc: String)
+data class Description(
+    @JsonProperty("lang") val lang: String,
+    @JsonProperty("desc") val desc: String
+)
