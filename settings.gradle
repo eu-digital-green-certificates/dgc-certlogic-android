@@ -1,0 +1,2 @@
+include ':engine'
+rootProject.name = "dgca-certlogic-android"
