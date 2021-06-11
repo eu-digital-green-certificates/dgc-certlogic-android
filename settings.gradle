@@ -1,2 +1,2 @@
 include ':engine'
-rootProject.name = "dgca-certlogic-android"
+rootProject.name = "dgc-certlogic-android"

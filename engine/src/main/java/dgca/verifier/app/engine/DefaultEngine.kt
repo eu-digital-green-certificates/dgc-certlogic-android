@@ -2,7 +2,7 @@ package dgca.verifier.app.engine
 
 /*-
  * ---license-start
- * eu-digital-green-certificates / dgca-certlogic-android
+ * eu-digital-green-certificates / dgc-certlogic-android
  * ---
  * Copyright (C) 2021 T-Systems International GmbH and all other contributors
  * ---
