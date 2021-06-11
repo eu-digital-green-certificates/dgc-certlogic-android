@@ -1,6 +1,6 @@
 /*-
  * ---license-start
- * eu-digital-green-certificates / dgca-app-core-android
+ * eu-digital-green-certificates / dgca-certlogic-android
  * ---
  * Copyright (C) 2021 T-Systems International GmbH and all other contributors
  * ---
