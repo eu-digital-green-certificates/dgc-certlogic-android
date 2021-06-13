@@ -1,7 +1,5 @@
 package dgca.verifier.app.engine
 
-import dgca.verifier.app.engine.data.Rule
-
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgc-certlogic-android
@@ -21,25 +19,8 @@ import dgca.verifier.app.engine.data.Rule
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 11.06.21 11:10
+ * Created by osarapulov on 11.06.21 9:48
  */
-class CertLogic(private val schema: String, private val rules: Array<Rule>) {
-
-    fun validate(external: ExternalParameter, payload: String): ValidationResult {
-        TODO("TO be implemented")
-    }
-
-    // Get List of Rules for Country by Code
-    private fun getListOfRulesFor(countryCode: String): Array<Rule> {
-        return rules.filter { it.countryCode == countryCode }.toTypedArray()
-    }
-
-    // Parce Rules from Data or JSON String
-    fun getRules(jsonString: String): Array<Rule> {
-        TODO("TO be implemented")
-    }
-
-    fun getRule(jsonString: String): Rule? {
-        TODO("TO be implemented")
-    }
+interface CertLogicEngine {
+    fun validate(externalParameter: ExternalParameter, paylod: String): List<ValidationResult>
 }

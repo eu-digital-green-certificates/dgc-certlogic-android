@@ -1,5 +1,7 @@
 package dgca.verifier.app.engine
 
+import com.fasterxml.jackson.databind.JsonNode
+
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgc-certlogic-android
@@ -19,8 +21,8 @@ package dgca.verifier.app.engine
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 11.06.21 9:48
+ * Created by osarapulov on 13.06.21 17:18
  */
-interface Engine {
-    fun test()
+interface JsonLogicValidator {
+    fun isDataValid(rule: JsonNode, data: JsonNode): Boolean
 }

@@ -46,6 +46,7 @@ dependencies {
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_reflect
     implementation Deps.jackson_cbor
+    implementation Deps.jackson_kotlin
 
     testImplementation Deps.test_junit
     testImplementation Deps.test_junit_jupiter_api
@@ -54,5 +55,4 @@ dependencies {
     testRuntimeOnly Deps.test_runtime_only
 
     testImplementation Deps.appache_commons
-    testImplementation Deps.jackson_kotlin
 }
