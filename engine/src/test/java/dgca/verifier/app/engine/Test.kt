@@ -3,6 +3,7 @@ package dgca.verifier.app.engine
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import eu.ehn.dcc.certlogic.evaluate
 import org.apache.commons.io.IOUtils
 import org.junit.jupiter.api.Test
 import java.io.InputStream
@@ -41,6 +42,8 @@ class Test {
         val str = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
         val rule: Rule = ObjectMapper().readValue(str, Rule::class.java)
         val logic: JsonNode = ObjectMapper().readValue(rule.logic)
+        val data: JsonNode = ObjectMapper().readValue("{\"dt\":12000, \"nm\":120}")
+        val res = evaluate(logic, data)
         return
     }
 }

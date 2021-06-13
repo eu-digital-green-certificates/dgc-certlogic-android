@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation project(':certlogic')
+
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_reflect
     implementation Deps.jackson_cbor
