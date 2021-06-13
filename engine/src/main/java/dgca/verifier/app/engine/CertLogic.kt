@@ -1,5 +1,7 @@
 package dgca.verifier.app.engine
 
+import dgca.verifier.app.engine.data.Rule
+
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgc-certlogic-android

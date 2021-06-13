@@ -1,6 +1,4 @@
-package dgca.verifier.app.engine
-
-import dgca.verifier.app.engine.data.Rule
+package dgca.verifier.app.engine.data.source
 
 /*-
  * ---license-start
@@ -21,10 +19,8 @@ import dgca.verifier.app.engine.data.Rule
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 11.06.21 10:59
+ * Created by osarapulov on 13.06.21 16:51
  */
-enum class Result {
-    PASSED, FAIL, OPEN
+interface RulesRepository: RulesDataSource {
+    fun loadRules()
 }
-
-class ValidationResult(val rule: Rule, val result: Result, val validationErrors: Array<Throwable>?)

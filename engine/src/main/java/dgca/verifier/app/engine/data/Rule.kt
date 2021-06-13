@@ -1,4 +1,4 @@
-package dgca.verifier.app.engine
+package dgca.verifier.app.engine.data
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * Created by osarapulov on 11.06.21 11:03
  */
-class Rule(
+data class Rule(
     @JsonProperty("Identifier")
     val identifier: String,
     @JsonProperty("Type")
@@ -39,13 +39,13 @@ class Rule(
     @JsonProperty("CertificateType")
     val certificateType: String,
     @JsonProperty("Description")
-    val description: Array<Description>,
+    val description: List<Description>,
     @JsonProperty("ValidFrom")
     val validFrom: String,
     @JsonProperty("ValidTo")
     val validTo: String,
     @JsonProperty("AffectedFields")
-    val affectedString: Array<String>,
+    val affectedString: List<String>,
     @JsonProperty("Logic")
     val logic: String,
     @JsonProperty("CountryCode")

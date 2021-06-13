@@ -113,6 +113,56 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/Rule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/DefaultRulesRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/RulesDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/RulesRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/DefaultRulesDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/DefaultRulesLocalDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/RuleLocal.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/RulesLocalDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/DefaultRulesRemoteDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/RulesRemoteDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/test/java/dgca/verifier/app/decoder/TestRunner.kt">
           <value>
             <set />

@@ -3,6 +3,7 @@ package dgca.verifier.app.engine
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import dgca.verifier.app.engine.data.Rule
 import eu.ehn.dcc.certlogic.evaluate
 import org.apache.commons.io.IOUtils
 import org.junit.jupiter.api.Test
