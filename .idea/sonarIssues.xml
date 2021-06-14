@@ -3,6 +3,11 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/fragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../dgc-business-rules/certlogic/certlogic-kotlin/build.gradle">
           <value>
             <set />
@@ -213,6 +218,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../dgca-app-core-android/decoder/src/main/java/dgca/verifier/app/decoder/cbor/CborService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../dgca-app-core-android/decoder/src/main/java/dgca/verifier/app/decoder/cbor/DefaultCborService.kt">
           <value>
             <set />
@@ -223,7 +233,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../dgca-app-core-android/decoder/src/main/java/dgca/verifier/app/decoder/model/GreenCertificate.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../dgca-app-core-android/settings.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/verification/VerificationDialogFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/verification/VerificationViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/res/layout/dialog_fragment_verification.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/res/values/dimen.xml">
           <value>
             <set />
           </value>
