@@ -1,5 +1,7 @@
 package dgca.verifier.app.engine
 
+import dgca.verifier.app.engine.data.ExternalParameter
+
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgc-certlogic-android
@@ -22,5 +24,5 @@ package dgca.verifier.app.engine
  * Created by osarapulov on 11.06.21 9:48
  */
 interface CertLogicEngine {
-    fun validate(externalParameter: ExternalParameter, paylod: String): List<ValidationResult>
+    fun validate(externalParameter: ExternalParameter, payload: String): List<ValidationResult>
 }

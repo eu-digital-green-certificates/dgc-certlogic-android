@@ -22,7 +22,7 @@ import dgca.verifier.app.engine.data.source.remote.RulesRemoteDataSource
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * ---license-end
+ * ---license-endz
  *
  * Created by osarapulov on 13.06.21 16:51
  */

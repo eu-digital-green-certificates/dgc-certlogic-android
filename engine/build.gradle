@@ -47,6 +47,7 @@ dependencies {
     implementation Deps.kotlin_reflect
     implementation Deps.jackson_cbor
     implementation Deps.jackson_kotlin
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 
     testImplementation Deps.test_junit
     testImplementation Deps.test_junit_jupiter_api
