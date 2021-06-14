@@ -24,7 +24,5 @@ import dgca.verifier.app.engine.data.Rule
  * Created by osarapulov on 13.06.21 16:54
  */
 class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
-    override fun getRules(): List<Rule> {
-        TODO("Not yet implemented")
-    }
+    override fun getRules(): List<Rule> = emptyList()
 }
