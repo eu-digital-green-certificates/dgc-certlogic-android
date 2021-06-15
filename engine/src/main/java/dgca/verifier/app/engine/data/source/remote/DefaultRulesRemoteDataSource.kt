@@ -35,7 +35,7 @@ class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
                 "  \"EngineVersion\": \"2.0.1\",\n" +
                 "  \"Type\": \"Vaccination\",\n" +
                 "  \"CertificateType\": \"CERTLOGIC\",\n" +
-                "  \"CountryCode\": \"AT\",\n" +
+                "  \"CountryCode\": \"at\",\n" +
                 "  \"Description\": [\n" +
                 "    {\n" +
                 "      \"lang\": \"en\",\n" +
@@ -48,7 +48,7 @@ class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
                 "    \"dt\",\n" +
                 "    \"nm\"\n" +
                 "  ],\n" +
-                "  \"Logic\": \"{\\\"and\\\":[{\\\">=\\\":[{\\\"var\\\":\\\"dt\\\"},2012]},{\\\">=\\\":[{\\\"var\\\":\\\"nm\\\"},13]}]}\"\n" +
+                "  \"Logic\": \"{\\\"and\\\":[{\\\">\\\":[{\\\"var\\\":\\\"hcert.v.0.dn\\\"},0]},{\\\">=\\\":[{\\\"var\\\":\\\"hcert.v.0.dn\\\"},{\\\"var\\\":\\\"hcert.v.0.sd\\\"}]}]}\"\n" +
                 "}"
     }
 

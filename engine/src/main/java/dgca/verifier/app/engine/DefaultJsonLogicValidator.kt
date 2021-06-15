@@ -1,6 +1,8 @@
 package dgca.verifier.app.engine
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.BooleanNode
+import eu.ehn.dcc.certlogic.evaluate
 
 /*-
  * ---license-start
@@ -24,7 +26,6 @@ import com.fasterxml.jackson.databind.JsonNode
  * Created by osarapulov on 13.06.21 17:20
  */
 class DefaultJsonLogicValidator : JsonLogicValidator {
-    override fun isDataValid(rule: JsonNode, data: JsonNode): Boolean {
-        return false
-    }
+    override fun isDataValid(rule: JsonNode, data: JsonNode): Boolean =
+        (evaluate(rule, data) as BooleanNode).asBoolean()
 }

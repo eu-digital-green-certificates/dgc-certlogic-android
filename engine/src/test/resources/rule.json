@@ -4,9 +4,9 @@
   "SchemaVersion": "1.0.0",
   "Engine": "CERTLOGIC",
   "EngineVersion": "2.0.1",
-  "Type": "Test",
+  "Type": "Vaccination",
   "CertificateType": "CERTLOGIC",
-  "CountryCode": "UA",
+  "CountryCode": "at",
   "Description": [
     {
       "lang": "en",
@@ -19,5 +19,5 @@
     "dt",
     "nm"
   ],
-  "Logic": "{\"and\":[{\">=\":[{\"var\":\"dt\"},2012]},{\">=\":[{\"var\":\"nm\"},13]}]}"
+  "Logic": "{\"and\":[{\">\":[{\"var\":\"hcert.v.0.dn\"},0]},{\">=\":[{\"var\":\"hcert.v.0.dn\"},{\"var\":\"hcert.v.0.sd\"}]}]}"
 }
