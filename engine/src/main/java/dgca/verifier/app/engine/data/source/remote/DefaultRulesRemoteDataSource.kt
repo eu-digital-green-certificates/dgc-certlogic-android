@@ -1,6 +1,8 @@
 package dgca.verifier.app.engine.data.source.remote
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import dgca.verifier.app.engine.data.Rule
+import java.util.*
 
 /*-
  * ---license-start
@@ -24,5 +26,34 @@ import dgca.verifier.app.engine.data.Rule
  * Created by osarapulov on 13.06.21 16:54
  */
 class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
-    override fun getRules(): List<Rule> = emptyList()
+    companion object {
+        private const val TEMP_RULE = "{\n" +
+                "  \"Identifier\": \"GR-CZ-0001\",\n" +
+                "  \"Version\": \"1.0.0\",\n" +
+                "  \"SchemaVersion\": \"1.0.0\",\n" +
+                "  \"Engine\": \"CERTLOGIC\",\n" +
+                "  \"EngineVersion\": \"2.0.1\",\n" +
+                "  \"Type\": \"Vaccination\",\n" +
+                "  \"CertificateType\": \"CERTLOGIC\",\n" +
+                "  \"CountryCode\": \"AT\",\n" +
+                "  \"Description\": [\n" +
+                "    {\n" +
+                "      \"lang\": \"en\",\n" +
+                "      \"desc\": \"The Field “Doses” MUST contain number 2 OR 2/2.\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"ValidFrom\": \"2021-05-27T07:46:40Z\",\n" +
+                "  \"ValidTo\": \"2021-06-01T07:46:40Z\",\n" +
+                "  \"AffectedFields\": [\n" +
+                "    \"dt\",\n" +
+                "    \"nm\"\n" +
+                "  ],\n" +
+                "  \"Logic\": \"{\\\"and\\\":[{\\\">=\\\":[{\\\"var\\\":\\\"dt\\\"},2012]},{\\\">=\\\":[{\\\"var\\\":\\\"nm\\\"},13]}]}\"\n" +
+                "}"
+    }
+
+    override fun getRules(): List<Rule> {
+        val rule: Rule = ObjectMapper().readValue(TEMP_RULE, Rule::class.java)
+        return Collections.singletonList(rule)
+    }
 }

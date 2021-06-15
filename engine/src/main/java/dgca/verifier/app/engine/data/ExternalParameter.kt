@@ -46,9 +46,9 @@ import java.time.LocalDate
  * Created by osarapulov on 11.06.21 11:08
  */
 class ExternalParameter(
-    val validationClock: LocalDate,
+    val validationClock: String,
     val valueSets: Map<String, List<String>>,
     val countryCode: String,
-    val exp: LocalDate,
-    val iat: LocalDate
+    val exp: String,
+    val iat: String
 )

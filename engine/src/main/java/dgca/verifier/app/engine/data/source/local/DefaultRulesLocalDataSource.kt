@@ -1,6 +1,7 @@
 package dgca.verifier.app.engine.data.source.local
 
 import dgca.verifier.app.engine.data.Rule
+import dgca.verifier.app.engine.data.source.Type
 
 /*-
  * ---license-start
@@ -31,7 +32,12 @@ class DefaultRulesLocalDataSource : RulesLocalDataSource {
         this.rules.addAll(rules)
     }
 
-    override fun getRulesBy(countryIsoCode: String): List<Rule> {
-        return rules.toList()
+    override fun getRulesBy(countryIsoCode: String, type: Type): List<Rule> {
+        return rules.toList().filter {
+            it.countryCode.equals(countryIsoCode, ignoreCase = true) && it.type.equals(
+                type.name,
+                ignoreCase = true
+            )
+        }
     }
 }

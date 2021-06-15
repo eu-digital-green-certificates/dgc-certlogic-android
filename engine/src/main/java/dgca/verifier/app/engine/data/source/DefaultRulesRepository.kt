@@ -34,6 +34,6 @@ class DefaultRulesRepository(
         remoteDataSource.getRules().apply { localDataSource.setRules(this) }
     }
 
-    override fun getRulesBy(countryIsoCode: String): List<Rule> =
-        localDataSource.getRulesBy(countryIsoCode)
+    override fun getRulesBy(countryIsoCode: String, type: Type): List<Rule> =
+        localDataSource.getRulesBy(countryIsoCode, type)
 }

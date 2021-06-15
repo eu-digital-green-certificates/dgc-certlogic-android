@@ -3,6 +3,7 @@ package dgca.verifier.app.engine
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.util.RawValue
 import com.fasterxml.jackson.module.kotlin.readValue
 import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.Rule
@@ -48,30 +49,35 @@ class DefaultCertLogicEngine(
         payload: String
     ): ObjectNode = objectMapper.createObjectNode().apply {
         this.putPOJO(EXTERNAL_KEY, externalParameter)
-        this.put(HCERT_KEY, payload)
+        this.putRawValue(HCERT_KEY, RawValue(payload))
     }
 
     override fun validate(
         externalParameter: ExternalParameter,
         payload: String
     ): List<ValidationResult> {
-        val validationResults = mutableListOf<ValidationResult>()
-        rules.forEach {
-            val ruleJsonNode: JsonNode = objectMapper.readValue(it.logic)
+        return if (rules.isNotEmpty()) {
+            val validationResults = mutableListOf<ValidationResult>()
             val dataJsonNode = prepareData(externalParameter, payload)
-            val isValid = jsonLogicValidator.isDataValid(ruleJsonNode, dataJsonNode)
-            val res = when {
-                isValid -> Result.PASSED
-                else -> Result.FAIL
-            }
-            validationResults.add(
-                ValidationResult(
-                    it,
-                    res,
-                    null
+            rules.forEach {
+                val ruleJsonNode: JsonNode = objectMapper.readValue(it.logic)
+                val isValid = jsonLogicValidator.isDataValid(ruleJsonNode, dataJsonNode)
+                val res = when {
+                    isValid -> Result.PASSED
+                    else -> Result.FAIL
+                }
+                validationResults.add(
+                    ValidationResult(
+                        it,
+                        res,
+                        null
+                    )
                 )
-            )
+            }
+            validationResults
+        } else {
+            emptyList()
         }
-        return validationResults
+
     }
 }

@@ -23,6 +23,10 @@ import dgca.verifier.app.engine.data.Rule
  *
  * Created by osarapulov on 13.06.21 16:54
  */
+enum class Type {
+    TEST, VACCINATION, RECOVERY
+}
+
 interface RulesDataSource {
-    fun getRulesBy(countryIsoCode: String): List<Rule>
+    fun getRulesBy(countryIsoCode: String, type: Type): List<Rule>
 }
