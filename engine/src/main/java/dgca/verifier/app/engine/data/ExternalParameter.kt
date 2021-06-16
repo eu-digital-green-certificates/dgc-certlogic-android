@@ -22,7 +22,7 @@
 
 package dgca.verifier.app.engine.data
 
-import java.time.LocalDate
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -45,10 +45,18 @@ import java.time.LocalDate
  *
  * Created by osarapulov on 11.06.21 11:08
  */
-class ExternalParameter(
+class ExternalParameter private constructor(
     val validationClock: String,
     val valueSets: Map<String, List<String>>,
     val countryCode: String,
     val exp: String,
     val iat: String
-)
+) {
+    constructor(
+        validationClock: ZonedDateTime,
+        valueSets: Map<String, List<String>>,
+        countryCode: String,
+        exp: ZonedDateTime,
+        iat: ZonedDateTime
+    ) : this(validationClock.toString(), valueSets, countryCode, exp.toString(), iat.toString())
+}

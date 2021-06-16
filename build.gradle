@@ -6,6 +6,9 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url "https://github.com/ehn-dcc-development/dgc-business-rules/packages/849466"
+        }
     }
 
     dependencies {

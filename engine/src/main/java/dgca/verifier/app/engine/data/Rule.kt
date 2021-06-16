@@ -1,6 +1,7 @@
 package dgca.verifier.app.engine.data
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -41,9 +42,9 @@ data class Rule(
     @JsonProperty("Description")
     val description: List<Description>,
     @JsonProperty("ValidFrom")
-    val validFrom: String,
+    val validFrom: ZonedDateTime,
     @JsonProperty("ValidTo")
-    val validTo: String,
+    val validTo: ZonedDateTime,
     @JsonProperty("AffectedFields")
     val affectedString: List<String>,
     @JsonProperty("Logic")

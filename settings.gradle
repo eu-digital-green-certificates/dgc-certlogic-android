@@ -1,4 +1,4 @@
 include ':engine'
-include ':certlogic'
+//include ':certlogic'
 rootProject.name = "dgc-certlogic-android"
-project(':certlogic').projectDir = new File("../dgc-business-rules/certlogic/certlogic-kotlin")
+//project(':certlogic').projectDir = new File("../dgc-business-rules/certlogic/certlogic-kotlin")

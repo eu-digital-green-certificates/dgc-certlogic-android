@@ -22,14 +22,18 @@
 
 package dgca.verifier.app.engine
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.*
+import com.fasterxml.jackson.databind.deser.ValueInstantiator
+import com.fasterxml.jackson.databind.module.SimpleModule
 import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.Rule
 import org.apache.commons.io.IOUtils
 import org.junit.jupiter.api.Test
 import java.io.InputStream
 import java.nio.charset.Charset
-import java.time.LocalDate
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -74,11 +78,11 @@ internal class DefaultCertLogicEngineTest {
         val certLogicEngine = DefaultCertLogicEngine(jsonLogicValidator, schema, rules)
         val externalParameter =
             ExternalParameter(
-                LocalDate.now(),
+                ZonedDateTime.now(),
                 emptyMap(),
                 countryIsoCode,
-                LocalDate.now(),
-                LocalDate.now()
+                ZonedDateTime.now(),
+                ZonedDateTime.now()
             )
         val results = certLogicEngine.validate(externalParameter, hcertJson)
     }
