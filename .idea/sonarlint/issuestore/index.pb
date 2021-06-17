@@ -99,3 +99,9 @@ Lengine/src/main/java/dgca/verifier/app/engine/data/source/local/RuleLocal.kt,c
 Rengine/src/main/java/dgca/verifier/app/engine/data/source/local/RuleLocalMapper.kt,2/f/2f57434f447e572be02daf669a394743fb497810
 ‰
 Yengine/src/androidTest/java/dgca/verifier/app/engine/data/source/local/AppDatabaseTest.kt,e/e/eed75aa5cfa808870acdcf4626062e753f2231f1
+Œ
+\engine/src/main/java/dgca/verifier/app/engine/data/source/local/RuleWithDescriptionsLocal.kt,b/e/be22de003cf629eedaa426c49d8235133871b491
+o
+?engine/src/test/java/dgca/verifier/app/engine/CertLogicTests.kt,4/5/450295ff69d887111aa6bf1f1a448a3c0a545f6e
+Œ
+\engine/build/tmp/kapt3/stubs/debug/dgca/verifier/app/engine/data/source/local/RuleLocal.java,7/6/76804ad96bd0b702ceae3468446eb4a532fedc11

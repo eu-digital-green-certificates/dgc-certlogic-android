@@ -38,7 +38,7 @@ data class RuleLocal(
     @ColumnInfo(name = "certificate_type") val certificateType: String,
     @ColumnInfo(name = "valid_from") val validFrom: Long,
     @ColumnInfo(name = "valid_to") val validTo: Long,
-    @ColumnInfo(name = "affected_fields") val affectedString: List<String>,
+//    @ColumnInfo(name = "affected_fields") val affectedString: List<String>,
     @ColumnInfo(name = "logic") val logic: String,
     @ColumnInfo(name = "country_code") val countryCode: String,
 )

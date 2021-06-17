@@ -36,10 +36,10 @@ fun Rule.toLocal(): RuleLocal = RuleLocal(
     engine = this.engine,
     engineVersion = this.engineVersion,
     certificateType = this.certificateType,
-    description = emptyList(),
+//    description = emptyList(),
     validFrom = this.validFrom.toMillis(),
     validTo = this.validTo.toMillis(),
-    affectedString = this.affectedString,
+//    affectedString = this.affectedString,
     logic = this.logic,
     countryCode = this.countryCode
 )
