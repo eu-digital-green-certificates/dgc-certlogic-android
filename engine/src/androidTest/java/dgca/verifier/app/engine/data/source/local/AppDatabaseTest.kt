@@ -16,6 +16,7 @@ import org.junit.runner.RunWith
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
+import kotlin.math.exp
 
 /*-
  * ---license-start
@@ -75,7 +76,7 @@ internal class RulesDaoTest {
     @Throws(Exception::class)
     fun testInsertAll() {
         val ruleRemote = fetchRule()
-        var expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
+        val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
         rulesDao.insertAll(expected)
 
         assertTrue(rulesDao.getRulesWithDescriptionsBy(ruleRemote.validTo.plusDays(1)).isEmpty())
@@ -83,6 +84,9 @@ internal class RulesDaoTest {
         val actual = rulesDao.getRulesWithDescriptionsBy(ruleRemote.validTo.minusMinutes(1))
 
         assertTrue(actual.size == 1)
-        assertEquals(expected, actual[0])
+        assertEquals(expected.rule.copy(ruleId = 1), actual[0].rule)
+        expected.descriptions.forEachIndexed { index, descriptionLocal ->
+            assertEquals(descriptionLocal.copy(descriptionId = (index + 1).toLong(), ruleContainerId = 1), actual[0].descriptions[index])
+        }
     }
 }
