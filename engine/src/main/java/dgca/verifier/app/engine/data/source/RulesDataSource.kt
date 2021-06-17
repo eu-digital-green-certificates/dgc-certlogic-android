@@ -1,6 +1,9 @@
 package dgca.verifier.app.engine.data.source
 
+import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Rule
+import dgca.verifier.app.engine.data.Type
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -23,10 +26,11 @@ import dgca.verifier.app.engine.data.Rule
  *
  * Created by osarapulov on 13.06.21 16:54
  */
-enum class Type {
-    TEST, VACCINATION, RECOVERY
-}
-
 interface RulesDataSource {
-    fun getRulesBy(countryIsoCode: String, type: Type): List<Rule>
+    fun getRulesBy(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+        type: Type,
+        certificateType: CertificateType
+    ): List<Rule>
 }

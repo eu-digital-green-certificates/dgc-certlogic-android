@@ -26,9 +26,17 @@ import dgca.verifier.app.engine.data.Rule
  * Created by osarapulov on 16.06.21 9:20
  */
 fun Rule.toRuleWithDescriptionLocal(): RuleWithDescriptionsLocal =
-    RuleWithDescriptionsLocal(this.toLocal(), description.toLocal())
+    RuleWithDescriptionsLocal(this.toRuleLocal(), descriptions.toDescriptionsLocal())
 
-fun Rule.toLocal(): RuleLocal = RuleLocal(
+fun List<Rule>.toRulesWithDescriptionLoca(): List<RuleWithDescriptionsLocal> {
+    val rulesWithDescriptionLocal = mutableListOf<RuleWithDescriptionsLocal>()
+    forEach {
+        rulesWithDescriptionLocal.add(it.toRuleWithDescriptionLocal())
+    }
+    return rulesWithDescriptionLocal
+}
+
+fun Rule.toRuleLocal(): RuleLocal = RuleLocal(
     identifier = this.identifier,
     type = this.type,
     version = this.version,
@@ -43,10 +51,43 @@ fun Rule.toLocal(): RuleLocal = RuleLocal(
     countryCode = this.countryCode
 )
 
-fun Description.toLocal(): DescriptionLocal = DescriptionLocal(lang = this.lang, desc = this.desc)
+fun Description.toDescriptionLocal(): DescriptionLocal =
+    DescriptionLocal(lang = this.lang, desc = this.desc)
 
-fun List<Description>.toLocal(): List<DescriptionLocal> {
+fun List<Description>.toDescriptionsLocal(): List<DescriptionLocal> {
     val descriptionsLocal = mutableListOf<DescriptionLocal>()
-    forEach { descriptionsLocal.add(it.toLocal()) }
+    forEach { descriptionsLocal.add(it.toDescriptionLocal()) }
     return descriptionsLocal
+}
+
+fun DescriptionLocal.toDescription(): Description = Description(lang = this.lang, desc = this.desc)
+
+fun List<DescriptionLocal>.toDescriptions(): List<Description> {
+    val descriptions = mutableListOf<Description>()
+    forEach { descriptions.add(it.toDescription()) }
+    return descriptions
+}
+
+fun RuleWithDescriptionsLocal.toRule(): Rule = Rule(
+    identifier = this.rule.identifier,
+    type = this.rule.type,
+    version = this.rule.version,
+    schemaVersion = this.rule.schemaVersion,
+    engine = this.rule.engine,
+    engineVersion = this.rule.engineVersion,
+    certificateType = this.rule.certificateType,
+    validFrom = this.rule.validFrom.withZoneSameInstant(UTC_ZONE_ID),
+    validTo = this.rule.validTo.withZoneSameInstant(UTC_ZONE_ID),
+    affectedString = this.rule.affectedString,
+    logic = this.rule.logic,
+    countryCode = this.rule.countryCode,
+    descriptions = emptyList()
+)
+
+fun List<RuleWithDescriptionsLocal>.toRules(): List<Rule> {
+    val rules = mutableListOf<Rule>()
+    forEach {
+        rules.add(it.toRule())
+    }
+    return rules
 }

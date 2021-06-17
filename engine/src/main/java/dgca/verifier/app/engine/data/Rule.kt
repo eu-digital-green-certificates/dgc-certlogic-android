@@ -1,6 +1,5 @@
 package dgca.verifier.app.engine.data
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.ZonedDateTime
 
 /*-
@@ -22,33 +21,20 @@ import java.time.ZonedDateTime
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 11.06.21 11:03
+ * Created by osarapulov on 17.06.21 15:28
  */
 data class Rule(
-    @JsonProperty("Identifier")
     val identifier: String,
-    @JsonProperty("Type")
-    val type: String,
-    @JsonProperty("Version")
+    val type: Type,
     val version: String,
-    @JsonProperty("SchemaVersion")
     val schemaVersion: String,
-    @JsonProperty("Engine")
     val engine: String,
-    @JsonProperty("EngineVersion")
     val engineVersion: String,
-    @JsonProperty("CertificateType")
-    val certificateType: String,
-    @JsonProperty("Description")
-    val description: List<Description>,
-    @JsonProperty("ValidFrom")
+    val certificateType: CertificateType,
+    val descriptions: List<Description>,
     val validFrom: ZonedDateTime,
-    @JsonProperty("ValidTo")
     val validTo: ZonedDateTime,
-    @JsonProperty("AffectedFields")
     val affectedString: List<String>,
-    @JsonProperty("Logic")
     val logic: String,
-    @JsonProperty("CountryCode")
     val countryCode: String,
 )

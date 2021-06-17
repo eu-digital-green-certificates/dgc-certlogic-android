@@ -103,6 +103,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/androidTest/resources/rule.json">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/AndroidManifest.xml">
           <value>
             <set />
@@ -178,6 +183,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/CertificateType.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/Data.kt">
           <value>
             <set />
@@ -194,6 +204,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/Rule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/Type.kt">
           <value>
             <set />
           </value>
@@ -293,6 +308,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/DescriptionRemote.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/RuleRemote.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/RuleRemoteMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/RulesRemoteDataSource.kt">
           <value>
             <set />
@@ -324,6 +354,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/engine/src/test/java/dgca/verifier/app/engine/data/source/local/ConvertersTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/test/java/dgca/verifier/app/engine/data/source/remote/RuleRemoteMapperTest.kt">
           <value>
             <set />
           </value>

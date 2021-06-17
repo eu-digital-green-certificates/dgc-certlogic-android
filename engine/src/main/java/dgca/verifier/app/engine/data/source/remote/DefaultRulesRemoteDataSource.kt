@@ -1,7 +1,6 @@
 package dgca.verifier.app.engine.data.source.remote
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import dgca.verifier.app.engine.data.Rule
 import java.util.*
 
 /*-
@@ -52,8 +51,8 @@ class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
                 "}"
     }
 
-    override fun getRules(): List<Rule> {
-        val rule: Rule = ObjectMapper().readValue(TEMP_RULE, Rule::class.java)
-        return Collections.singletonList(rule)
+    override fun getRules(): List<RuleRemote> {
+        val ruleRemote: RuleRemote = ObjectMapper().readValue(TEMP_RULE, RuleRemote::class.java)
+        return Collections.singletonList(ruleRemote)
     }
 }

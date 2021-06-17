@@ -1,7 +1,4 @@
-package dgca.verifier.app.engine.data.source.local
-
-import dgca.verifier.app.engine.data.Rule
-import dgca.verifier.app.engine.data.source.RulesDataSource
+package dgca.verifier.app.engine.data
 
 /*-
  * ---license-start
@@ -22,10 +19,8 @@ import dgca.verifier.app.engine.data.source.RulesDataSource
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 13.06.21 16:55
+ * Created by osarapulov on 17.06.21 15:30
  */
-interface RulesLocalDataSource : RulesDataSource {
-    fun setRules(rules: List<Rule>)
-
-    fun removeRulesBy(vararg rulesIdentifiers: String)
+enum class CertificateType {
+    GENERAL, TEST, VACCINATION, RECOVERY
 }

@@ -1,7 +1,9 @@
 package dgca.verifier.app.engine.data.source.local
 
+import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Rule
-import dgca.verifier.app.engine.data.source.Type
+import dgca.verifier.app.engine.data.Type
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -24,20 +26,20 @@ import dgca.verifier.app.engine.data.source.Type
  *
  * Created by osarapulov on 13.06.21 16:56
  */
-class DefaultRulesLocalDataSource : RulesLocalDataSource {
-    private val rules: MutableList<Rule> = mutableListOf()
+class DefaultRulesLocalDataSource(private val rulesDao: RulesDao) : RulesLocalDataSource {
 
     override fun setRules(rules: List<Rule>) {
-        this.rules.clear()
-        this.rules.addAll(rules)
+        rulesDao.insertAll(*rules.toRulesWithDescriptionLoca().toTypedArray())
     }
 
-    override fun getRulesBy(countryIsoCode: String, type: Type): List<Rule> {
-        return rules.toList().filter {
-            it.countryCode.equals(countryIsoCode, ignoreCase = true) && it.type.equals(
-                type.name,
-                ignoreCase = true
-            )
-        }
+    override fun removeRulesBy(vararg rulesIdentifiers: String) {
+//        rulesDao.
     }
+
+    override fun getRulesBy(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+        type: Type,
+        certificateType: CertificateType
+    ): List<Rule> = rulesDao.getRulesWithDescriptionsBy(validationClock).toRules()
 }

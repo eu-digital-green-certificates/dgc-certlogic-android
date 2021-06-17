@@ -1,7 +1,5 @@
 package dgca.verifier.app.engine.data.source.remote
 
-import dgca.verifier.app.engine.data.Rule
-
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgc-certlogic-android
@@ -24,5 +22,5 @@ import dgca.verifier.app.engine.data.Rule
  * Created by osarapulov on 13.06.21 16:53
  */
 interface RulesRemoteDataSource {
-    fun getRules(): List<Rule>
+    fun getRules(): List<RuleRemote>
 }

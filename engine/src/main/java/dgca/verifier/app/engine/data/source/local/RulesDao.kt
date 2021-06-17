@@ -32,18 +32,24 @@ abstract class RulesDao {
     @Query("SELECT * from rules")
     abstract fun getAll(): List<RuleLocal>
 
+    @Query("SELECT * from descriptions")
+    abstract fun getDescriptionAll(): List<DescriptionLocal>
+
     @Transaction
-    @Query("SELECT * FROM rules WHERE :verificationClock BETWEEN validFrom AND validTo")
-    abstract fun getRulesWithDescriptionsBy(verificationClock: ZonedDateTime): List<RuleWithDescriptionsLocal>
+    @Query("SELECT * FROM rules WHERE :validationClock BETWEEN validFrom AND validTo")
+    abstract fun getRulesWithDescriptionsBy(validationClock: ZonedDateTime): List<RuleWithDescriptionsLocal>
 
     @Insert
     abstract fun insertRule(rule: RuleLocal): Long
 
+    @Query("DELETE FROM rules WHERE identifier IN (:identifiers)")
+    abstract fun deleteRulesBy(vararg identifiers: String)
+
     @Insert
     abstract fun insertDescriptions(descriptions: Collection<DescriptionLocal>)
 
-    fun insertAll(vararg rulesWithDescriptions: RuleWithDescriptionsLocal) {
-        rulesWithDescriptions.forEach { ruleWithDescriptionsLocal ->
+    fun insertAll(vararg rulesWithDescription: RuleWithDescriptionsLocal) {
+        rulesWithDescription.forEach { ruleWithDescriptionsLocal ->
             val rule = ruleWithDescriptionsLocal.rule
             val descriptions = ruleWithDescriptionsLocal.descriptions
             val ruleId = insertRule(rule)

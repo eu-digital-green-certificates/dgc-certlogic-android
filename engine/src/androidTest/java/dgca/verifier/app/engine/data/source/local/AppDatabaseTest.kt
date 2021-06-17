@@ -5,7 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.fasterxml.jackson.databind.ObjectMapper
-import dgca.verifier.app.engine.data.Rule
+import dgca.verifier.app.engine.data.source.remote.RuleRemote
+import dgca.verifier.app.engine.data.source.remote.toRule
 import org.apache.commons.io.IOUtils
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -16,7 +17,6 @@ import org.junit.runner.RunWith
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
-import kotlin.math.exp
 
 /*-
  * ---license-start
@@ -49,11 +49,11 @@ internal class RulesDaoTest {
         const val RULE_JSON_FILE_NAME = "rule.json"
     }
 
-    private fun fetchRule(): Rule {
+    private fun fetchRule(): RuleRemote {
         val ruleExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
-        return objectMapper.readValue(ruleJson, Rule::class.java)
+        return objectMapper.readValue(ruleJson, RuleRemote::class.java)
     }
 
 
@@ -74,8 +74,8 @@ internal class RulesDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun testInsertAll() {
-        val ruleRemote = fetchRule()
+    fun testInsert() {
+        val ruleRemote = fetchRule().toRule()
         val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
         rulesDao.insertAll(expected)
 
@@ -86,7 +86,28 @@ internal class RulesDaoTest {
         assertTrue(actual.size == 1)
         assertEquals(expected.rule.copy(ruleId = 1), actual[0].rule)
         expected.descriptions.forEachIndexed { index, descriptionLocal ->
-            assertEquals(descriptionLocal.copy(descriptionId = (index + 1).toLong(), ruleContainerId = 1), actual[0].descriptions[index])
+            assertEquals(
+                descriptionLocal.copy(
+                    descriptionId = (index + 1).toLong(),
+                    ruleContainerId = 1
+                ), actual[0].descriptions[index]
+            )
         }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testDelete() {
+        val ruleRemote = fetchRule().toRule()
+        val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
+        rulesDao.insertAll(expected)
+
+        assertEquals(1, rulesDao.getAll().size)
+        assertEquals(1, rulesDao.getDescriptionAll().size)
+
+        rulesDao.deleteRulesBy(ruleRemote.identifier)
+
+        assertEquals(0, rulesDao.getAll().size)
+        assertEquals(0, rulesDao.getDescriptionAll().size)
     }
 }

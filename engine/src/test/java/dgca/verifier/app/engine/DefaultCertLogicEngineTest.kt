@@ -22,13 +22,9 @@
 
 package dgca.verifier.app.engine
 
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.*
-import com.fasterxml.jackson.databind.deser.ValueInstantiator
-import com.fasterxml.jackson.databind.module.SimpleModule
 import dgca.verifier.app.engine.data.ExternalParameter
-import dgca.verifier.app.engine.data.Rule
+import dgca.verifier.app.engine.data.source.remote.RuleRemote
 import org.apache.commons.io.IOUtils
 import org.junit.jupiter.api.Test
 import java.io.InputStream
@@ -70,11 +66,11 @@ internal class DefaultCertLogicEngineTest {
         val ruleExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
-        val rule: Rule = ObjectMapper().readValue(ruleJson, Rule::class.java)
+        val ruleRemote: RuleRemote = ObjectMapper().readValue(ruleJson, RuleRemote::class.java)
         val hcertExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(HCERT_JSON_FILE_NAME)
         val hcertJson = IOUtils.toString(hcertExampleIs, Charset.defaultCharset())
-        val rules = listOf(rule)
+        val rules = listOf(ruleRemote)
         val certLogicEngine = DefaultCertLogicEngine(jsonLogicValidator, schema, rules)
         val externalParameter =
             ExternalParameter(

@@ -4,8 +4,8 @@
   "SchemaVersion": "1.0.0",
   "Engine": "CERTLOGIC",
   "EngineVersion": "2.0.1",
-  "Type": "Vaccination",
-  "CertificateType": "CERTLOGIC",
+  "Type": "Acceptance",
+  "CertificateType": "Test",
   "CountryCode": "at",
   "Description": [
     {

@@ -1,7 +1,7 @@
 package dgca.verifier.app.engine.data.source.local
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 /*-
@@ -25,7 +25,15 @@ import androidx.room.PrimaryKey
  *
  * Created by osarapulov on 16.06.21 8:35
  */
-@Entity(tableName = "descriptions")
+@Entity(
+    tableName = "descriptions",
+    foreignKeys = [ForeignKey(
+        entity = RuleLocal::class,
+        parentColumns = arrayOf("ruleId"),
+        childColumns = arrayOf("ruleContainerId"),
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class DescriptionLocal(
     @PrimaryKey(autoGenerate = true)
     val descriptionId: Long = 0,

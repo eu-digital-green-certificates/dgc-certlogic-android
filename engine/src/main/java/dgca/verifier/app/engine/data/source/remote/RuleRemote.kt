@@ -1,9 +1,6 @@
-package dgca.verifier.app.engine.data.source.local
+package dgca.verifier.app.engine.data.source.remote
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import dgca.verifier.app.engine.data.CertificateType
-import dgca.verifier.app.engine.data.Type
+import com.fasterxml.jackson.annotation.JsonProperty
 import java.time.ZonedDateTime
 
 /*-
@@ -25,22 +22,33 @@ import java.time.ZonedDateTime
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 16.06.21 8:26
+ * Created by osarapulov on 11.06.21 11:03
  */
-@Entity(tableName = "rules")
-data class RuleLocal(
-    @PrimaryKey(autoGenerate = true)
-    val ruleId: Long = 0,
+data class RuleRemote(
+    @JsonProperty("Identifier")
     val identifier: String,
-    val type: Type,
+    @JsonProperty("Type")
+    val type: String,
+    @JsonProperty("Version")
     val version: String,
+    @JsonProperty("SchemaVersion")
     val schemaVersion: String,
+    @JsonProperty("Engine")
     val engine: String,
+    @JsonProperty("EngineVersion")
     val engineVersion: String,
-    val certificateType: CertificateType,
+    @JsonProperty("CertificateType")
+    val certificateType: String,
+    @JsonProperty("Description")
+    val descriptions: List<DescriptionRemote>,
+    @JsonProperty("ValidFrom")
     val validFrom: ZonedDateTime,
+    @JsonProperty("ValidTo")
     val validTo: ZonedDateTime,
+    @JsonProperty("AffectedFields")
     val affectedString: List<String>,
+    @JsonProperty("Logic")
     val logic: String,
+    @JsonProperty("CountryCode")
     val countryCode: String,
 )

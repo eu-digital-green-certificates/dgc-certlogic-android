@@ -1,9 +1,12 @@
 package dgca.verifier.app.engine.data.source
 
+import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Rule
+import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.local.RulesLocalDataSource
-import dgca.verifier.app.engine.data.source.remote.DefaultRulesRemoteDataSource
 import dgca.verifier.app.engine.data.source.remote.RulesRemoteDataSource
+import dgca.verifier.app.engine.data.source.remote.toRules
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -31,9 +34,14 @@ class DefaultRulesRepository(
     private val localDataSource: RulesLocalDataSource
 ) : RulesRepository {
     override fun loadRules() {
-        remoteDataSource.getRules().apply { localDataSource.setRules(this) }
+        remoteDataSource.getRules().apply { localDataSource.setRules(this.toRules()) }
     }
 
-    override fun getRulesBy(countryIsoCode: String, type: Type): List<Rule> =
-        localDataSource.getRulesBy(countryIsoCode, type)
+    override fun getRulesBy(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+        type: Type,
+        certificateType: CertificateType
+    ): List<Rule> =
+        localDataSource.getRulesBy(countryIsoCode, validationClock, type, certificateType)
 }

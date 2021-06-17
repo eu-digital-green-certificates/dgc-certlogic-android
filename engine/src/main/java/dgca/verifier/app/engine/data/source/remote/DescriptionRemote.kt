@@ -1,7 +1,6 @@
-package dgca.verifier.app.engine.data.source.local
+package dgca.verifier.app.engine.data.source.remote
 
-import dgca.verifier.app.engine.data.Rule
-import dgca.verifier.app.engine.data.source.RulesDataSource
+import com.fasterxml.jackson.annotation.JsonProperty
 
 /*-
  * ---license-start
@@ -22,10 +21,9 @@ import dgca.verifier.app.engine.data.source.RulesDataSource
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 13.06.21 16:55
+ * Created by osarapulov on 11.06.21 11:00
  */
-interface RulesLocalDataSource : RulesDataSource {
-    fun setRules(rules: List<Rule>)
-
-    fun removeRulesBy(vararg rulesIdentifiers: String)
-}
+data class DescriptionRemote(
+    @JsonProperty("lang") val lang: String,
+    @JsonProperty("desc") val desc: String
+)
