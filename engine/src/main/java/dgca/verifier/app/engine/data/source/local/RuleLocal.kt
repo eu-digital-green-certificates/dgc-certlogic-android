@@ -3,6 +3,7 @@ package dgca.verifier.app.engine.data.source.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -36,9 +37,9 @@ data class RuleLocal(
     @ColumnInfo(name = "engine") val engine: String,
     @ColumnInfo(name = "engine_version") val engineVersion: String,
     @ColumnInfo(name = "certificate_type") val certificateType: String,
-    @ColumnInfo(name = "valid_from") val validFrom: Long,
-    @ColumnInfo(name = "valid_to") val validTo: Long,
-//    @ColumnInfo(name = "affected_fields") val affectedString: List<String>,
+    @ColumnInfo(name = "valid_from") val validFrom: ZonedDateTime,
+    @ColumnInfo(name = "valid_to") val validTo: ZonedDateTime,
+    @ColumnInfo(name = "affected_fields") val affectedString: List<String>,
     @ColumnInfo(name = "logic") val logic: String,
     @ColumnInfo(name = "country_code") val countryCode: String,
 )

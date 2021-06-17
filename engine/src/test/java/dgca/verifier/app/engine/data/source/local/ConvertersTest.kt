@@ -1,10 +1,12 @@
 package dgca.verifier.app.engine.data.source.local
 
+import junit.framework.Assert.assertEquals
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import kotlin.math.exp
 
 /*-
  * ---license-start
@@ -37,9 +39,23 @@ internal class ConvertersTest {
         val timestamp = converters.zonedDateTimeToTimestamp(zonedDateTimeZone)
         val actualZonedDateTime = converters.fromTimestamp(timestamp)
 
-        Assertions.assertEquals(
+        assertEquals(
             zonedDateTimeZone.withZoneSameInstant(utcZoneId),
             actualZonedDateTime
         )
+    }
+
+    @Test
+    fun testListOfStringConverter() {
+        val expected = listOf("one", "two", "three")
+
+        val converters = Converters()
+
+        val serialized = converters.fromList(expected)
+
+        val actual = converters.fromString(serialized)
+
+
+        assertEquals(expected, actual)
     }
 }

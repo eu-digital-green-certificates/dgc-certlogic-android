@@ -8,13 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import dgca.verifier.app.engine.data.Rule
 import org.apache.commons.io.IOUtils
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
-import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -41,6 +42,7 @@ import java.time.ZonedDateTime
 internal class RulesDaoTest {
     private lateinit var rulesDao: RulesDao
     private lateinit var db: AppDatabase
+    private val objectMapper = ObjectMapper().apply { this.findAndRegisterModules() }
 
     companion object {
         const val RULE_JSON_FILE_NAME = "rule.json"
@@ -50,7 +52,7 @@ internal class RulesDaoTest {
         val ruleExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
-        return ObjectMapper().readValue(ruleJson, Rule::class.java)
+        return objectMapper.readValue(ruleJson, Rule::class.java)
     }
 
 
@@ -58,7 +60,8 @@ internal class RulesDaoTest {
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, AppDatabase::class.java).build()
+            context, AppDatabase::class.java
+        ).build()
         rulesDao = db.rulesDao()
     }
 
@@ -70,8 +73,28 @@ internal class RulesDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun test() {
+    fun testInsertAll() {
+        val ruleRemote = fetchRule()
+        val expected = ruleRemote.toLocal().copy(ruleId = 1)
+        rulesDao.insertAll(expected)
+        val actual = rulesDao.getAll()
 
-        return
+        assertTrue(actual.size == 1)
+        assertEquals(expected, actual[0])
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testGetRulesBy() {
+        val ruleRemote = fetchRule()
+        val expected = ruleRemote.toLocal().copy(ruleId = 1)
+        rulesDao.insertAll(expected)
+
+        assertTrue(rulesDao.getRulesBy(ruleRemote.validTo.plusDays(1)).isEmpty())
+
+        val actual = rulesDao.getRulesBy(ruleRemote.validTo.minusMinutes(1))
+
+        assertTrue(actual.size == 1)
+        assertEquals(expected, actual[0])
     }
 }

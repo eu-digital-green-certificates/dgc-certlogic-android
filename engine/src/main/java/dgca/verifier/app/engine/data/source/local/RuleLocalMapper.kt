@@ -1,11 +1,7 @@
 package dgca.verifier.app.engine.data.source.local
 
-import androidx.room.TypeConverters
+import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.Rule
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -37,25 +33,13 @@ fun Rule.toLocal(): RuleLocal = RuleLocal(
     engineVersion = this.engineVersion,
     certificateType = this.certificateType,
 //    description = emptyList(),
-    validFrom = this.validFrom.toMillis(),
-    validTo = this.validTo.toMillis(),
-//    affectedString = this.affectedString,
+    validFrom = this.validFrom.withZoneSameInstant(UTC_ZONE_ID),
+    validTo = this.validTo.withZoneSameInstant(UTC_ZONE_ID),
+    affectedString = this.affectedString,
     logic = this.logic,
     countryCode = this.countryCode
 )
 
 fun RuleLocal.toRemote(): Rule {
     TODO()
-}
-
-private val utcZoneId: ZoneId = ZoneId.ofOffset("", ZoneOffset.UTC).normalized()
-
-fun Long.toZonedDateTime(): ZonedDateTime {
-    val instant: Instant = Instant.ofEpochMilli(this)
-    return ZonedDateTime.ofInstant(instant, utcZoneId)
-}
-
-@TypeConverters
-fun ZonedDateTime.toMillis(): Long {
-    return this.withZoneSameInstant(utcZoneId).toInstant().toEpochMilli()
 }

@@ -1,10 +1,11 @@
 package dgca.verifier.app.engine.data.source.local
 
-import androidx.room.TypeConverters
+import androidx.room.TypeConverter
+import com.fasterxml.jackson.databind.ObjectMapper
+import dgca.verifier.app.engine.UTC_ZONE_ID
 import java.time.Instant
-import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.ZonedDateTime
+
 
 /*-
  * ---license-start
@@ -28,19 +29,29 @@ import java.time.ZonedDateTime
  * Created by osarapulov on 16.06.21 8:42
  */
 class Converters {
-    private val utcZoneId: ZoneId = ZoneId.ofOffset("", ZoneOffset.UTC).normalized()
-
-    @TypeConverters
+    @TypeConverter
     fun fromTimestamp(value: Long?): ZonedDateTime = if (value != null) {
         val instant: Instant = Instant.ofEpochMilli(value)
-        ZonedDateTime.ofInstant(instant, utcZoneId)
+        ZonedDateTime.ofInstant(instant, UTC_ZONE_ID)
     } else {
-        ZonedDateTime.now(utcZoneId)
+        ZonedDateTime.now(UTC_ZONE_ID)
     }
 
-    @TypeConverters
+    @TypeConverter
     fun zonedDateTimeToTimestamp(zonedDateTime: ZonedDateTime?): Long {
-        return (zonedDateTime?.withZoneSameInstant(utcZoneId)
-            ?: ZonedDateTime.now(utcZoneId)).toInstant().toEpochMilli()
+        return (zonedDateTime?.withZoneSameInstant(UTC_ZONE_ID)
+            ?: ZonedDateTime.now(UTC_ZONE_ID)).toInstant().toEpochMilli()
+    }
+
+    @TypeConverter
+    fun fromString(value: String?): List<String> {
+        val objectMap = ObjectMapper()
+        return objectMap.readValue(value, Array<String>::class.java).toList()
+    }
+
+    @TypeConverter
+    fun fromList(list: List<String?>?): String {
+        val objectMapper = ObjectMapper()
+        return objectMapper.writeValueAsString(list ?: emptyList<String>())
     }
 }

@@ -2,6 +2,7 @@ package dgca.verifier.app.engine.data.source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 /*-
  * ---license-start
@@ -25,6 +26,7 @@ import androidx.room.RoomDatabase
  * Created by osarapulov on 16.06.21 9:05
  */
 @Database(entities = arrayOf(RuleLocal::class), version = 1)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun rulesDao(): RulesDao
 }

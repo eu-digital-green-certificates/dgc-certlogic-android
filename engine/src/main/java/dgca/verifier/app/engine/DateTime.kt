@@ -1,9 +1,7 @@
-package dgca.verifier.app.engine.data.source.local
+package dgca.verifier.app.engine
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import java.time.ZonedDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 
 /*-
  * ---license-start
@@ -24,16 +22,7 @@ import java.time.ZonedDateTime
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 16.06.21 9:00
+ * Created by osarapulov on 17.06.21 9:04
  */
-@Dao
-interface RulesDao {
-    @Query("SELECT * from rules")
-    fun getAll(): List<RuleLocal>
 
-    @Query("SELECT * FROM rules WHERE :verificationClock BETWEEN valid_from AND valid_to")
-    fun getRulesBy(verificationClock: ZonedDateTime): List<RuleLocal>
-
-    @Insert
-    fun insertAll(vararg users: RuleLocal)
-}
+val UTC_ZONE_ID: ZoneId = ZoneId.ofOffset("", ZoneOffset.UTC).normalized()
