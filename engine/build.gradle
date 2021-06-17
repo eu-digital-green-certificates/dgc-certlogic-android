@@ -43,13 +43,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation project(':certlogic')
+
 
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_reflect
     implementation Deps.jackson_cbor
     implementation Deps.jackson_kotlin
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
-    implementation "eu.ehn.dcc.certlogic:certlogic-kotlin:v.0f.75-kotlin"
 
     def room_version = "2.3.0"
 
