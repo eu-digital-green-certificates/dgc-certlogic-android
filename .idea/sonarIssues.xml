@@ -298,6 +298,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/RulesDatabase.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/RulesLocalDataSource.kt">
           <value>
             <set />
@@ -444,6 +449,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/di/EngineModule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/di/LocalDataSourceModule.kt">
           <value>
             <set />
           </value>

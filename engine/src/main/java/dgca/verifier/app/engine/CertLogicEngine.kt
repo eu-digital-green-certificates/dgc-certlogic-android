@@ -1,6 +1,7 @@
 package dgca.verifier.app.engine
 
 import dgca.verifier.app.engine.data.ExternalParameter
+import dgca.verifier.app.engine.data.Rule
 
 /*-
  * ---license-start
@@ -24,5 +25,10 @@ import dgca.verifier.app.engine.data.ExternalParameter
  * Created by osarapulov on 11.06.21 9:48
  */
 interface CertLogicEngine {
-    fun validate(externalParameter: ExternalParameter, payload: String): List<ValidationResult>
+    fun validate(
+        schema: String,
+        ruleRemotes: List<Rule>,
+        externalParameter: ExternalParameter,
+        payload: String
+    ): List<ValidationResult>
 }

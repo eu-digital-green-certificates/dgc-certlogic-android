@@ -42,7 +42,7 @@ import java.nio.charset.Charset
 @RunWith(AndroidJUnit4::class)
 internal class RulesDaoTest {
     private lateinit var rulesDao: RulesDao
-    private lateinit var db: AppDatabase
+    private lateinit var db: RulesDatabase
     private val objectMapper = ObjectMapper().apply { this.findAndRegisterModules() }
 
     companion object {
@@ -61,7 +61,7 @@ internal class RulesDaoTest {
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, AppDatabase::class.java
+            context, RulesDatabase::class.java
         ).build()
         rulesDao = db.rulesDao()
     }

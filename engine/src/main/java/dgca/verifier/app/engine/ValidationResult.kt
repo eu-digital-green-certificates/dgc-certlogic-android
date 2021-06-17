@@ -1,5 +1,6 @@
 package dgca.verifier.app.engine
 
+import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.source.remote.RuleRemote
 
 /*-
@@ -27,4 +28,4 @@ enum class Result {
     PASSED, FAIL, OPEN
 }
 
-class ValidationResult(val ruleRemote: RuleRemote, val result: Result, val validationErrors: List<Throwable>?)
+class ValidationResult(val rule: Rule, val result: Result, val validationErrors: List<Throwable>?)

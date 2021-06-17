@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.readValue
 import dgca.verifier.app.engine.data.ExternalParameter
-import dgca.verifier.app.engine.data.source.remote.RuleRemote
+import dgca.verifier.app.engine.data.Rule
 
 /*-
  * ---license-start
@@ -28,10 +28,7 @@ import dgca.verifier.app.engine.data.source.remote.RuleRemote
  *
  * Created by osarapulov on 11.06.21 11:10
  */
-class DefaultCertLogicEngine(
-    private val jsonLogicValidator: JsonLogicValidator,
-    private val schema: String, private val ruleRemotes: List<RuleRemote>
-) : CertLogicEngine {
+class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator) : CertLogicEngine {
     private val objectMapper = ObjectMapper()
 
     companion object {
@@ -58,13 +55,15 @@ class DefaultCertLogicEngine(
     }
 
     override fun validate(
+        schema: String,
+        rules: List<Rule>,
         externalParameter: ExternalParameter,
         payload: String
     ): List<ValidationResult> {
-        return if (ruleRemotes.isNotEmpty()) {
+        return if (rules.isNotEmpty()) {
             val validationResults = mutableListOf<ValidationResult>()
             val dataJsonNode = prepareData(externalParameter, payload)
-            ruleRemotes.forEach {
+            rules.forEach {
                 val ruleJsonNode: JsonNode = objectMapper.readValue(it.logic)
                 val isValid = jsonLogicValidator.isDataValid(ruleJsonNode, dataJsonNode)
                 val res = when {

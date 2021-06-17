@@ -27,6 +27,6 @@ import androidx.room.TypeConverters
  */
 @Database(entities = [RuleLocal::class, DescriptionLocal::class], version = 1)
 @TypeConverters(Converters::class)
-abstract class AppDatabase : RoomDatabase() {
+abstract class RulesDatabase : RoomDatabase() {
     abstract fun rulesDao(): RulesDao
 }
