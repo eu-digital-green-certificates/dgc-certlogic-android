@@ -75,24 +75,12 @@ internal class RulesDaoTest {
     @Throws(Exception::class)
     fun testInsertAll() {
         val ruleRemote = fetchRule()
-        val expected = ruleRemote.toLocal().copy(ruleId = 1)
-        rulesDao.insertAll(expected)
-        val actual = rulesDao.getAll()
-
-        assertTrue(actual.size == 1)
-        assertEquals(expected, actual[0])
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun testGetRulesBy() {
-        val ruleRemote = fetchRule()
-        val expected = ruleRemote.toLocal().copy(ruleId = 1)
+        var expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
         rulesDao.insertAll(expected)
 
-        assertTrue(rulesDao.getRulesBy(ruleRemote.validTo.plusDays(1)).isEmpty())
+        assertTrue(rulesDao.getRulesWithDescriptionsBy(ruleRemote.validTo.plusDays(1)).isEmpty())
 
-        val actual = rulesDao.getRulesBy(ruleRemote.validTo.minusMinutes(1))
+        val actual = rulesDao.getRulesWithDescriptionsBy(ruleRemote.validTo.minusMinutes(1))
 
         assertTrue(actual.size == 1)
         assertEquals(expected, actual[0])

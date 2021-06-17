@@ -25,7 +25,7 @@ import androidx.room.TypeConverters
  *
  * Created by osarapulov on 16.06.21 9:05
  */
-@Database(entities = arrayOf(RuleLocal::class), version = 1)
+@Database(entities = [RuleLocal::class, DescriptionLocal::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun rulesDao(): RulesDao

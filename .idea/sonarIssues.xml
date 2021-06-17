@@ -93,6 +93,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/build/tmp/kapt3/stubs/debug/dgca/verifier/app/engine/data/source/local/RuleWithDescriptionsLocal.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/androidTest/java/dgca/verifier/app/engine/data/source/local/AppDatabaseTest.kt">
           <value>
             <set />

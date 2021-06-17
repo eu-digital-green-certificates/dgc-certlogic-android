@@ -25,10 +25,11 @@ import androidx.room.PrimaryKey
  *
  * Created by osarapulov on 16.06.21 8:35
  */
-@Entity
+@Entity(tableName = "descriptions")
 data class DescriptionLocal(
     @PrimaryKey(autoGenerate = true)
-    val descriptionId: Int = 0,
-    @ColumnInfo(name = "lang") val lang: String,
-    @ColumnInfo(name = "desc") val desc: String
+    val descriptionId: Long = 0,
+    val ruleContainerId: Long = 0,
+    val lang: String,
+    val desc: String
 )

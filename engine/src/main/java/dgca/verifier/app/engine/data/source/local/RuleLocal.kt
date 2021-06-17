@@ -1,6 +1,5 @@
 package dgca.verifier.app.engine.data.source.local
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.ZonedDateTime
@@ -29,17 +28,17 @@ import java.time.ZonedDateTime
 @Entity(tableName = "rules")
 data class RuleLocal(
     @PrimaryKey(autoGenerate = true)
-    val ruleId: Int = 0,
-    @ColumnInfo(name = "identifier") val identifier: String,
-    @ColumnInfo(name = "type") val type: String,
-    @ColumnInfo(name = "version") val version: String,
-    @ColumnInfo(name = "schema_version") val schemaVersion: String,
-    @ColumnInfo(name = "engine") val engine: String,
-    @ColumnInfo(name = "engine_version") val engineVersion: String,
-    @ColumnInfo(name = "certificate_type") val certificateType: String,
-    @ColumnInfo(name = "valid_from") val validFrom: ZonedDateTime,
-    @ColumnInfo(name = "valid_to") val validTo: ZonedDateTime,
-    @ColumnInfo(name = "affected_fields") val affectedString: List<String>,
-    @ColumnInfo(name = "logic") val logic: String,
-    @ColumnInfo(name = "country_code") val countryCode: String,
+    val ruleId: Long = 0,
+    val identifier: String,
+    val type: String,
+    val version: String,
+    val schemaVersion: String,
+    val engine: String,
+    val engineVersion: String,
+    val certificateType: String,
+    val validFrom: ZonedDateTime,
+    val validTo: ZonedDateTime,
+    val affectedString: List<String>,
+    val logic: String,
+    val countryCode: String,
 )

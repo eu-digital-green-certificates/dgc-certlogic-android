@@ -1,6 +1,7 @@
 package dgca.verifier.app.engine.data.source.local
 
 import androidx.room.Embedded
+import androidx.room.Entity
 import androidx.room.Relation
 
 /*-

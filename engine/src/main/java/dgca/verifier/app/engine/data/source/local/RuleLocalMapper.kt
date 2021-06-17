@@ -1,6 +1,7 @@
 package dgca.verifier.app.engine.data.source.local
 
 import dgca.verifier.app.engine.UTC_ZONE_ID
+import dgca.verifier.app.engine.data.Description
 import dgca.verifier.app.engine.data.Rule
 
 /*-
@@ -24,6 +25,9 @@ import dgca.verifier.app.engine.data.Rule
  *
  * Created by osarapulov on 16.06.21 9:20
  */
+fun Rule.toRuleWithDescriptionLocal(): RuleWithDescriptionsLocal =
+    RuleWithDescriptionsLocal(this.toLocal(), description.toLocal())
+
 fun Rule.toLocal(): RuleLocal = RuleLocal(
     identifier = this.identifier,
     type = this.type,
@@ -32,7 +36,6 @@ fun Rule.toLocal(): RuleLocal = RuleLocal(
     engine = this.engine,
     engineVersion = this.engineVersion,
     certificateType = this.certificateType,
-//    description = emptyList(),
     validFrom = this.validFrom.withZoneSameInstant(UTC_ZONE_ID),
     validTo = this.validTo.withZoneSameInstant(UTC_ZONE_ID),
     affectedString = this.affectedString,
@@ -40,6 +43,10 @@ fun Rule.toLocal(): RuleLocal = RuleLocal(
     countryCode = this.countryCode
 )
 
-fun RuleLocal.toRemote(): Rule {
-    TODO()
+fun Description.toLocal(): DescriptionLocal = DescriptionLocal(lang = this.lang, desc = this.desc)
+
+fun List<Description>.toLocal(): List<DescriptionLocal> {
+    val descriptionsLocal = mutableListOf<DescriptionLocal>()
+    forEach { descriptionsLocal.add(it.toLocal()) }
+    return descriptionsLocal
 }

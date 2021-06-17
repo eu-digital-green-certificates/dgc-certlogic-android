@@ -3,6 +3,7 @@ package dgca.verifier.app.engine.data.source.local
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import java.time.ZonedDateTime
 
 /*-
@@ -27,13 +28,34 @@ import java.time.ZonedDateTime
  * Created by osarapulov on 16.06.21 9:00
  */
 @Dao
-interface RulesDao {
+abstract class RulesDao {
     @Query("SELECT * from rules")
-    fun getAll(): List<RuleLocal>
+    abstract fun getAll(): List<RuleLocal>
 
-    @Query("SELECT * FROM rules WHERE :verificationClock BETWEEN valid_from AND valid_to")
-    fun getRulesBy(verificationClock: ZonedDateTime): List<RuleLocal>
+    @Transaction
+    @Query("SELECT * FROM rules WHERE :verificationClock BETWEEN validFrom AND validTo")
+    abstract fun getRulesWithDescriptionsBy(verificationClock: ZonedDateTime): List<RuleWithDescriptionsLocal>
 
     @Insert
-    fun insertAll(vararg users: RuleLocal)
+    abstract fun insertRule(rule: RuleLocal): Long
+
+    @Insert
+    abstract fun insertDescriptions(descriptions: Collection<DescriptionLocal>)
+
+    fun insertAll(vararg rulesWithDescriptions: RuleWithDescriptionsLocal) {
+        rulesWithDescriptions.forEach { ruleWithDescriptionsLocal ->
+            val rule = ruleWithDescriptionsLocal.rule
+            val descriptions = ruleWithDescriptionsLocal.descriptions
+            val ruleId = insertRule(rule)
+            val descriptionsToBeInserted = mutableListOf<DescriptionLocal>()
+            descriptions.forEach { descriptionLocal ->
+                descriptionsToBeInserted.add(
+                    descriptionLocal.copy(
+                        ruleContainerId = ruleId
+                    )
+                )
+            }
+            insertDescriptions(descriptionsToBeInserted)
+        }
+    }
 }
