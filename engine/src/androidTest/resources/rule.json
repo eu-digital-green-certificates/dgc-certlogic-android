@@ -5,7 +5,7 @@
   "Engine": "CERTLOGIC",
   "EngineVersion": "2.0.1",
   "Type": "Acceptance",
-  "CertificateType": "Test",
+  "CertificateType": "Vaccination",
   "CountryCode": "at",
   "Description": [
     {
@@ -14,7 +14,7 @@
     }
   ],
   "ValidFrom": "2021-05-27T07:46:40Z",
-  "ValidTo": "2021-06-01T07:46:40Z",
+  "ValidTo": "2030-06-01T07:46:40Z",
   "AffectedFields": [
     "dt",
     "nm"

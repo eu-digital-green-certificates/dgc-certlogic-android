@@ -27,5 +27,5 @@ import dgca.verifier.app.engine.data.source.RulesDataSource
 interface RulesLocalDataSource : RulesDataSource {
     fun setRules(rules: List<Rule>)
 
-    fun removeRulesBy(vararg rulesIdentifiers: String)
+    fun removeRulesBy(identifiers: Set<String>)
 }

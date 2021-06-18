@@ -32,8 +32,8 @@ class DefaultRulesLocalDataSource(private val rulesDao: RulesDao) : RulesLocalDa
         rulesDao.insertAll(*rules.toRulesWithDescriptionLoca().toTypedArray())
     }
 
-    override fun removeRulesBy(vararg rulesIdentifiers: String) {
-//        rulesDao.
+    override fun removeRulesBy(identifiers: Set<String>) {
+        rulesDao.deleteRulesBy(*identifiers.toTypedArray())
     }
 
     override fun getRulesBy(
@@ -41,5 +41,11 @@ class DefaultRulesLocalDataSource(private val rulesDao: RulesDao) : RulesLocalDa
         validationClock: ZonedDateTime,
         type: Type,
         certificateType: CertificateType
-    ): List<Rule> = rulesDao.getRulesWithDescriptionsBy(validationClock).toRules()
+    ): List<Rule> = rulesDao.getRulesWithDescriptionsBy(
+        countryIsoCode,
+        validationClock,
+        type,
+        certificateType,
+        CertificateType.GENERAL
+    ).toRules()
 }

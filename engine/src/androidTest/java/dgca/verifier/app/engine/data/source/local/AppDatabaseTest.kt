@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.fasterxml.jackson.databind.ObjectMapper
+import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.source.remote.RuleRemote
 import dgca.verifier.app.engine.data.source.remote.toRule
 import org.apache.commons.io.IOUtils
@@ -79,9 +80,23 @@ internal class RulesDaoTest {
         val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
         rulesDao.insertAll(expected)
 
-        assertTrue(rulesDao.getRulesWithDescriptionsBy(ruleRemote.validTo.plusDays(1)).isEmpty())
+        assertTrue(
+            rulesDao.getRulesWithDescriptionsBy(
+                ruleRemote.countryCode,
+                ruleRemote.validTo.plusDays(1),
+                ruleRemote.type,
+                ruleRemote.certificateType,
+                CertificateType.GENERAL
+            ).isEmpty()
+        )
 
-        val actual = rulesDao.getRulesWithDescriptionsBy(ruleRemote.validTo.minusMinutes(1))
+        val actual = rulesDao.getRulesWithDescriptionsBy(
+            ruleRemote.countryCode,
+            ruleRemote.validTo.minusMinutes(1),
+            ruleRemote.type,
+            ruleRemote.certificateType,
+            CertificateType.GENERAL
+        )
 
         assertTrue(actual.size == 1)
         assertEquals(expected.rule.copy(ruleId = 1), actual[0].rule)

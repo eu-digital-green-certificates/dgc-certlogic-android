@@ -32,8 +32,8 @@ class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
                 "  \"SchemaVersion\": \"1.0.0\",\n" +
                 "  \"Engine\": \"CERTLOGIC\",\n" +
                 "  \"EngineVersion\": \"2.0.1\",\n" +
-                "  \"Type\": \"Vaccination\",\n" +
-                "  \"CertificateType\": \"CERTLOGIC\",\n" +
+                "  \"Type\": \"Acceptance\",\n" +
+                "  \"CertificateType\": \"Vaccination\",\n" +
                 "  \"CountryCode\": \"at\",\n" +
                 "  \"Description\": [\n" +
                 "    {\n" +
@@ -42,7 +42,7 @@ class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
                 "    }\n" +
                 "  ],\n" +
                 "  \"ValidFrom\": \"2021-05-27T07:46:40Z\",\n" +
-                "  \"ValidTo\": \"2021-06-01T07:46:40Z\",\n" +
+                "  \"ValidTo\": \"2030-06-01T07:46:40Z\",\n" +
                 "  \"AffectedFields\": [\n" +
                 "    \"dt\",\n" +
                 "    \"nm\"\n" +
@@ -52,7 +52,7 @@ class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
     }
 
     override fun getRules(): List<RuleRemote> {
-        val ruleRemote: RuleRemote = ObjectMapper().readValue(TEMP_RULE, RuleRemote::class.java)
+        val ruleRemote: RuleRemote = ObjectMapper().apply { findAndRegisterModules() }.readValue(TEMP_RULE, RuleRemote::class.java)
         return Collections.singletonList(ruleRemote)
     }
 }
