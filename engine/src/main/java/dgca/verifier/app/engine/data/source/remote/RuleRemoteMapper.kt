@@ -56,10 +56,10 @@ fun DescriptionRemote.toDescriptions(): Description = Description(
     desc = this.desc
 )
 
-fun List<DescriptionRemote>.toDescriptions(): List<Description> {
-    val descriptions = mutableListOf<Description>()
+fun List<DescriptionRemote>.toDescriptions(): Map<String, String> {
+    val descriptions = mutableMapOf<String, String>()
     forEach {
-        descriptions.add(it.toDescriptions())
+        descriptions[it.lang.toLowerCase(Locale.ROOT)] = it.desc
     }
     return descriptions
 }

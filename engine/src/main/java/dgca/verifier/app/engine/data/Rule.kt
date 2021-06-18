@@ -1,6 +1,7 @@
 package dgca.verifier.app.engine.data
 
 import java.time.ZonedDateTime
+import java.util.*
 
 /*-
  * ---license-start
@@ -31,10 +32,16 @@ data class Rule(
     val engine: String,
     val engineVersion: String,
     val certificateType: CertificateType,
-    val descriptions: List<Description>,
+    val descriptions: Map<String, String>,
     val validFrom: ZonedDateTime,
     val validTo: ZonedDateTime,
     val affectedString: List<String>,
     val logic: String,
     val countryCode: String,
-)
+) {
+    fun getDescriptionFor(languageCode: String): String {
+        val description = descriptions[languageCode.toLowerCase(Locale.ROOT)]
+        return if (description?.isNotBlank() == true) description else descriptions[Locale.ENGLISH.language]
+            ?: ""
+    }
+}

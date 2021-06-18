@@ -3,6 +3,7 @@ package dgca.verifier.app.engine.data.source.local
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.Description
 import dgca.verifier.app.engine.data.Rule
+import java.util.*
 
 /*-
  * ---license-start
@@ -54,17 +55,17 @@ fun Rule.toRuleLocal(): RuleLocal = RuleLocal(
 fun Description.toDescriptionLocal(): DescriptionLocal =
     DescriptionLocal(lang = this.lang, desc = this.desc)
 
-fun List<Description>.toDescriptionsLocal(): List<DescriptionLocal> {
+fun Map<String, String>.toDescriptionsLocal(): List<DescriptionLocal> {
     val descriptionsLocal = mutableListOf<DescriptionLocal>()
-    forEach { descriptionsLocal.add(it.toDescriptionLocal()) }
+    forEach { descriptionsLocal.add(DescriptionLocal(lang = it.key, desc = it.value)) }
     return descriptionsLocal
 }
 
 fun DescriptionLocal.toDescription(): Description = Description(lang = this.lang, desc = this.desc)
 
-fun List<DescriptionLocal>.toDescriptions(): List<Description> {
-    val descriptions = mutableListOf<Description>()
-    forEach { descriptions.add(it.toDescription()) }
+fun List<DescriptionLocal>.toDescriptions(): Map<String, String> {
+    val descriptions = mutableMapOf<String, String>()
+    forEach { descriptions[it.lang.toLowerCase(Locale.ROOT)] = it.desc }
     return descriptions
 }
 
@@ -81,7 +82,7 @@ fun RuleWithDescriptionsLocal.toRule(): Rule = Rule(
     affectedString = this.rule.affectedString,
     logic = this.rule.logic,
     countryCode = this.rule.countryCode,
-    descriptions = emptyList()
+    descriptions = this.descriptions.toDescriptions()
 )
 
 fun List<RuleWithDescriptionsLocal>.toRules(): List<Rule> {
