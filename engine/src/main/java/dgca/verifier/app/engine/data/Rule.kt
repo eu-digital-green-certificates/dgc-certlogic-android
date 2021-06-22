@@ -1,5 +1,6 @@
 package dgca.verifier.app.engine.data
 
+import com.fasterxml.jackson.databind.JsonNode
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -36,7 +37,7 @@ data class Rule(
     val validFrom: ZonedDateTime,
     val validTo: ZonedDateTime,
     val affectedString: List<String>,
-    val logic: String,
+    val logic: JsonNode,
     val countryCode: String,
 ) {
     fun getDescriptionFor(languageCode: String): String {

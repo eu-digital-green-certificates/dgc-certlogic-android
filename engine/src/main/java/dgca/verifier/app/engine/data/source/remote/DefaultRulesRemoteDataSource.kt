@@ -1,7 +1,6 @@
 package dgca.verifier.app.engine.data.source.remote
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import java.util.*
+import retrofit2.Response
 
 /*-
  * ---license-start
@@ -24,35 +23,26 @@ import java.util.*
  *
  * Created by osarapulov on 13.06.21 16:54
  */
-class DefaultRulesRemoteDataSource : RulesRemoteDataSource {
-    companion object {
-        private const val TEMP_RULE = "{\n" +
-                "  \"Identifier\": \"GR-CZ-0001\",\n" +
-                "  \"Version\": \"1.0.0\",\n" +
-                "  \"SchemaVersion\": \"1.0.0\",\n" +
-                "  \"Engine\": \"CERTLOGIC\",\n" +
-                "  \"EngineVersion\": \"2.0.1\",\n" +
-                "  \"Type\": \"Acceptance\",\n" +
-                "  \"CertificateType\": \"Vaccination\",\n" +
-                "  \"CountryCode\": \"at\",\n" +
-                "  \"Description\": [\n" +
-                "    {\n" +
-                "      \"lang\": \"en\",\n" +
-                "      \"desc\": \"The Field “Doses” MUST contain number 2 OR 2/2.\"\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"ValidFrom\": \"2021-05-27T07:46:40Z\",\n" +
-                "  \"ValidTo\": \"2030-06-01T07:46:40Z\",\n" +
-                "  \"AffectedFields\": [\n" +
-                "    \"dt\",\n" +
-                "    \"nm\"\n" +
-                "  ],\n" +
-                "  \"Logic\": \"{\\\"and\\\":[{\\\">\\\":[{\\\"var\\\":\\\"hcert.v.0.dn\\\"},0]},{\\\">=\\\":[{\\\"var\\\":\\\"hcert.v.0.dn\\\"},{\\\"var\\\":\\\"hcert.v.0.sd\\\"}]}]}\"\n" +
-                "}"
+class DefaultRulesRemoteDataSource(private val rulesApiService: RulesApiService) :
+    RulesRemoteDataSource {
+    override suspend fun getCountries(countriesUrl: String): List<String> {
+        val countriesResponse: Response<List<String>> = rulesApiService.getCountries(countriesUrl)
+        return countriesResponse.body() ?: listOf()
     }
 
-    override fun getRules(): List<RuleRemote> {
-        val ruleRemote: RuleRemote = ObjectMapper().apply { findAndRegisterModules() }.readValue(TEMP_RULE, RuleRemote::class.java)
-        return Collections.singletonList(ruleRemote)
+    override suspend fun getRuleIdentifiers(rulesUrl: String): List<RuleIdentifierRemote> {
+        val rulesResponse: Response<List<RuleIdentifierRemote>> =
+            rulesApiService.getRuleIdentifiers(rulesUrl)
+        return rulesResponse.body() ?: listOf()
+    }
+
+    override suspend fun getRules(rulesUrl: String): List<RuleRemote> {
+        val rulesResponse: Response<List<RuleRemote>> = rulesApiService.getRules(rulesUrl)
+        return rulesResponse.body() ?: listOf()
+    }
+
+    override suspend fun getRule(ruleUrl: String): RuleRemote? {
+        val ruleResponse: Response<RuleRemote> = rulesApiService.getRule(ruleUrl)
+        return ruleResponse.body()
     }
 }

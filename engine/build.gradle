@@ -50,6 +50,7 @@ dependencies {
     implementation Deps.kotlin_reflect
     implementation Deps.jackson_cbor
     implementation Deps.jackson_kotlin
+    implementation Deps.retrofit2
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 
     def room_version = "2.3.0"

@@ -2,6 +2,7 @@ package dgca.verifier.app.engine.data.source.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.fasterxml.jackson.databind.JsonNode
 import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
@@ -41,6 +42,6 @@ data class RuleLocal(
     val validFrom: ZonedDateTime,
     val validTo: ZonedDateTime,
     val affectedString: List<String>,
-    val logic: String,
+    val logic: JsonNode,
     val countryCode: String,
 )

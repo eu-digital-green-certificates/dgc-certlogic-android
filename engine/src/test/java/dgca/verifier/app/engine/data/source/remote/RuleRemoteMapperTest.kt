@@ -2,8 +2,10 @@ package dgca.verifier.app.engine.data.source.remote
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import org.apache.commons.io.IOUtils
 import org.junit.Test
 import java.io.InputStream
@@ -46,8 +48,8 @@ class RuleRemoteMapperTest {
 
     @Test
     fun fromRuleRemote() {
-        val ruleRemote = fetchRuleRemote()
-        val rule = ruleRemote.toRule()
+        val ruleRemote: RuleRemote = fetchRuleRemote()
+        val rule: Rule = ruleRemote.toRule()
         assertEquals(ruleRemote.identifier, rule.identifier)
         assertEquals(Type.valueOf(ruleRemote.type.toUpperCase()), rule.type)
         assertEquals(ruleRemote.version, rule.version)
@@ -81,8 +83,8 @@ class RuleRemoteMapperTest {
 
         val descs = descsRemote.toDescriptions()
         descsRemote.forEachIndexed { index, descRemote ->
-            assertEquals(descRemote.lang, descs[index].lang)
-            assertEquals(descRemote.desc, descs[index].desc)
+            assertTrue(descs.containsKey(descRemote.lang))
+            assertEquals(descRemote.desc, descs[descRemote.lang])
         }
     }
 }

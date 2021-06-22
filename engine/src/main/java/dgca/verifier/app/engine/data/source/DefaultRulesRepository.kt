@@ -4,9 +4,11 @@ import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.local.RulesLocalDataSource
+import dgca.verifier.app.engine.data.source.remote.RuleRemote
 import dgca.verifier.app.engine.data.source.remote.RulesRemoteDataSource
 import dgca.verifier.app.engine.data.source.remote.toRules
 import java.time.ZonedDateTime
+import java.util.*
 
 /*-
  * ---license-start
@@ -33,8 +35,22 @@ class DefaultRulesRepository(
     private val remoteDataSource: RulesRemoteDataSource,
     private val localDataSource: RulesLocalDataSource
 ) : RulesRepository {
-    override fun loadRules() {
-        remoteDataSource.getRules().apply { localDataSource.setRules(this.toRules()) }
+    override suspend fun loadRules(countriesUrl: String, rulesUrl: String) {
+        val rulesRemote = mutableListOf<RuleRemote>()
+        val ruleIdentifiersRemote = remoteDataSource.getRuleIdentifiers(rulesUrl)
+
+        ruleIdentifiersRemote.forEach {
+            val ruleRemote =
+                remoteDataSource.getRule("$rulesUrl/${it.country.toLowerCase(Locale.ROOT)}/${it.hash}")
+            if (ruleRemote != null) {
+                rulesRemote.add(ruleRemote)
+            }
+        }
+
+        if (rulesRemote.isNotEmpty()) {
+            localDataSource.removeRules()
+            localDataSource.addRules(rulesRemote.toRules())
+        }
     }
 
     override fun getRulesBy(

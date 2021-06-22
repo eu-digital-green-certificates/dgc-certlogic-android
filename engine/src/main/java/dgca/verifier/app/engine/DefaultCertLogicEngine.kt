@@ -56,6 +56,7 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
 
     override fun validate(
         schema: String,
+        schemaJson: String,
         rules: List<Rule>,
         externalParameter: ExternalParameter,
         payload: String
@@ -64,8 +65,7 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
             val validationResults = mutableListOf<ValidationResult>()
             val dataJsonNode = prepareData(externalParameter, payload)
             rules.forEach {
-                val ruleJsonNode: JsonNode = objectMapper.readValue(it.logic)
-                val isValid = jsonLogicValidator.isDataValid(ruleJsonNode, dataJsonNode)
+                val isValid = jsonLogicValidator.isDataValid(it.logic, dataJsonNode)
                 val res = when {
                     isValid -> Result.PASSED
                     else -> Result.FAIL

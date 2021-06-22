@@ -1,6 +1,7 @@
 package dgca.verifier.app.engine.data.source.remote
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.JsonNode
 import java.time.ZonedDateTime
 
 /*-
@@ -25,30 +26,30 @@ import java.time.ZonedDateTime
  * Created by osarapulov on 11.06.21 11:03
  */
 data class RuleRemote(
-    @JsonProperty("Identifier")
+    @JsonProperty("IDENTIFIER")
     val identifier: String,
-    @JsonProperty("Type")
+    @JsonProperty("TYPE")
     val type: String,
-    @JsonProperty("Version")
+    @JsonProperty("VERSION")
     val version: String,
-    @JsonProperty("SchemaVersion")
+    @JsonProperty("SCHEMAVERSION")
     val schemaVersion: String,
-    @JsonProperty("Engine")
+    @JsonProperty("ENGINE")
     val engine: String,
-    @JsonProperty("EngineVersion")
+    @JsonProperty("ENGINEVERSION")
     val engineVersion: String,
-    @JsonProperty("CertificateType")
+    @JsonProperty("CERTIFICATETYPE")
     val certificateType: String,
-    @JsonProperty("Description")
+    @JsonProperty("DESCRIPTION")
     val descriptions: List<DescriptionRemote>,
-    @JsonProperty("ValidFrom")
+    @JsonProperty("VALIDFROM")
     val validFrom: ZonedDateTime,
-    @JsonProperty("ValidTo")
+    @JsonProperty("VALIDTO")
     val validTo: ZonedDateTime,
-    @JsonProperty("AffectedFields")
+    @JsonProperty("AFFECTEDFIELDS")
     val affectedString: List<String>,
-    @JsonProperty("Logic")
-    val logic: String,
-    @JsonProperty("CountryCode")
-    val countryCode: String,
+    @JsonProperty("LOGIC")
+    val logic: JsonNode,
+    @JsonProperty("COUNTRY")
+    val countryCode: String
 )

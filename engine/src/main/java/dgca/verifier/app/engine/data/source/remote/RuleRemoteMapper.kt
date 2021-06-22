@@ -40,7 +40,7 @@ fun RuleRemote.toRule(): Rule = Rule(
     validTo = this.validTo,
     affectedString = this.affectedString,
     logic = this.logic,
-    countryCode = this.countryCode
+    countryCode = this.countryCode.toLowerCase(Locale.ROOT)
 )
 
 fun List<RuleRemote>.toRules(): List<Rule> {

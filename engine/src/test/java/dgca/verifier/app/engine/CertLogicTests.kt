@@ -1,13 +1,10 @@
 package dgca.verifier.app.engine
 
-import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
-import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import eu.ehn.dcc.certlogic.evaluate
 import org.junit.jupiter.api.Test
-import eu.ehn.dcc.certlogic.JsonDateTime
 
 internal class CertLogicTests {
     private val objectMapper = jacksonObjectMapper()

@@ -1,7 +1,10 @@
 package dgca.verifier.app.engine.data.source.local
 
 import androidx.room.TypeConverter
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.module.kotlin.readValue
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import java.time.Instant
 import java.time.ZonedDateTime
@@ -53,5 +56,17 @@ class Converters {
     fun fromList(list: List<String?>?): String {
         val objectMapper = ObjectMapper()
         return objectMapper.writeValueAsString(list ?: emptyList<String>())
+    }
+
+    @TypeConverter
+    fun fromJsonNode(value: JsonNode?): String {
+        val objectMap = ObjectMapper()
+        return objectMap.writeValueAsString(value ?: objectMap.createObjectNode())
+    }
+
+    @TypeConverter
+    fun toJsonNodeList(value: String?): JsonNode {
+        val objectMapper = ObjectMapper()
+        return objectMapper.readValue(value ?: "")
     }
 }

@@ -28,12 +28,12 @@ import java.time.ZonedDateTime
  */
 class DefaultRulesLocalDataSource(private val rulesDao: RulesDao) : RulesLocalDataSource {
 
-    override fun setRules(rules: List<Rule>) {
-        rulesDao.insertAll(*rules.toRulesWithDescriptionLoca().toTypedArray())
+    override fun addRules(rules: List<Rule>) {
+        rulesDao.insertAll(*rules.toRulesWithDescriptionLocal().toTypedArray())
     }
 
-    override fun removeRulesBy(identifiers: Set<String>) {
-        rulesDao.deleteRulesBy(*identifiers.toTypedArray())
+    override fun removeRules() {
+        rulesDao.deleteAll()
     }
 
     override fun getRulesBy(

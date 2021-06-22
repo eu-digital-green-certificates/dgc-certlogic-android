@@ -72,4 +72,10 @@ abstract class RulesDao {
             insertDescriptions(descriptionsToBeInserted)
         }
     }
+
+    @Query("DELETE FROM rules WHERE identifier NOT IN (:identifiers)")
+    abstract fun deleteAllExcept(identifiers: Array<String>)
+
+    @Query("DELETE FROM rules")
+    abstract fun deleteAll()
 }

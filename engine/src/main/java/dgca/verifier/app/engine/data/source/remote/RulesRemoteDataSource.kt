@@ -22,5 +22,11 @@ package dgca.verifier.app.engine.data.source.remote
  * Created by osarapulov on 13.06.21 16:53
  */
 interface RulesRemoteDataSource {
-    fun getRules(): List<RuleRemote>
+    suspend fun getCountries(countriesUrl: String): List<String>
+
+    suspend fun getRuleIdentifiers(rulesUrl: String): List<RuleIdentifierRemote>
+
+    suspend fun getRules(rulesUrl: String): List<RuleRemote>
+
+    suspend fun getRule(ruleUrl: String): RuleRemote?
 }

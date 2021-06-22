@@ -125,4 +125,27 @@ internal class RulesDaoTest {
         assertEquals(0, rulesDao.getAll().size)
         assertEquals(0, rulesDao.getDescriptionAll().size)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun testDeleteAllExcept() {
+        val identifierFirst = "identifierFirst"
+        val identifierSecond = "identifierSecond"
+        val ruleFirst = fetchRule().toRule().copy(identifier = identifierFirst)
+        val ruleSecond = fetchRule().toRule().copy(identifier = identifierSecond)
+        val ruleWithDescriptionsLocalFirst: RuleWithDescriptionsLocal =
+            ruleFirst.toRuleWithDescriptionLocal()
+        val ruleWithDescriptionsLocalSecond: RuleWithDescriptionsLocal =
+            ruleSecond.toRuleWithDescriptionLocal()
+
+        rulesDao.insertAll(ruleWithDescriptionsLocalFirst, ruleWithDescriptionsLocalSecond)
+
+        assertEquals(2, rulesDao.getAll().size)
+
+        rulesDao.deleteAllExcept(arrayOf(identifierSecond))
+
+        val rulesLocalActual = rulesDao.getAll()
+        assertEquals(1, rulesLocalActual.size)
+        assertEquals(identifierSecond, rulesLocalActual.first().identifier)
+    }
 }

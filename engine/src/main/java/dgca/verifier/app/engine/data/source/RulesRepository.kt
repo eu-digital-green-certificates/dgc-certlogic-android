@@ -21,6 +21,6 @@ package dgca.verifier.app.engine.data.source
  *
  * Created by osarapulov on 13.06.21 16:51
  */
-interface RulesRepository: RulesDataSource {
-    fun loadRules()
+interface RulesRepository : RulesDataSource {
+    suspend fun loadRules(countriesUrl: String, rulesUrl: String)
 }

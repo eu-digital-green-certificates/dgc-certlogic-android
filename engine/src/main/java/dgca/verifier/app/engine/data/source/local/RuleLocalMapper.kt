@@ -29,7 +29,7 @@ import java.util.*
 fun Rule.toRuleWithDescriptionLocal(): RuleWithDescriptionsLocal =
     RuleWithDescriptionsLocal(this.toRuleLocal(), descriptions.toDescriptionsLocal())
 
-fun List<Rule>.toRulesWithDescriptionLoca(): List<RuleWithDescriptionsLocal> {
+fun List<Rule>.toRulesWithDescriptionLocal(): List<RuleWithDescriptionsLocal> {
     val rulesWithDescriptionLocal = mutableListOf<RuleWithDescriptionsLocal>()
     forEach {
         rulesWithDescriptionLocal.add(it.toRuleWithDescriptionLocal())

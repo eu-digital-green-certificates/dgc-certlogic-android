@@ -24,6 +24,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Created by osarapulov on 11.06.21 11:00
  */
 data class DescriptionRemote(
-    @JsonProperty("lang") val lang: String,
-    @JsonProperty("desc") val desc: String
+    @JsonProperty("LANG") val lang: String,
+    @JsonProperty("DESC") val desc: String
 )

@@ -25,7 +25,7 @@ import dgca.verifier.app.engine.data.source.RulesDataSource
  * Created by osarapulov on 13.06.21 16:55
  */
 interface RulesLocalDataSource : RulesDataSource {
-    fun setRules(rules: List<Rule>)
+    fun addRules(rules: List<Rule>)
 
-    fun removeRulesBy(identifiers: Set<String>)
+    fun removeRules()
 }

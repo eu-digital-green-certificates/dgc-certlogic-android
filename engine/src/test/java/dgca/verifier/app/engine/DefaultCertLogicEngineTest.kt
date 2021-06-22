@@ -25,6 +25,7 @@ package dgca.verifier.app.engine
 import com.fasterxml.jackson.databind.*
 import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.source.remote.RuleRemote
+import dgca.verifier.app.engine.data.source.remote.toRules
 import org.apache.commons.io.IOUtils
 import org.junit.jupiter.api.Test
 import java.io.InputStream
@@ -58,6 +59,8 @@ internal class DefaultCertLogicEngineTest {
         const val HCERT_JSON_FILE_NAME = "hcert.json"
     }
 
+    private val objectMapper = ObjectMapper().apply { findAndRegisterModules() }
+
     @Test
     fun testValidate() {
         val schema = "1.0.0"
@@ -66,12 +69,13 @@ internal class DefaultCertLogicEngineTest {
         val ruleExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
-        val ruleRemote: RuleRemote = ObjectMapper().readValue(ruleJson, RuleRemote::class.java)
+        val ruleRemote: RuleRemote = objectMapper.readValue(ruleJson, RuleRemote::class.java)
         val hcertExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(HCERT_JSON_FILE_NAME)
         val hcertJson = IOUtils.toString(hcertExampleIs, Charset.defaultCharset())
-        val rules = listOf(ruleRemote)
-        val certLogicEngine = DefaultCertLogicEngine(jsonLogicValidator, schema, rules)
+        val rulesRemote: List<RuleRemote> = listOf(ruleRemote)
+        val rules = rulesRemote.toRules()
+        val certLogicEngine = DefaultCertLogicEngine(jsonLogicValidator)
         val externalParameter =
             ExternalParameter(
                 ZonedDateTime.now(),
@@ -80,6 +84,6 @@ internal class DefaultCertLogicEngineTest {
                 ZonedDateTime.now(),
                 ZonedDateTime.now()
             )
-        val results = certLogicEngine.validate(externalParameter, hcertJson)
+        val results = certLogicEngine.validate(schema, rules, externalParameter, hcertJson)
     }
 }
