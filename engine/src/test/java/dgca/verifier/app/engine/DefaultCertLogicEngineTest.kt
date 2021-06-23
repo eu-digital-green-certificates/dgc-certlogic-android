@@ -55,7 +55,7 @@ import java.time.ZonedDateTime
  */
 internal class DefaultCertLogicEngineTest {
     companion object {
-        const val RULE_JSON_FILE_NAME = "rule.json"
+        const val RULE_JSON_FILE_NAME = "mock_rule.json"
         const val HCERT_JSON_FILE_NAME = "hcert.json"
     }
 
@@ -84,6 +84,6 @@ internal class DefaultCertLogicEngineTest {
                 ZonedDateTime.now(),
                 ZonedDateTime.now()
             )
-        val results = certLogicEngine.validate(schema, rules, externalParameter, hcertJson)
+        val results = certLogicEngine.validate(schema, "", rules, externalParameter, hcertJson)
     }
 }
