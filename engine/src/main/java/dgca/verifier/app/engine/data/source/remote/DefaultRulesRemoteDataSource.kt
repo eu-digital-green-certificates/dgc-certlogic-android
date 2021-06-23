@@ -25,6 +25,7 @@ import retrofit2.Response
  */
 class DefaultRulesRemoteDataSource(private val rulesApiService: RulesApiService) :
     RulesRemoteDataSource {
+
     override suspend fun getCountries(countriesUrl: String): List<String> {
         val countriesResponse: Response<List<String>> = rulesApiService.getCountries(countriesUrl)
         return countriesResponse.body() ?: listOf()

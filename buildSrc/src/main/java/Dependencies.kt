@@ -33,8 +33,16 @@ object Deps {
     const val test_junit_jupiter_params = "org.junit.jupiter:junit-jupiter-params:${Versions.junit_jupiter}"
     const val test_runtime_only = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit_jupiter}"
     const val test_hamcrest = "org.hamcrest:hamcrest:${Versions.hamcrest}"
+    const val test_runner = "androidx.test:runner:${Versions.test_version}}"
+    const val test_rules = "androidx.test:rules:${Versions.test_version}"
+    const val test_ext = "androidx.test.ext:junit:${Versions.test_ext_version}"
 
     const val jackson_cbor = "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:${Versions.jackson_cbor}"
     const val jackson_kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.jackson_kotlin}"
+    const val jackson_datetype = "com.fasterxml.jackson.datatype:${Versions.jackson_datetype}"
+    const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val appache_commons = "commons-io:commons-io:${Versions.appache_commons}"
+
+    const val room_runtime = "androidx.room:room-runtime:${Versions.room_version}"
+    const val room_compiler = "androidx.room:room-compiler:${Versions.room_version}"
 }

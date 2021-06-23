@@ -9,8 +9,6 @@ C
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 6
 NOTICE,f/e/fe71871083ca490e6bc0da33fb48ce231f820a94
-@
-local.properties,0/7/0712df971a99ac4d2fccb8e0fb19f377f3374cca
 7
 LICENSE,0/3/0398ccd0f49298b10a3d76a47800d2ebecd49859
 ;
@@ -95,8 +93,6 @@ Mengine/src/main/java/dgca/verifier/app/engine/data/source/local/Converters.kt,
 Lengine/src/main/java/dgca/verifier/app/engine/data/source/local/RuleLocal.kt,c/f/cfed273b1c4c732d7cc230783ab2d44e9479b121
 ‚
 Rengine/src/main/java/dgca/verifier/app/engine/data/source/local/RuleLocalMapper.kt,2/f/2f57434f447e572be02daf669a394743fb497810
-‰
-Yengine/src/androidTest/java/dgca/verifier/app/engine/data/source/local/AppDatabaseTest.kt,e/e/eed75aa5cfa808870acdcf4626062e753f2231f1
 Œ
 \engine/src/main/java/dgca/verifier/app/engine/data/source/local/RuleWithDescriptionsLocal.kt,b/e/be22de003cf629eedaa426c49d8235133871b491
 o

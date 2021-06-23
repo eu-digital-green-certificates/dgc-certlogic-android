@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.readValue
 import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.Rule
+import java.lang.StringBuilder
 
 /*-
  * ---license-start
@@ -63,17 +64,27 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
     ): List<ValidationResult> {
         return if (rules.isNotEmpty()) {
             val validationResults = mutableListOf<ValidationResult>()
+            val schemaJsonNode = objectMapper.readValue<JsonNode>(schemaJson)
             val dataJsonNode = prepareData(externalParameter, payload)
-            rules.forEach {
+            rules.forEach { it ->
                 val isValid = jsonLogicValidator.isDataValid(it.logic, dataJsonNode)
                 val res = when {
                     isValid -> Result.PASSED
                     else -> Result.FAIL
                 }
+                val cur = StringBuilder()
+                it.affectedString.forEach { affectedField ->
+                    cur.append(
+                        "${
+                            schemaJsonNode.findValue(affectedField).findValue("description").asText()
+                        }: ${dataJsonNode.findValue(affectedField).asText()}\n"
+                    )
+                }
                 validationResults.add(
                     ValidationResult(
                         it,
                         res,
+                        cur.toString(),
                         null
                     )
                 )

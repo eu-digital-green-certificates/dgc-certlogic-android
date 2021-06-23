@@ -28,4 +28,9 @@ enum class Result {
     PASSED, FAIL, OPEN
 }
 
-class ValidationResult(val rule: Rule, val result: Result, val validationErrors: List<Throwable>?)
+class ValidationResult(
+    val rule: Rule,
+    val result: Result,
+    val current: String,
+    val validationErrors: List<Throwable>?,
+)
