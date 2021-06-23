@@ -27,6 +27,7 @@ import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.source.remote.RuleRemote
 import dgca.verifier.app.engine.data.source.remote.toRules
 import org.apache.commons.io.IOUtils
+import org.junit.Ignore
 import org.junit.jupiter.api.Test
 import java.io.InputStream
 import java.nio.charset.Charset
@@ -55,13 +56,12 @@ import java.time.ZonedDateTime
  */
 internal class DefaultCertLogicEngineTest {
     companion object {
-        const val RULE_JSON_FILE_NAME = "mock_rule.json"
+        const val RULE_JSON_FILE_NAME = "rule.json"
         const val HCERT_JSON_FILE_NAME = "hcert.json"
     }
 
     private val objectMapper = ObjectMapper().apply { findAndRegisterModules() }
 
-    @Test
     fun testValidate() {
         val schema = "1.0.0"
         val countryIsoCode = "de"
