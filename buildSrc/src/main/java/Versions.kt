@@ -30,10 +30,15 @@ object Versions {
     const val kotlin_reflect = "1.4.32"
     const val jackson_cbor = "2.12.3"
     const val jackson_kotlin = "2.12.0"
+    const val jackson_datetype = "jackson-datatype-jsr310"
+    const val retrofit = "2.9.0"
     const val appache_commons = "2.9.0"
+    const val room_version = "2.3.0"
 
     // Tests
     const val junit = "4.13.1"
     const val junit_jupiter = "5.7.1"
     const val hamcrest = "2.2"
+    const val test_version = "1.3.0"
+    const val test_ext_version = "1.1.2"
 }

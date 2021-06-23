@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import eu.ehn.dcc.certlogic.evaluate
+import org.junit.Ignore
 import org.junit.jupiter.api.Test
 
 internal class CertLogicTests {
-    private val objectMapper = jacksonObjectMapper()
+    private val objectMapper = jacksonObjectMapper().apply { findAndRegisterModules() }
 
-    @Test
     fun test() {
         val ruleJson = "{\n" +
                 "  \"after\": [\n" +
@@ -20,15 +20,9 @@ internal class CertLogicTests {
         var rule: ObjectNode = objectMapper
             .readValue(ruleJson)
 //        (rule.get("after").get(0).get("plusTime") as ArrayNode).set(0, JsonDateTime.fromString(((rule.get("after").get(0).get("plusTime") as ArrayNode).get(0) as TextNode).textValue()))
-        rule = rule.normalize()
         var data: ObjectNode =
             objectMapper.readValue("{\"time\": \"2021-06-16T11:47:18.855Z\"}")
-        data = data.normalize()
         val res = evaluate(rule, data)
         return
-    }
-
-    private fun ObjectNode.normalize(): ObjectNode {
-        return this
     }
 }

@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils
 import org.junit.Test
 import java.io.InputStream
 import java.nio.charset.Charset
+import java.util.*
 
 /*-
  * ---license-start
@@ -65,7 +66,7 @@ class RuleRemoteMapperTest {
         assertEquals(ruleRemote.validTo, rule.validTo)
         assertEquals(ruleRemote.affectedString, rule.affectedString)
         assertEquals(ruleRemote.logic, rule.logic)
-        assertEquals(ruleRemote.countryCode, rule.countryCode)
+        assertEquals(ruleRemote.countryCode.toLowerCase(Locale.ROOT), rule.countryCode)
     }
 
     @Test
