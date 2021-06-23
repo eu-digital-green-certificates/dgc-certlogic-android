@@ -28,7 +28,7 @@
 
 This repository contains the source code of the EU Digital COVID Certificate Certlogic for Android. 
 
-- [ ] TODO: Component description
+This module allows integrating the certlogic in Android apps.
 
 ## Development
 
