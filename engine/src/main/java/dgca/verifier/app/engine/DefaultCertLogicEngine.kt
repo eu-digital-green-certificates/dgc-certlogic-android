@@ -35,6 +35,7 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
     companion object {
         private const val EXTERNAL_KEY = "external"
         private const val HCERT_KEY = "hcert"
+        private const val DESCRIPTION = "description"
     }
 
     init {
@@ -66,23 +67,26 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
             val validationResults = mutableListOf<ValidationResult>()
             val schemaJsonNode = objectMapper.readValue<JsonNode>(schemaJson)
             val dataJsonNode = prepareData(externalParameter, payload)
-            rules.forEach { it ->
-                val isValid = jsonLogicValidator.isDataValid(it.logic, dataJsonNode)
+            rules.forEach { rule ->
+                val isValid = jsonLogicValidator.isDataValid(rule.logic, dataJsonNode)
                 val res = when {
                     isValid -> Result.PASSED
                     else -> Result.FAIL
                 }
                 val cur = StringBuilder()
-                it.affectedString.forEach { affectedField ->
-                    cur.append(
-                        "${
-                            schemaJsonNode.findValue(affectedField).findValue("description").asText()
-                        }: ${dataJsonNode.findValue(affectedField).asText()}\n"
-                    )
+                rule.affectedString.forEach { affectedField ->
+                    val description =
+                        schemaJsonNode.findValue(affectedField)?.findValue(DESCRIPTION)?.asText()
+                    val currentState = dataJsonNode.findValue(affectedField)?.asText()
+                    if (description?.isNotBlank() == true && currentState?.isNotBlank() == true) {
+                        cur.append(
+                            "$description: $currentState\n"
+                        )
+                    }
                 }
                 validationResults.add(
                     ValidationResult(
-                        it,
+                        rule,
                         res,
                         cur.toString(),
                         null

@@ -26,30 +26,30 @@ import java.time.ZonedDateTime
  * Created by osarapulov on 11.06.21 11:03
  */
 data class RuleRemote(
-    @JsonProperty("IDENTIFIER")
+    @JsonProperty("Identifier")
     val identifier: String,
-    @JsonProperty("TYPE")
+    @JsonProperty("Type")
     val type: String,
-    @JsonProperty("VERSION")
+    @JsonProperty("Version")
     val version: String,
-    @JsonProperty("SCHEMAVERSION")
+    @JsonProperty("SchemaVersion")
     val schemaVersion: String,
-    @JsonProperty("ENGINE")
+    @JsonProperty("Engine")
     val engine: String,
-    @JsonProperty("ENGINEVERSION")
+    @JsonProperty("EngineVersion")
     val engineVersion: String,
-    @JsonProperty("CERTIFICATETYPE")
+    @JsonProperty("CertificateType")
     val certificateType: String,
-    @JsonProperty("DESCRIPTION")
+    @JsonProperty("Description")
     val descriptions: List<DescriptionRemote>,
-    @JsonProperty("VALIDFROM")
+    @JsonProperty("ValidFrom")
     val validFrom: ZonedDateTime,
-    @JsonProperty("VALIDTO")
+    @JsonProperty("ValidTo")
     val validTo: ZonedDateTime,
-    @JsonProperty("AFFECTEDFIELDS")
+    @JsonProperty("AffectedFields")
     val affectedString: List<String>,
-    @JsonProperty("LOGIC")
+    @JsonProperty("Logic")
     val logic: JsonNode,
-    @JsonProperty("COUNTRY")
+    @JsonProperty("Country")
     val countryCode: String
 )
