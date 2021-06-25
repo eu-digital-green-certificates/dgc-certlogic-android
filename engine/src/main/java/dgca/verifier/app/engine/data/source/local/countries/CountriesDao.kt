@@ -25,10 +25,7 @@ package dgca.verifier.app.engine.data.source.local.countries
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Transaction
-import dgca.verifier.app.engine.data.CertificateType
-import dgca.verifier.app.engine.data.Type
-import java.time.ZonedDateTime
+import kotlinx.coroutines.flow.Flow
 
 /*-
  * ---license-start
@@ -54,7 +51,7 @@ import java.time.ZonedDateTime
 @Dao
 interface CountriesDao {
     @Query("SELECT * from countries")
-    fun getAll(): List<CountryLocal>
+    fun getAll(): Flow<List<CountryLocal>>
 
     @Insert
     fun insertAll(vararg countriesLocal: CountryLocal)

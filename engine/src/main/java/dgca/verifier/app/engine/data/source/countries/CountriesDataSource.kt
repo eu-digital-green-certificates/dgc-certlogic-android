@@ -22,6 +22,8 @@
 
 package dgca.verifier.app.engine.data.source.countries
 
+import kotlinx.coroutines.flow.Flow
+
 /*-
  * ---license-start
  * eu-digital-green-certificates / dgc-certlogic-android
@@ -47,5 +49,5 @@ interface CountriesDataSource {
     /**
      * Provides list of countries ISO codes.
      */
-    suspend fun getCountries(): List<String>
+    fun getCountries(): Flow<List<String>>
 }

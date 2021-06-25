@@ -22,6 +22,8 @@
 
 package dgca.verifier.app.engine.data.source.local.countries
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.*
 
 /*-
@@ -54,8 +56,8 @@ class DefaultCountriesLocalDataSource(private val countriesDao: CountriesDao) :
         }
     }
 
-    override suspend fun getCountries(): List<String> =
-        countriesDao.getAll().map { it.toCountry() }.toMutableList()
+    override fun getCountries(): Flow<List<String>> =
+        countriesDao.getAll().map { it.map { it.toCountry() } }
 }
 
 fun String.toCountryLocal(): CountryLocal = CountryLocal(isoCode = this.toLowerCase(Locale.ROOT))
