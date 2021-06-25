@@ -3,6 +3,11 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/rules/EngineDatabase.kt">
           <value>
             <set />
