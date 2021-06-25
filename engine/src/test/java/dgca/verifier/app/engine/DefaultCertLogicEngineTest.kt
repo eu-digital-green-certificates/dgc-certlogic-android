@@ -24,11 +24,9 @@ package dgca.verifier.app.engine
 
 import com.fasterxml.jackson.databind.*
 import dgca.verifier.app.engine.data.ExternalParameter
-import dgca.verifier.app.engine.data.source.remote.RuleRemote
-import dgca.verifier.app.engine.data.source.remote.toRules
+import dgca.verifier.app.engine.data.source.remote.rules.RuleRemote
+import dgca.verifier.app.engine.data.source.remote.rules.toRules
 import org.apache.commons.io.IOUtils
-import org.junit.Ignore
-import org.junit.jupiter.api.Test
 import java.io.InputStream
 import java.nio.charset.Charset
 import java.time.ZonedDateTime

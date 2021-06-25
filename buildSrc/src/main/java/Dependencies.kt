@@ -45,4 +45,6 @@ object Deps {
 
     const val room_runtime = "androidx.room:room-runtime:${Versions.room_version}"
     const val room_compiler = "androidx.room:room-compiler:${Versions.room_version}"
+    const val lifecycle_livedata_version = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle_livedata_version}"
+    const val room_ktx = "androidx.room:room-ktx:${Versions.room_ktx}"
 }

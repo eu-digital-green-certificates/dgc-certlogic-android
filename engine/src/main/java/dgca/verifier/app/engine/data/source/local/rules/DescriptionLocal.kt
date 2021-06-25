@@ -1,6 +1,9 @@
-package dgca.verifier.app.engine
+package dgca.verifier.app.engine.data.source.local.rules
 
-import dgca.verifier.app.engine.data.Rule
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
+import dgca.verifier.app.engine.data.source.local.rules.RuleLocal
 
 /*-
  * ---license-start
@@ -21,15 +24,21 @@ import dgca.verifier.app.engine.data.Rule
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 11.06.21 10:59
+ * Created by osarapulov on 16.06.21 8:35
  */
-enum class Result {
-    PASSED, FAIL, OPEN
-}
-
-class ValidationResult(
-    val rule: Rule,
-    val result: Result,
-    val current: String,
-    val validationErrors: List<Throwable>?,
+@Entity(
+    tableName = "descriptions",
+    foreignKeys = [ForeignKey(
+        entity = RuleLocal::class,
+        parentColumns = arrayOf("ruleId"),
+        childColumns = arrayOf("ruleContainerId"),
+        onDelete = ForeignKey.CASCADE
+    )]
+)
+data class DescriptionLocal(
+    @PrimaryKey(autoGenerate = true)
+    val descriptionId: Long = 0,
+    val ruleContainerId: Long = 0,
+    val lang: String,
+    val desc: String
 )

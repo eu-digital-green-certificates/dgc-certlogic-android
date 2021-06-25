@@ -34,6 +34,8 @@ object Versions {
     const val retrofit = "2.9.0"
     const val appache_commons = "2.9.0"
     const val room_version = "2.3.0"
+    const val lifecycle_livedata_version = "2.4.0-alpha02"
+    const val room_ktx = "2.4.0-alpha03"
 
     // Tests
     const val junit = "4.13.1"

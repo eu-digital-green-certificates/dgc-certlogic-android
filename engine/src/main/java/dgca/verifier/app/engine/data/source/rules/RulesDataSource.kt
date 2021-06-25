@@ -1,6 +1,9 @@
-package dgca.verifier.app.engine
+package dgca.verifier.app.engine.data.source.rules
 
+import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Rule
+import dgca.verifier.app.engine.data.Type
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -21,15 +24,13 @@ import dgca.verifier.app.engine.data.Rule
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 11.06.21 10:59
+ * Created by osarapulov on 13.06.21 16:54
  */
-enum class Result {
-    PASSED, FAIL, OPEN
+interface RulesDataSource {
+    fun getRulesBy(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+        type: Type,
+        certificateType: CertificateType
+    ): List<Rule>
 }
-
-class ValidationResult(
-    val rule: Rule,
-    val result: Result,
-    val current: String,
-    val validationErrors: List<Throwable>?,
-)
