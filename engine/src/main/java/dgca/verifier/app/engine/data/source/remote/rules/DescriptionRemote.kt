@@ -1,8 +1,6 @@
-package dgca.verifier.app.engine.data.source.local
+package dgca.verifier.app.engine.data.source.remote.rules
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.Relation
+import com.fasterxml.jackson.annotation.JsonProperty
 
 /*-
  * ---license-start
@@ -23,13 +21,9 @@ import androidx.room.Relation
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 16.06.21 9:44
+ * Created by osarapulov on 11.06.21 11:00
  */
-data class RuleWithDescriptionsLocal(
-    @Embedded val rule: RuleLocal,
-    @Relation(
-        parentColumn = "ruleId",
-        entityColumn = "descriptionId"
-    )
-    val descriptions: List<DescriptionLocal>
+data class DescriptionRemote(
+    @JsonProperty("lang") val lang: String,
+    @JsonProperty("desc") val desc: String
 )

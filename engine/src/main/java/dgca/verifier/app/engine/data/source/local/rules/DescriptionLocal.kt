@@ -1,6 +1,9 @@
-package dgca.verifier.app.engine.data.source.remote
+package dgca.verifier.app.engine.data.source.local.rules
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
+import dgca.verifier.app.engine.data.source.local.rules.RuleLocal
 
 /*-
  * ---license-start
@@ -21,9 +24,21 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 11.06.21 11:00
+ * Created by osarapulov on 16.06.21 8:35
  */
-data class DescriptionRemote(
-    @JsonProperty("lang") val lang: String,
-    @JsonProperty("desc") val desc: String
+@Entity(
+    tableName = "descriptions",
+    foreignKeys = [ForeignKey(
+        entity = RuleLocal::class,
+        parentColumns = arrayOf("ruleId"),
+        childColumns = arrayOf("ruleContainerId"),
+        onDelete = ForeignKey.CASCADE
+    )]
+)
+data class DescriptionLocal(
+    @PrimaryKey(autoGenerate = true)
+    val descriptionId: Long = 0,
+    val ruleContainerId: Long = 0,
+    val lang: String,
+    val desc: String
 )

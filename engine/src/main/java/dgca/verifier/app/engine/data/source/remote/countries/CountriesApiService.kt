@@ -17,26 +17,17 @@
  *  limitations under the License.
  *  ---license-end
  *
- *  Created by mykhailo.nester on 4/24/21 2:50 PM
+ *  Created by osarapulov on 6/25/21 9:21 AM
  */
 
-package dgca.verifier.app.engine.data.source.remote
+package dgca.verifier.app.engine.data.source.remote.countries
 
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Url
 
-interface RulesApiService {
+interface CountriesApiService {
 
     @GET
     suspend fun getCountries(@Url url: String): Response<List<String>>
-
-    @GET
-    suspend fun getRuleIdentifiers(@Url rulesUrl: String): Response<List<RuleIdentifierRemote>>
-
-    @GET
-    suspend fun getRules(@Url url: String): Response<List<RuleRemote>>
-
-    @GET
-    suspend fun getRule(@Url url: String): Response<RuleRemote>
 }

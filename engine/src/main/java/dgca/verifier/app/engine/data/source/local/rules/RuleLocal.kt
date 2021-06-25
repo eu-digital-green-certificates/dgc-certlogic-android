@@ -1,7 +1,9 @@
-package dgca.verifier.app.engine.data.source.local
+package dgca.verifier.app.engine.data.source.local.rules
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.fasterxml.jackson.databind.JsonNode
 import dgca.verifier.app.engine.data.CertificateType
-import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
@@ -24,28 +26,22 @@ import java.time.ZonedDateTime
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 13.06.21 16:56
+ * Created by osarapulov on 16.06.21 8:26
  */
-class DefaultRulesLocalDataSource(private val rulesDao: RulesDao) : RulesLocalDataSource {
-
-    override fun addRules(rules: List<Rule>) {
-        rulesDao.insertAll(*rules.toRulesWithDescriptionLocal().toTypedArray())
-    }
-
-    override fun removeRules() {
-        rulesDao.deleteAll()
-    }
-
-    override fun getRulesBy(
-        countryIsoCode: String,
-        validationClock: ZonedDateTime,
-        type: Type,
-        certificateType: CertificateType
-    ): List<Rule> = rulesDao.getRulesWithDescriptionsBy(
-        countryIsoCode,
-        validationClock,
-        type,
-        certificateType,
-        CertificateType.GENERAL
-    ).toRules()
-}
+@Entity(tableName = "rules")
+data class RuleLocal(
+    @PrimaryKey(autoGenerate = true)
+    val ruleId: Long = 0,
+    val identifier: String,
+    val type: Type,
+    val version: String,
+    val schemaVersion: String,
+    val engine: String,
+    val engineVersion: String,
+    val certificateType: CertificateType,
+    val validFrom: ZonedDateTime,
+    val validTo: ZonedDateTime,
+    val affectedString: List<String>,
+    val logic: JsonNode,
+    val countryCode: String,
+)

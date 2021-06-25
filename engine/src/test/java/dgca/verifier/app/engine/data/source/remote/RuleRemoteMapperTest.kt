@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
+import dgca.verifier.app.engine.data.source.remote.rules.DescriptionRemote
+import dgca.verifier.app.engine.data.source.remote.rules.RuleRemote
+import dgca.verifier.app.engine.data.source.remote.rules.toDescriptions
+import dgca.verifier.app.engine.data.source.remote.rules.toRule
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
 import org.apache.commons.io.IOUtils

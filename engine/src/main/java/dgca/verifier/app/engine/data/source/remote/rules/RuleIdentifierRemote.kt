@@ -20,7 +20,7 @@
  *  Created by osarapulov on 6/21/21 11:52 PM
  */
 
-package dgca.verifier.app.engine.data.source.remote
+package dgca.verifier.app.engine.data.source.remote.rules
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
