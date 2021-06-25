@@ -82,6 +82,10 @@ Eengine/src/main/java/dgca/verifier/app/engine/data/CertificateType.kt,7/c/7ccb
 ˆ
 Xengine/src/test/java/dgca/verifier/app/engine/data/source/remote/RuleRemoteMapperTest.kt,4/7/47aef62203a1a91fe42d2ec132cbdd516d2227ae
 j
+<<<<<<< HEAD
 :engine/src/main/java/dgca/verifier/app/engine/data/Type.kt,c/3/c3dfdb585eda8442c6fc56355c9716f77aec02fd
 ‰
 Yengine/src/main/java/dgca/verifier/app/engine/data/source/local/countries/CountriesDao.kt,a/d/adfabc95c91cfcd6142a879f333dbb841b90beb4
+=======
+:engine/src/main/java/dgca/verifier/app/engine/data/Type.kt,c/3/c3dfdb585eda8442c6fc56355c9716f77aec02fd
+>>>>>>> main
