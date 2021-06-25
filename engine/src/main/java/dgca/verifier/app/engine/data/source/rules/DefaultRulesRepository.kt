@@ -57,7 +57,7 @@ class DefaultRulesRepository(
     private val remoteDataSource: RulesRemoteDataSource,
     private val localDataSource: RulesLocalDataSource
 ) : RulesRepository {
-    override suspend fun loadRules(countriesUrl: String, rulesUrl: String) {
+    override suspend fun loadRules(rulesUrl: String) {
         val rulesRemote = mutableListOf<RuleRemote>()
         val ruleIdentifiersRemote = remoteDataSource.getRuleIdentifiers(rulesUrl)
 

@@ -17,18 +17,13 @@
  *  limitations under the License.
  *  ---license-end
  *
- *  Created by osarapulov on 6/25/21 9:18 AM
+ *  Created by osarapulov on 6/25/21 9:21 AM
  */
 
-package dgca.verifier.app.engine.data.source.local.rules
+package dgca.verifier.app.engine.data.source.remote.valuesets
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import dgca.verifier.app.engine.data.source.local.countries.CountriesDao
-import dgca.verifier.app.engine.data.source.local.countries.CountryLocal
-import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetLocal
-import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsDao
+import dgca.verifier.app.engine.data.*
+import java.util.*
 
 /*-
  * ---license-start
@@ -49,17 +44,18 @@ import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsDao
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 16.06.21 9:05
+ * Created by osarapulov on 17.06.21 15:38
  */
-@Database(
-    entities = [RuleLocal::class, DescriptionLocal::class, CountryLocal::class, ValueSetLocal::class],
-    version = 1
+fun ValueSetRemote.toValueSet(): ValueSet = ValueSet(
+    valueSetId = this.valueSetId,
+    valueSetDate = this.valueSetDate,
+    valueSetValues = this.valueSetValues
 )
-@TypeConverters(Converters::class)
-abstract class EngineDatabase : RoomDatabase() {
-    abstract fun rulesDao(): RulesDao
 
-    abstract fun countriesDao(): CountriesDao
-
-    abstract fun valueSetsDao(): ValueSetsDao
+fun List<ValueSetRemote>.toValueSets(): List<ValueSet> {
+    val valueSets = mutableListOf<ValueSet>()
+    forEach {
+        valueSets.add(it.toValueSet())
+    }
+    return valueSets
 }

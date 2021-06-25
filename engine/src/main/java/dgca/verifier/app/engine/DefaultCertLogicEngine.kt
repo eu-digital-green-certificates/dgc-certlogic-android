@@ -34,7 +34,7 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
 
     companion object {
         private const val EXTERNAL_KEY = "external"
-        private const val HCERT_KEY = "hcert"
+        private const val PAYLOAD_KEY = "payload"
         private const val DESCRIPTION = "description"
     }
 
@@ -51,7 +51,7 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
             objectMapper.readValue(objectMapper.writeValueAsString(externalParameter))
         )
         this.set<JsonNode>(
-            HCERT_KEY,
+            PAYLOAD_KEY,
             objectMapper.readValue<JsonNode>(payload)
         )
     }
