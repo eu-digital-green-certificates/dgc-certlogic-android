@@ -20,15 +20,9 @@
  *  Created by osarapulov on 6/25/21 9:18 AM
  */
 
-package dgca.verifier.app.engine.data.source.local.rules
+package dgca.verifier.app.engine.data.source.local.valuesets
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import dgca.verifier.app.engine.data.source.local.countries.CountriesDao
-import dgca.verifier.app.engine.data.source.local.countries.CountryLocal
-import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetLocal
-import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsDao
+import dgca.verifier.app.engine.data.ValueSet
 
 /*-
  * ---license-start
@@ -49,17 +43,33 @@ import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsDao
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 16.06.21 9:05
+ * Created by osarapulov on 16.06.21 9:20
  */
-@Database(
-    entities = [RuleLocal::class, DescriptionLocal::class, CountryLocal::class, ValueSetLocal::class],
-    version = 1
+fun ValueSet.toValueSetLocal(): ValueSetLocal = ValueSetLocal(
+    valueSetId = this.valueSetId,
+    valueSetDate = this.valueSetDate,
+    valueSetValues = this.valueSetValues
 )
-@TypeConverters(Converters::class)
-abstract class EngineDatabase : RoomDatabase() {
-    abstract fun rulesDao(): RulesDao
 
-    abstract fun countriesDao(): CountriesDao
 
-    abstract fun valueSetsDao(): ValueSetsDao
+fun ValueSetLocal.toValueSet(): ValueSet = ValueSet(
+    valueSetId = this.valueSetId,
+    valueSetDate = this.valueSetDate,
+    valueSetValues = this.valueSetValues
+)
+
+fun List<ValueSetLocal>.toValueSets(): List<ValueSet> {
+    val valueSets = mutableListOf<ValueSet>()
+    forEach {
+        valueSets.add(it.toValueSet())
+    }
+    return valueSets
+}
+
+fun List<ValueSet>.toValueSetsLocal(): List<ValueSetLocal> {
+    val valueSetsLocal = mutableListOf<ValueSetLocal>()
+    forEach {
+        valueSetsLocal.add(it.toValueSetLocal())
+    }
+    return valueSetsLocal
 }

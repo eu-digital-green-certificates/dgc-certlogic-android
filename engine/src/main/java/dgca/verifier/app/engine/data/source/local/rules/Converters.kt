@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZonedDateTime
 
 
@@ -53,6 +54,20 @@ import java.time.ZonedDateTime
  * Created by osarapulov on 16.06.21 8:42
  */
 class Converters {
+    @TypeConverter
+    fun timestampToLocalDate(value: Long?): LocalDate = if (value != null) {
+        val instant: Instant = Instant.ofEpochMilli(value)
+        ZonedDateTime.ofInstant(instant, UTC_ZONE_ID)
+    } else {
+        ZonedDateTime.now(UTC_ZONE_ID)
+    }.toLocalDate()
+
+    @TypeConverter
+    fun localDateToTimestamp(localDate: LocalDate?): Long {
+        return (localDate?.atStartOfDay(UTC_ZONE_ID)
+            ?: ZonedDateTime.now(UTC_ZONE_ID)).toInstant().toEpochMilli()
+    }
+
     @TypeConverter
     fun fromTimestamp(value: Long?): ZonedDateTime = if (value != null) {
         val instant: Instant = Instant.ofEpochMilli(value)

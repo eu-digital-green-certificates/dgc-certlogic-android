@@ -17,18 +17,15 @@
  *  limitations under the License.
  *  ---license-end
  *
- *  Created by osarapulov on 6/25/21 9:18 AM
+ *  Created by osarapulov on 6/25/21 9:21 AM
  */
 
-package dgca.verifier.app.engine.data.source.local.rules
+package dgca.verifier.app.engine.data.source.valuesets
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import dgca.verifier.app.engine.data.source.local.countries.CountriesDao
-import dgca.verifier.app.engine.data.source.local.countries.CountryLocal
-import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetLocal
-import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsDao
+import dgca.verifier.app.engine.data.source.remote.valuesets.ValueSetIdentifierRemote
+import dgca.verifier.app.engine.data.source.remote.valuesets.ValueSetRemote
+import dgca.verifier.app.engine.data.source.remote.valuesets.ValueSetsRemoteDataSource
+import retrofit2.Response
 
 /*-
  * ---license-start
@@ -49,17 +46,18 @@ import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsDao
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 16.06.21 9:05
+ * Created by osarapulov on 13.06.21 16:54
  */
-@Database(
-    entities = [RuleLocal::class, DescriptionLocal::class, CountryLocal::class, ValueSetLocal::class],
-    version = 1
-)
-@TypeConverters(Converters::class)
-abstract class EngineDatabase : RoomDatabase() {
-    abstract fun rulesDao(): RulesDao
+class DefaultValueSetsRemoteDataSource(private val apiService: ValueSetsApiService) :
+    ValueSetsRemoteDataSource {
+    override suspend fun getValueSetsIdentifiers(url: String): List<ValueSetIdentifierRemote> {
+        val response: Response<List<ValueSetIdentifierRemote>> =
+            apiService.getValueSetsIdentifiers(url)
+        return response.body() ?: listOf()
+    }
 
-    abstract fun countriesDao(): CountriesDao
-
-    abstract fun valueSetsDao(): ValueSetsDao
+    override suspend fun getValueSet(url: String): ValueSetRemote? {
+        val ruleResponse: Response<ValueSetRemote> = apiService.getValueSet(url)
+        return ruleResponse.body()
+    }
 }

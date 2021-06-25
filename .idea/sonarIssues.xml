@@ -223,6 +223,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/ValueSet.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/DefaultRulesRepository.kt">
           <value>
             <set />
@@ -328,6 +333,41 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/rules/Converters.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/rules/EngineDatabase.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/valuesets/DefaultValueSetsLocalDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/valuesets/ValueSetLocal.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/valuesets/ValueSetLocalMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/valuesets/ValueSetsDao.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/valuesets/ValueSetsLocalDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/DefaultRulesRemoteDataSource.kt">
           <value>
             <set />
@@ -349,6 +389,66 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/RulesRemoteDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/valuesets/ValueSetIdentifierRemote.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/valuesets/ValueSetRemote.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/valuesets/ValueSetRemoteMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/remote/valuesets/ValueSetsRemoteDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/rules/DefaultRulesRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/rules/RulesRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/valuesets/CountriesDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/valuesets/DefaultValueSetsRemoteDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/valuesets/DefaultValueSetsRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/valuesets/ValueSetsApiService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/valuesets/ValueSetsDataSource.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/valuesets/ValueSetsRepository.kt">
           <value>
             <set />
           </value>
@@ -388,12 +488,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/test/java/dgca/verifier/app/engine/data/source/remote/ValueSetRemoteTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/test/resources/hcert.json">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/engine/src/test/resources/rule.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/test/resources/valueset.json">
           <value>
             <set />
           </value>
@@ -493,6 +603,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/data/Config.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/di/EngineModule.kt">
           <value>
             <set />
@@ -569,6 +684,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/worker/RulesLoadWorker.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/worker/ValueSetsLoadWorker.kt">
           <value>
             <set />
           </value>
