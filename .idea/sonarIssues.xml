@@ -38,6 +38,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/buildSrc/src/main/java/Dependencies.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/buildSrc/src/main/java/Versions.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
       </map>
     </option>
   </component>
