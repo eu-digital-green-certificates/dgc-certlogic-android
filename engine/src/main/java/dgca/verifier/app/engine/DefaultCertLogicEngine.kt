@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.readValue
 import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.Rule
-import java.lang.StringBuilder
 
 /*-
  * ---license-start
@@ -57,7 +56,7 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
     }
 
     override fun validate(
-        schema: String,
+        hcertVersionString: String,
         schemaJson: String,
         rules: List<Rule>,
         externalParameter: ExternalParameter,
@@ -67,10 +66,16 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
             val validationResults = mutableListOf<ValidationResult>()
             val schemaJsonNode = objectMapper.readValue<JsonNode>(schemaJson)
             val dataJsonNode = prepareData(externalParameter, payload)
+            val hcertVersion = hcertVersionString.toVersion()
             rules.forEach { rule ->
-                val isValid = jsonLogicValidator.isDataValid(rule.logic, dataJsonNode)
+                val ruleVersion = rule.version.toVersion()
                 val res = when {
-                    isValid -> Result.PASSED
+                    hcertVersion == null || ruleVersion == null || hcertVersion.first != ruleVersion.first -> Result.OPEN
+                    hcertVersion.isGreaterOrEqualThan(ruleVersion) &&
+                            jsonLogicValidator.isDataValid(
+                        rule.logic,
+                        dataJsonNode
+                    ) -> Result.PASSED
                     else -> Result.FAIL
                 }
                 val cur = StringBuilder()
@@ -98,5 +103,18 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
             emptyList()
         }
 
+    }
+
+    private fun Triple<Int, Int, Int>.isGreaterOrEqualThan(version: Triple<Int, Int, Int>): Boolean =
+        first > version.first || (first == version.first && (second > version.second || (second == version.second && third >= version.third)))
+
+    /**
+     * Tries to convert String into a version based on pattern majorVersion.minorVersion.patchVersion.
+     */
+    private fun String.toVersion(): Triple<Int, Int, Int>? = try {
+        val versionPieces = this.split('.')
+        Triple(versionPieces[0].toInt(), versionPieces[1].toInt(), versionPieces[2].toInt())
+    } catch (error: Throwable) {
+        null
     }
 }
