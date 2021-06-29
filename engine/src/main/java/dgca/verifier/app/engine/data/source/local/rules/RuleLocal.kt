@@ -44,4 +44,5 @@ data class RuleLocal(
     val affectedString: List<String>,
     val logic: JsonNode,
     val countryCode: String,
+    val region: String?,
 )

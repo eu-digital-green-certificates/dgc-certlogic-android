@@ -63,6 +63,7 @@ internal class DefaultCertLogicEngineTest {
     fun testValidate() {
         val schema = "1.0.0"
         val countryIsoCode = "de"
+        val base64EncodedKid = "kid"
         val jsonLogicValidator = DefaultJsonLogicValidator()
         val ruleExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
@@ -76,6 +77,7 @@ internal class DefaultCertLogicEngineTest {
         val certLogicEngine = DefaultCertLogicEngine(jsonLogicValidator)
         val externalParameter =
             ExternalParameter(
+                base64EncodedKid,
                 ZonedDateTime.now(),
                 emptyMap(),
                 countryIsoCode,

@@ -8,8 +8,7 @@ import dgca.verifier.app.engine.data.source.remote.rules.DescriptionRemote
 import dgca.verifier.app.engine.data.source.remote.rules.RuleRemote
 import dgca.verifier.app.engine.data.source.remote.rules.toDescriptions
 import dgca.verifier.app.engine.data.source.remote.rules.toRule
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
+import junit.framework.Assert.*
 import org.apache.commons.io.IOUtils
 import org.junit.Test
 import java.io.InputStream
@@ -40,20 +39,21 @@ import java.util.*
 class RuleRemoteMapperTest {
     companion object {
         const val RULE_JSON_FILE_NAME = "rule.json"
+        const val RULE_WITH_REGION_JSON_FILE_NAME = "rule_with_region.json"
     }
 
     private val objectMapper = ObjectMapper().apply { findAndRegisterModules() }
 
-    private fun fetchRuleRemote(): RuleRemote {
+    private fun fetchRuleRemote(fileName: String): RuleRemote {
         val ruleExampleIs: InputStream =
-            javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
+            javaClass.classLoader!!.getResourceAsStream(fileName)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
         return objectMapper.readValue(ruleJson, RuleRemote::class.java)
     }
 
     @Test
     fun fromRuleRemote() {
-        val ruleRemote: RuleRemote = fetchRuleRemote()
+        val ruleRemote: RuleRemote = fetchRuleRemote(RULE_JSON_FILE_NAME)
         val rule: Rule = ruleRemote.toRule()
         assertEquals(ruleRemote.identifier, rule.identifier)
         assertEquals(Type.valueOf(ruleRemote.type.toUpperCase()), rule.type)
@@ -71,6 +71,30 @@ class RuleRemoteMapperTest {
         assertEquals(ruleRemote.affectedString, rule.affectedString)
         assertEquals(ruleRemote.logic, rule.logic)
         assertEquals(ruleRemote.countryCode.toLowerCase(Locale.ROOT), rule.countryCode)
+        assertNull(ruleRemote.region)
+    }
+
+    @Test
+    fun fromRuleWithRegionRemote() {
+        val ruleRemote: RuleRemote = fetchRuleRemote(RULE_WITH_REGION_JSON_FILE_NAME)
+        val rule: Rule = ruleRemote.toRule()
+        assertEquals(ruleRemote.identifier, rule.identifier)
+        assertEquals(Type.valueOf(ruleRemote.type.toUpperCase()), rule.type)
+        assertEquals(ruleRemote.version, rule.version)
+        assertEquals(ruleRemote.schemaVersion, rule.schemaVersion)
+        assertEquals(ruleRemote.engine, rule.engine)
+        assertEquals(ruleRemote.engineVersion, rule.engineVersion)
+        assertEquals(
+            CertificateType.valueOf(ruleRemote.certificateType.toUpperCase()),
+            rule.certificateType
+        )
+        assertEquals(ruleRemote.descriptions.size, rule.descriptions.size)
+        assertEquals(ruleRemote.validFrom, rule.validFrom)
+        assertEquals(ruleRemote.validTo, rule.validTo)
+        assertEquals(ruleRemote.affectedString, rule.affectedString)
+        assertEquals(ruleRemote.logic, rule.logic)
+        assertEquals(ruleRemote.countryCode.toLowerCase(Locale.ROOT), rule.countryCode)
+        assertEquals(ruleRemote.region, rule.region)
     }
 
     @Test

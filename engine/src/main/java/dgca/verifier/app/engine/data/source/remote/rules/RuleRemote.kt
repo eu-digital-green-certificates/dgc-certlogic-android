@@ -73,5 +73,7 @@ data class RuleRemote(
     @JsonProperty("Logic")
     val logic: JsonNode,
     @JsonProperty("Country")
-    val countryCode: String
+    val countryCode: String,
+    @JsonProperty("Region")
+    val region: String?
 )
