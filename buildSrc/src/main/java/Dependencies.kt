@@ -37,6 +37,9 @@ object Deps {
     const val test_rules = "androidx.test:rules:${Versions.test_version}"
     const val test_ext = "androidx.test.ext:junit:${Versions.test_ext_version}"
 
+    const val mockito_core = "org.mockito:mockito-core:${Versions.mockito_core}"
+    const val mockito_kotlin = "org.mockito.kotlin:mockito-kotlin:${Versions.mockito_kotlin}"
+
     const val jackson_cbor = "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:${Versions.jackson_cbor}"
     const val jackson_kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.jackson_kotlin}"
     const val jackson_datetype = "com.fasterxml.jackson.datatype:${Versions.jackson_datetype}"

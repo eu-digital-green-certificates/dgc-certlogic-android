@@ -26,7 +26,7 @@ import dgca.verifier.app.engine.data.Rule
  */
 interface CertLogicEngine {
     fun validate(
-        schema: String,
+        hcertVersionString: String,
         schemaJson: String,
         rules: List<Rule>,
         externalParameter: ExternalParameter,
