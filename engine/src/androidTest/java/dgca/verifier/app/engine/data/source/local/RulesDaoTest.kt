@@ -52,11 +52,12 @@ internal class RulesDaoTest {
 
     companion object {
         const val RULE_JSON_FILE_NAME = "rule.json"
+        const val RULE_WITH_REGION_JSON_FILE_NAME = "rule_with_region.json"
     }
 
-    private fun fetchRule(): RuleRemote {
+    private fun fetchRule(fileName: String): RuleRemote {
         val ruleExampleIs: InputStream =
-            javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
+            javaClass.classLoader!!.getResourceAsStream(fileName)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
         return objectMapper.readValue(ruleJson, RuleRemote::class.java)
     }
@@ -80,7 +81,44 @@ internal class RulesDaoTest {
     @Test
     @Throws(Exception::class)
     fun testInsert() {
-        val ruleRemote = fetchRule().toRule()
+        val ruleRemote = fetchRule(RULE_JSON_FILE_NAME).toRule()
+        val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
+        rulesDao.insertAll(expected)
+
+        assertTrue(
+            rulesDao.getRulesWithDescriptionsBy(
+                ruleRemote.countryCode,
+                ruleRemote.validTo.plusDays(1),
+                ruleRemote.type,
+                ruleRemote.certificateType,
+                CertificateType.GENERAL
+            ).isEmpty()
+        )
+
+        val actual = rulesDao.getRulesWithDescriptionsBy(
+            ruleRemote.countryCode,
+            ruleRemote.validTo.minusMinutes(1),
+            ruleRemote.type,
+            ruleRemote.certificateType,
+            CertificateType.GENERAL
+        )
+
+        assertTrue(actual.size == 1)
+        assertEquals(expected.rule.copy(ruleId = 1), actual[0].rule)
+        expected.descriptions.forEachIndexed { index, descriptionLocal ->
+            assertEquals(
+                descriptionLocal.copy(
+                    descriptionId = (index + 1).toLong(),
+                    ruleContainerId = 1
+                ), actual[0].descriptions[index]
+            )
+        }
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testInsertRuleWithRegion() {
+        val ruleRemote = fetchRule(RULE_WITH_REGION_JSON_FILE_NAME).toRule()
         val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
         rulesDao.insertAll(expected)
 
@@ -117,7 +155,7 @@ internal class RulesDaoTest {
     @Test
     @Throws(Exception::class)
     fun testDelete() {
-        val ruleRemote = fetchRule().toRule()
+        val ruleRemote = fetchRule(RULE_JSON_FILE_NAME).toRule()
         val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
         rulesDao.insertAll(expected)
 
@@ -135,8 +173,8 @@ internal class RulesDaoTest {
     fun testDeleteAllExcept() {
         val identifierFirst = "identifierFirst"
         val identifierSecond = "identifierSecond"
-        val ruleFirst = fetchRule().toRule().copy(identifier = identifierFirst)
-        val ruleSecond = fetchRule().toRule().copy(identifier = identifierSecond)
+        val ruleFirst = fetchRule(RULE_JSON_FILE_NAME).toRule().copy(identifier = identifierFirst)
+        val ruleSecond = fetchRule(RULE_JSON_FILE_NAME).toRule().copy(identifier = identifierSecond)
         val ruleWithDescriptionsLocalFirst: RuleWithDescriptionsLocal =
             ruleFirst.toRuleWithDescriptionLocal()
         val ruleWithDescriptionsLocalSecond: RuleWithDescriptionsLocal =

@@ -71,7 +71,8 @@ fun Rule.toRuleLocal(): RuleLocal = RuleLocal(
     validTo = this.validTo.withZoneSameInstant(UTC_ZONE_ID),
     affectedString = this.affectedString,
     logic = this.logic,
-    countryCode = this.countryCode
+    countryCode = this.countryCode,
+    region = this.region
 )
 
 fun Description.toDescriptionLocal(): DescriptionLocal =
@@ -104,7 +105,8 @@ fun RuleWithDescriptionsLocal.toRule(): Rule = Rule(
     affectedString = this.rule.affectedString,
     logic = this.rule.logic,
     countryCode = this.rule.countryCode,
-    descriptions = this.descriptions.toDescriptions()
+    descriptions = this.descriptions.toDescriptions(),
+    region = this.rule.region
 )
 
 fun List<RuleWithDescriptionsLocal>.toRules(): List<Rule> {

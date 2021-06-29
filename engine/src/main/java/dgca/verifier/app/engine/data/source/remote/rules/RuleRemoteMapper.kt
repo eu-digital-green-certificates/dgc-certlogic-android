@@ -62,7 +62,8 @@ fun RuleRemote.toRule(): Rule = Rule(
     validTo = this.validTo,
     affectedString = this.affectedString,
     logic = this.logic,
-    countryCode = this.countryCode.toLowerCase(Locale.ROOT)
+    countryCode = this.countryCode.toLowerCase(Locale.ROOT),
+    region = this.region
 )
 
 fun List<RuleRemote>.toRules(): List<Rule> {

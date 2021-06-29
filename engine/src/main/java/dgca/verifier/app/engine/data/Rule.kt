@@ -39,6 +39,7 @@ data class Rule(
     val affectedString: List<String>,
     val logic: JsonNode,
     val countryCode: String,
+    val region: String?
 ) {
     fun getDescriptionFor(languageCode: String): String {
         val description = descriptions[languageCode.toLowerCase(Locale.ROOT)]
