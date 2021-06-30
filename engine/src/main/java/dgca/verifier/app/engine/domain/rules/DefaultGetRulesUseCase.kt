@@ -28,6 +28,7 @@ import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.rules.RulesRepository
 import java.time.ZonedDateTime
+import java.util.*
 
 /*-
  * ---license-start
@@ -54,7 +55,8 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
     override fun invoke(
         acceptanceCountryIsoCode: String,
         issuanceCountryIsoCode: String,
-        certificateType: CertificateType
+        certificateType: CertificateType,
+        region: String?
     ): List<Rule> {
         val acceptanceRules = mutableMapOf<CertificateType, Rule>()
         rulesRepository.getRulesBy(
@@ -62,7 +64,7 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
                 UTC_ZONE_ID
             ), Type.ACCEPTANCE, certificateType
         ).forEach {
-            if (acceptanceRules[it.certificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: -1) {
+            if ((region.isNullOrEmpty() || region.toLowerCase(Locale.ROOT) == it.region) && (acceptanceRules[it.certificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)) {
                 acceptanceRules[it.certificateType] = it
             }
         }
@@ -74,7 +76,7 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
                     UTC_ZONE_ID
                 ), Type.INVALIDATION, certificateType
             ).forEach {
-                if (invalidationRules[it.certificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: -1) {
+                if ((region.isNullOrEmpty() || region.toLowerCase(Locale.ROOT) == it.region) && (invalidationRules[it.certificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)) {
                     invalidationRules[it.certificateType] = it
                 }
             }

@@ -30,6 +30,7 @@ import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.rules.RulesRepository
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -117,6 +118,50 @@ internal class DefaultGetRulesUseCaseTest {
         assertEquals(2, actual.size)
         assertEquals(newAcceptanceRule, actual[0])
         assertEquals(newInvalidationRule, actual[1])
+    }
+
+    @Test
+    fun shouldGetLatestRulesWithRegion() {
+        val region = "region"
+        var acceptanceRule = mockRule(
+            type = Type.ACCEPTANCE,
+            countryCode = acceptanceCountryIso
+        )
+        var invalidationRule = mockRule(
+            type = Type.INVALIDATION,
+            countryCode = invalidationCountryIso
+        )
+
+        doReturn(listOf(acceptanceRule)).`when`(rulesRepository)
+            .getRulesBy(eq(acceptanceCountryIso), any(), eq(Type.ACCEPTANCE), any())
+        doReturn(listOf(invalidationRule)).`when`(rulesRepository)
+            .getRulesBy(eq(invalidationCountryIso), any(), eq(Type.INVALIDATION), any())
+        var actual = getRulesUseCase.invoke(
+            acceptanceCountryIso,
+            invalidationCountryIso,
+            CertificateType.GENERAL,
+            region
+        )
+
+        assertTrue(actual.isEmpty())
+
+        acceptanceRule = acceptanceRule.copy(region = region)
+        invalidationRule = invalidationRule.copy(region = region)
+        doReturn(listOf(acceptanceRule)).`when`(rulesRepository)
+            .getRulesBy(eq(acceptanceCountryIso), any(), eq(Type.ACCEPTANCE), any())
+        doReturn(listOf(invalidationRule)).`when`(rulesRepository)
+            .getRulesBy(eq(invalidationCountryIso), any(), eq(Type.INVALIDATION), any())
+
+        actual = getRulesUseCase.invoke(
+            acceptanceCountryIso,
+            invalidationCountryIso,
+            CertificateType.GENERAL,
+            region
+        )
+
+        assertEquals(2, actual.size)
+        assertEquals(acceptanceRule, actual[0])
+        assertEquals(invalidationRule, actual[1])
     }
 
     private fun mockRule(

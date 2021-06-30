@@ -50,6 +50,7 @@ interface GetRulesUseCase {
     fun invoke(
         acceptanceCountryIsoCode: String,
         issuanceCountryIsoCode: String,
-        certificateType: CertificateType
+        certificateType: CertificateType,
+        region: String? = null
     ): List<Rule>
 }
