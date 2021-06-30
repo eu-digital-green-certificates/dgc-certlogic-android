@@ -76,7 +76,7 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
                     UTC_ZONE_ID
                 ), Type.INVALIDATION, certificateType
             ).forEach {
-                if ((region.isNullOrEmpty() || region.toLowerCase(Locale.ROOT) == it.region) && (invalidationRules[it.certificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)) {
+                if (invalidationRules[it.certificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {
                     invalidationRules[it.certificateType] = it
                 }
             }

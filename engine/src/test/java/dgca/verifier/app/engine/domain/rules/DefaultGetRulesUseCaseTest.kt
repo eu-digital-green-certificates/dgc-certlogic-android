@@ -30,7 +30,6 @@ import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.rules.RulesRepository
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -127,7 +126,7 @@ internal class DefaultGetRulesUseCaseTest {
             type = Type.ACCEPTANCE,
             countryCode = acceptanceCountryIso
         )
-        var invalidationRule = mockRule(
+        val invalidationRule = mockRule(
             type = Type.INVALIDATION,
             countryCode = invalidationCountryIso
         )
@@ -143,14 +142,12 @@ internal class DefaultGetRulesUseCaseTest {
             region
         )
 
-        assertTrue(actual.isEmpty())
+        assertEquals(1, actual.size)
+        assertEquals(invalidationRule, actual[0])
 
         acceptanceRule = acceptanceRule.copy(region = region)
-        invalidationRule = invalidationRule.copy(region = region)
         doReturn(listOf(acceptanceRule)).`when`(rulesRepository)
             .getRulesBy(eq(acceptanceCountryIso), any(), eq(Type.ACCEPTANCE), any())
-        doReturn(listOf(invalidationRule)).`when`(rulesRepository)
-            .getRulesBy(eq(invalidationCountryIso), any(), eq(Type.INVALIDATION), any())
 
         actual = getRulesUseCase.invoke(
             acceptanceCountryIso,
