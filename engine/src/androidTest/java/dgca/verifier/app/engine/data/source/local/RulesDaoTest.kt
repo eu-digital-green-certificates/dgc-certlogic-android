@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.fasterxml.jackson.databind.ObjectMapper
-import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.source.local.rules.RuleWithDescriptionsLocal
 import dgca.verifier.app.engine.data.source.local.rules.RulesDao
 import dgca.verifier.app.engine.data.source.local.rules.EngineDatabase
@@ -90,8 +90,8 @@ internal class RulesDaoTest {
                 ruleRemote.countryCode,
                 ruleRemote.validTo.plusDays(1),
                 ruleRemote.type,
-                ruleRemote.certificateType,
-                CertificateType.GENERAL
+                ruleRemote.ruleCertificateType,
+                RuleCertificateType.GENERAL
             ).isEmpty()
         )
 
@@ -99,8 +99,8 @@ internal class RulesDaoTest {
             ruleRemote.countryCode,
             ruleRemote.validTo.minusMinutes(1),
             ruleRemote.type,
-            ruleRemote.certificateType,
-            CertificateType.GENERAL
+            ruleRemote.ruleCertificateType,
+            RuleCertificateType.GENERAL
         )
 
         assertTrue(actual.size == 1)
@@ -127,8 +127,8 @@ internal class RulesDaoTest {
                 ruleRemote.countryCode,
                 ruleRemote.validTo.plusDays(1),
                 ruleRemote.type,
-                ruleRemote.certificateType,
-                CertificateType.GENERAL
+                ruleRemote.ruleCertificateType,
+                RuleCertificateType.GENERAL
             ).isEmpty()
         )
 
@@ -136,8 +136,8 @@ internal class RulesDaoTest {
             ruleRemote.countryCode,
             ruleRemote.validTo.minusMinutes(1),
             ruleRemote.type,
-            ruleRemote.certificateType,
-            CertificateType.GENERAL
+            ruleRemote.ruleCertificateType,
+            RuleCertificateType.GENERAL
         )
 
         assertTrue(actual.size == 1)

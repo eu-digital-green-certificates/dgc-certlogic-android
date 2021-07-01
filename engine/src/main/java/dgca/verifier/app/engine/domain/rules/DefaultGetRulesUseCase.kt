@@ -24,6 +24,7 @@ package dgca.verifier.app.engine.domain.rules
 
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.rules.RulesRepository
@@ -58,26 +59,26 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
         certificateType: CertificateType,
         region: String?
     ): List<Rule> {
-        val acceptanceRules = mutableMapOf<CertificateType, Rule>()
+        val acceptanceRules = mutableMapOf<RuleCertificateType, Rule>()
         rulesRepository.getRulesBy(
             acceptanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
                 UTC_ZONE_ID
-            ), Type.ACCEPTANCE, certificateType
+            ), Type.ACCEPTANCE, certificateType.toRuleCertificateType()
         ).forEach {
-            if ((region.isNullOrEmpty() || region.toLowerCase(Locale.ROOT) == it.region) && (acceptanceRules[it.certificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)) {
-                acceptanceRules[it.certificateType] = it
+            if ((region.isNullOrEmpty() || region.toLowerCase(Locale.ROOT) == it.region) && (acceptanceRules[it.ruleCertificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)) {
+                acceptanceRules[it.ruleCertificateType] = it
             }
         }
 
-        val invalidationRules = mutableMapOf<CertificateType, Rule>()
+        val invalidationRules = mutableMapOf<RuleCertificateType, Rule>()
         if (issuanceCountryIsoCode.isNotBlank()) {
             rulesRepository.getRulesBy(
                 issuanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
                     UTC_ZONE_ID
-                ), Type.INVALIDATION, certificateType
+                ), Type.INVALIDATION, certificateType.toRuleCertificateType()
             ).forEach {
-                if (invalidationRules[it.certificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {
-                    invalidationRules[it.certificateType] = it
+                if (invalidationRules[it.ruleCertificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {
+                    invalidationRules[it.ruleCertificateType] = it
                 }
             }
         }

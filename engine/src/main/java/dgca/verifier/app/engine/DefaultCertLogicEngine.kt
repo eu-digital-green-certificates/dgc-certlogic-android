@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.readValue
+import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.Rule
 
@@ -28,13 +29,15 @@ import dgca.verifier.app.engine.data.Rule
  *
  * Created by osarapulov on 11.06.21 11:10
  */
-class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator) : CertLogicEngine {
+class DefaultCertLogicEngine(
+    private val affectedFieldsDataRetriever: AffectedFieldsDataRetriever,
+    private val jsonLogicValidator: JsonLogicValidator
+) : CertLogicEngine {
     private val objectMapper = ObjectMapper()
 
     companion object {
         private const val EXTERNAL_KEY = "external"
         private const val PAYLOAD_KEY = "payload"
-        private const val DESCRIPTION = "description"
     }
 
     init {
@@ -56,15 +59,14 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
     }
 
     override fun validate(
+        certificateType: CertificateType,
         hcertVersionString: String,
-        schemaJson: String,
         rules: List<Rule>,
         externalParameter: ExternalParameter,
         payload: String
     ): List<ValidationResult> {
         return if (rules.isNotEmpty()) {
             val validationResults = mutableListOf<ValidationResult>()
-            val schemaJsonNode = objectMapper.readValue<JsonNode>(schemaJson)
             val dataJsonNode = prepareData(externalParameter, payload)
             val hcertVersion = hcertVersionString.toVersion()
             rules.forEach { rule ->
@@ -73,27 +75,21 @@ class DefaultCertLogicEngine(private val jsonLogicValidator: JsonLogicValidator)
                     hcertVersion == null || ruleVersion == null || hcertVersion.first != ruleVersion.first -> Result.OPEN
                     hcertVersion.isGreaterOrEqualThan(ruleVersion) &&
                             jsonLogicValidator.isDataValid(
-                        rule.logic,
-                        dataJsonNode
-                    ) -> Result.PASSED
+                                rule.logic,
+                                dataJsonNode
+                            ) -> Result.PASSED
                     else -> Result.FAIL
                 }
-                val cur = StringBuilder()
-                rule.affectedString.forEach { affectedField ->
-                    val description =
-                        schemaJsonNode.findValue(affectedField)?.findValue(DESCRIPTION)?.asText()
-                    val currentState = dataJsonNode.findValue(affectedField)?.asText()
-                    if (description?.isNotBlank() == true && currentState?.isNotBlank() == true) {
-                        cur.append(
-                            "$description: $currentState\n"
-                        )
-                    }
-                }
+                val cur: String = affectedFieldsDataRetriever.getAffectedFieldsData(
+                    rule,
+                    dataJsonNode,
+                    certificateType
+                )
                 validationResults.add(
                     ValidationResult(
                         rule,
                         res,
-                        cur.toString(),
+                        cur,
                         null
                     )
                 )

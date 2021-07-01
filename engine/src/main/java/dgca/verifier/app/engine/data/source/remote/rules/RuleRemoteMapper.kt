@@ -22,7 +22,7 @@
 
 package dgca.verifier.app.engine.data.source.remote.rules
 
-import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Description
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
@@ -56,7 +56,7 @@ fun RuleRemote.toRule(): Rule = Rule(
     schemaVersion = this.schemaVersion,
     engine = this.engine,
     engineVersion = this.engineVersion,
-    certificateType = CertificateType.valueOf(this.certificateType.toUpperCase(Locale.ROOT)),
+    ruleCertificateType = RuleCertificateType.valueOf(this.certificateType.toUpperCase(Locale.ROOT)),
     descriptions = this.descriptions.toDescriptions(),
     validFrom = this.validFrom,
     validTo = this.validTo,

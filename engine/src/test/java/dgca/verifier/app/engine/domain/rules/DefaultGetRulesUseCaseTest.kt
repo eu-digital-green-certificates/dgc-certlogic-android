@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.rules.RulesRepository
@@ -111,7 +112,7 @@ internal class DefaultGetRulesUseCaseTest {
         val actual = getRulesUseCase.invoke(
             acceptanceCountryIso,
             invalidationCountryIso,
-            CertificateType.GENERAL
+            CertificateType.VACCINATION
         )
 
         assertEquals(2, actual.size)
@@ -138,7 +139,7 @@ internal class DefaultGetRulesUseCaseTest {
         var actual = getRulesUseCase.invoke(
             acceptanceCountryIso,
             invalidationCountryIso,
-            CertificateType.GENERAL,
+            CertificateType.VACCINATION,
             region
         )
 
@@ -152,7 +153,7 @@ internal class DefaultGetRulesUseCaseTest {
         actual = getRulesUseCase.invoke(
             acceptanceCountryIso,
             invalidationCountryIso,
-            CertificateType.GENERAL,
+            CertificateType.VACCINATION,
             region
         )
 
@@ -168,7 +169,7 @@ internal class DefaultGetRulesUseCaseTest {
         schemaVersion: String = "1.0.0",
         engine: String = "engine",
         engineVersion: String = "1.0.0",
-        certificateType: CertificateType = CertificateType.GENERAL,
+        ruleCertificateType: RuleCertificateType = RuleCertificateType.GENERAL,
         descriptions: Map<String, String> = emptyMap(),
         validFrom: ZonedDateTime = ZonedDateTime.now().withZoneSameInstant(UTC_ZONE_ID),
         validTo: ZonedDateTime = ZonedDateTime.now().withZoneSameInstant(UTC_ZONE_ID),
@@ -183,7 +184,7 @@ internal class DefaultGetRulesUseCaseTest {
         schemaVersion,
         engine,
         engineVersion,
-        certificateType,
+        ruleCertificateType,
         descriptions,
         validFrom,
         validTo,

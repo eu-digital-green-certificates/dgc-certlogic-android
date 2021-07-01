@@ -26,7 +26,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
@@ -60,13 +60,13 @@ abstract class RulesDao {
     abstract fun getDescriptionAll(): List<DescriptionLocal>
 
     @Transaction
-    @Query("SELECT * FROM rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo) AND :type = type AND (:certificateType = certificateType OR :generalCertificateType = certificateType)")
+    @Query("SELECT * FROM rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo) AND :type = type AND (:ruleCertificateType = ruleCertificateType OR :generalRuleCertificateType = ruleCertificateType)")
     abstract fun getRulesWithDescriptionsBy(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
-        certificateType: CertificateType,
-        generalCertificateType: CertificateType
+        ruleCertificateType: RuleCertificateType,
+        generalRuleCertificateType: RuleCertificateType
     ): List<RuleWithDescriptionsLocal>
 
     @Insert

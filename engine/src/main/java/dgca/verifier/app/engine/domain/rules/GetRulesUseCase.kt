@@ -23,6 +23,7 @@
 package dgca.verifier.app.engine.domain.rules
 
 import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
 
 /*-
