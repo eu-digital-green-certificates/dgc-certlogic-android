@@ -65,8 +65,8 @@ dependencies {
 
     testImplementation Deps.appache_commons
 
-    testImplementation Deps.mockito_core
-    testImplementation Deps.mockito_kotlin
+    testImplementation "org.mockito:mockito-core:3.9.0"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
 
     // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation Deps.test_runner
