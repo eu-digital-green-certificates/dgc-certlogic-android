@@ -23,6 +23,7 @@
 package dgca.verifier.app.engine
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.source.remote.rules.RuleRemote
 import dgca.verifier.app.engine.data.source.remote.rules.toRules
@@ -71,15 +72,19 @@ internal class DefaultCertLogicEngineTest {
     private val objectMapper = ObjectMapper().apply { findAndRegisterModules() }
 
     @Mock
+    lateinit var affectedFieldsDataRetriever: AffectedFieldsDataRetriever
+
+    @Mock
     lateinit var jsonLogicValidator: JsonLogicValidator
 
     private lateinit var certLogicEngine: CertLogicEngine
 
     @Before
     fun setUp() {
-        certLogicEngine = DefaultCertLogicEngine(jsonLogicValidator)
+        certLogicEngine = DefaultCertLogicEngine(affectedFieldsDataRetriever, jsonLogicValidator)
 
         doReturn(true).`when`(jsonLogicValidator).isDataValid(any(), any())
+        doReturn("").`when`(affectedFieldsDataRetriever).getAffectedFieldsData(any(), any(), any())
     }
 
     @Test
@@ -91,13 +96,25 @@ internal class DefaultCertLogicEngineTest {
 
         assertEquals(
             Result.OPEN,
-            certLogicEngine.validate("1.0.0", JSON_SCHEMA, rules, externalParameter, hcertJson)
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                "1.0.0",
+                rules,
+                externalParameter,
+                hcertJson
+            )
                 .first().result
         )
 
         assertEquals(
             Result.OPEN,
-            certLogicEngine.validate("3.0.0", JSON_SCHEMA, rules, externalParameter, hcertJson)
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                "3.0.0",
+                rules,
+                externalParameter,
+                hcertJson
+            )
                 .first().result
         )
     }
@@ -111,7 +128,13 @@ internal class DefaultCertLogicEngineTest {
 
         assertEquals(
             Result.FAIL,
-            certLogicEngine.validate("2.1.0", JSON_SCHEMA, rules, externalParameter, hcertJson)
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                "2.1.0",
+                rules,
+                externalParameter,
+                hcertJson
+            )
                 .first().result
         )
     }
@@ -125,7 +148,13 @@ internal class DefaultCertLogicEngineTest {
 
         assertEquals(
             Result.PASSED,
-            certLogicEngine.validate("2.1.0", JSON_SCHEMA, rules, externalParameter, hcertJson)
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                "2.1.0",
+                rules,
+                externalParameter,
+                hcertJson
+            )
                 .first().result
         )
     }

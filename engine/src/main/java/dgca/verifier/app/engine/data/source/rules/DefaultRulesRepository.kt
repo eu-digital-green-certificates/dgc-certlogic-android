@@ -22,7 +22,7 @@
 
 package dgca.verifier.app.engine.data.source.rules
 
-import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.local.rules.RulesLocalDataSource
@@ -79,7 +79,7 @@ class DefaultRulesRepository(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
-        certificateType: CertificateType
+        ruleCertificateType: RuleCertificateType
     ): List<Rule> =
-        localDataSource.getRulesBy(countryIsoCode, validationClock, type, certificateType)
+        localDataSource.getRulesBy(countryIsoCode, validationClock, type, ruleCertificateType)
 }

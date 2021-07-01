@@ -1,6 +1,6 @@
 package dgca.verifier.app.engine.data.source.rules
 
-import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
@@ -31,6 +31,6 @@ interface RulesDataSource {
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
-        certificateType: CertificateType
+        ruleCertificateType: RuleCertificateType
     ): List<Rule>
 }

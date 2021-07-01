@@ -1,8 +1,4 @@
-package dgca.verifier.app.engine
-
-import dgca.verifier.app.engine.data.CertificateType
-import dgca.verifier.app.engine.data.ExternalParameter
-import dgca.verifier.app.engine.data.Rule
+package dgca.verifier.app.engine.data
 
 /*-
  * ---license-start
@@ -23,14 +19,18 @@ import dgca.verifier.app.engine.data.Rule
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 11.06.21 9:48
+ * Created by osarapulov on 17.06.21 15:30
  */
-interface CertLogicEngine {
-    fun validate(
-        certificateType: CertificateType,
-        hcertVersionString: String,
-        rules: List<Rule>,
-        externalParameter: ExternalParameter,
-        payload: String
-    ): List<ValidationResult>
+enum class RuleCertificateType {
+    GENERAL, TEST, VACCINATION, RECOVERY
+}
+
+enum class CertificateType {
+    TEST, VACCINATION, RECOVERY;
+
+    fun toRuleCertificateType(): RuleCertificateType = when (this) {
+        TEST -> RuleCertificateType.TEST
+        VACCINATION -> RuleCertificateType.VACCINATION
+        RECOVERY -> RuleCertificateType.RECOVERY
+    }
 }

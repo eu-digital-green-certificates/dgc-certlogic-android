@@ -1,7 +1,7 @@
 package dgca.verifier.app.engine.data.source.remote
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.remote.rules.DescriptionRemote
@@ -62,8 +62,8 @@ class RuleRemoteMapperTest {
         assertEquals(ruleRemote.engine, rule.engine)
         assertEquals(ruleRemote.engineVersion, rule.engineVersion)
         assertEquals(
-            CertificateType.valueOf(ruleRemote.certificateType.toUpperCase()),
-            rule.certificateType
+            RuleCertificateType.valueOf(ruleRemote.certificateType.toUpperCase()),
+            rule.ruleCertificateType
         )
         assertEquals(ruleRemote.descriptions.size, rule.descriptions.size)
         assertEquals(ruleRemote.validFrom, rule.validFrom)
@@ -85,8 +85,8 @@ class RuleRemoteMapperTest {
         assertEquals(ruleRemote.engine, rule.engine)
         assertEquals(ruleRemote.engineVersion, rule.engineVersion)
         assertEquals(
-            CertificateType.valueOf(ruleRemote.certificateType.toUpperCase()),
-            rule.certificateType
+            RuleCertificateType.valueOf(ruleRemote.certificateType.toUpperCase()),
+            rule.ruleCertificateType
         )
         assertEquals(ruleRemote.descriptions.size, rule.descriptions.size)
         assertEquals(ruleRemote.validFrom, rule.validFrom)

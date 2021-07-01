@@ -22,7 +22,7 @@
 
 package dgca.verifier.app.engine.data.source.local.rules
 
-import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
@@ -62,12 +62,12 @@ class DefaultRulesLocalDataSource(private val rulesDao: RulesDao) : RulesLocalDa
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
-        certificateType: CertificateType
+        ruleCertificateType: RuleCertificateType
     ): List<Rule> = rulesDao.getRulesWithDescriptionsBy(
         countryIsoCode,
         validationClock,
         type,
-        certificateType,
-        CertificateType.GENERAL
+        ruleCertificateType,
+        RuleCertificateType.GENERAL
     ).toRules()
 }

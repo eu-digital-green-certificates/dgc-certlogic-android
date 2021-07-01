@@ -32,7 +32,7 @@ data class Rule(
     val schemaVersion: String,
     val engine: String,
     val engineVersion: String,
-    val certificateType: CertificateType,
+    val ruleCertificateType: RuleCertificateType,
     val descriptions: Map<String, String>,
     val validFrom: ZonedDateTime,
     val validTo: ZonedDateTime,

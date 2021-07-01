@@ -1,4 +1,8 @@
-package dgca.verifier.app.engine.data
+package dgca.verifier.app.engine
+
+import com.fasterxml.jackson.databind.JsonNode
+import dgca.verifier.app.engine.data.CertificateType
+import dgca.verifier.app.engine.data.Rule
 
 /*-
  * ---license-start
@@ -19,8 +23,12 @@ package dgca.verifier.app.engine.data
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 17.06.21 15:30
+ * Created by osarapulov on 01.07.21 13:48
  */
-enum class CertificateType {
-    GENERAL, TEST, VACCINATION, RECOVERY
+interface AffectedFieldsDataRetriever {
+    fun getAffectedFieldsData(
+        rule: Rule,
+        dataJsonNode: JsonNode,
+        certificateType: CertificateType
+    ): String
 }
