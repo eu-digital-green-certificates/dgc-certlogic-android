@@ -118,6 +118,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../dgca-app-core-android/decoder/src/main/java/dgca/verifier/app/decoder/JsonSchema.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../dgca-app-core-android/decoder/src/main/java/dgca/verifier/app/decoder/cose/VerificationCryptoService.kt">
           <value>
             <set />

@@ -50,7 +50,7 @@ data class RuleWithDescriptionsLocal(
     @Embedded val rule: RuleLocal,
     @Relation(
         parentColumn = "ruleId",
-        entityColumn = "descriptionId"
+        entityColumn = "ruleContainerId"
     )
     val descriptions: List<DescriptionLocal>
 )

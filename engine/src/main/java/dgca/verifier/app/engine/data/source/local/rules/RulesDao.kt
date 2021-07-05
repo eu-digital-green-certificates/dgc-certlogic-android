@@ -76,7 +76,7 @@ abstract class RulesDao {
     abstract fun deleteRulesBy(vararg identifiers: String)
 
     @Insert
-    abstract fun insertDescriptions(descriptions: Collection<DescriptionLocal>)
+    abstract fun insertDescriptions(vararg descriptions: DescriptionLocal)
 
     fun insertAll(vararg rulesWithDescription: RuleWithDescriptionsLocal) {
         rulesWithDescription.forEach { ruleWithDescriptionsLocal ->
@@ -91,7 +91,7 @@ abstract class RulesDao {
                     )
                 )
             }
-            insertDescriptions(descriptionsToBeInserted)
+            insertDescriptions(*descriptionsToBeInserted.toTypedArray())
         }
     }
 

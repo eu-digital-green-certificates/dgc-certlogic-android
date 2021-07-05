@@ -1,20 +1,56 @@
 {
-  "Identifier": "VR-DE-1",
+  "Identifier": "GR-SE-0001",
+  "Type": "Acceptance",
+  "Country": "SE",
   "Version": "1.0.0",
-  "SchemaVersion":"1.0.0",
-  "Engine":"CERTLOGIC",
-  "EngineVersion":"1.0.0",
-  "Type":"Acceptance",
-  "Country":"DE",
-  "CertificateType":"Vaccination",
-  "Description":[{"lang":"en","desc":"Vaccination must be from June and doses must be 2"}],
-  "ValidFrom":"2021-06-27T07:46:40Z",
-  "ValidTo":"2021-08-01T07:46:40Z",
-  "AffectedFields":["dt","dn"],
-  "Logic":{
-    "and": [
-      {">=":[ {"var":"dt"}, "2021-06-01T00:00:00Z" ]},
-      {">=":[ {"var":"dn"}, 2 ]}
+  "SchemaVersion": "1.0.0",
+  "Engine": "CERTLOGIC",
+  "EngineVersion": "0.7.5",
+  "CertificateType": "General",
+  "Description": [
+    {
+      "lang": "en",
+      "desc": "The positive NAA test result (e.g., PCR) must be no older than 6 months."
+    },
+    {
+      "lang": "sv",
+      "desc": "Ett positivt NAA test resultat (ex PCR) får inte vara äldre än 6 månader"
+    }
+  ],
+  "ValidFrom": "2021-07-05T20:27:25Z",
+  "ValidTo": "2021-07-19T20:27:25Z",
+  "AffectedFields": [
+    "r.0",
+    "r.0.fr"
+  ],
+  "Logic": {
+    "if": [
+      {
+        "var": "payload.r.0"
+      },
+      {
+        "not-after": [
+          {
+            "plusTime": [
+              {
+                "var": "external.validationClock"
+              },
+              0,
+              "day"
+            ]
+          },
+          {
+            "plusTime": [
+              {
+                "var": "payload.r.0.fr"
+              },
+              183,
+              "day"
+            ]
+          }
+        ]
+      },
+      true
     ]
   }
 }
