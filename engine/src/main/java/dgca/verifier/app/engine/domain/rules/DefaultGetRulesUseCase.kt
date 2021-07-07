@@ -58,16 +58,17 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
         region: String?
     ): List<Rule> {
         val acceptanceRules = mutableMapOf<String, Rule>()
+        val selectedRegion: String = region?.trim() ?: ""
         rulesRepository.getRulesBy(
             acceptanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
                 UTC_ZONE_ID
             ), Type.ACCEPTANCE, certificateType.toRuleCertificateType()
         ).forEach {
-            if (((it.region.isNullOrEmpty() && region.isNullOrEmpty())
-                        || (it.region?.trim()
-                    .equals(acceptanceCountryIsoCode, ignoreCase = true))
-                        || (it.region?.trim().equals(region?.trim(), ignoreCase = true))
-                        ) && (acceptanceRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)
+            val ruleRegion: String = it.region?.trim() ?: ""
+            if (selectedRegion.equals(
+                    ruleRegion,
+                    ignoreCase = true
+                ) && (acceptanceRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)
             ) {
                 acceptanceRules[it.identifier] = it
             }
