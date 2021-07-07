@@ -24,12 +24,10 @@ package dgca.verifier.app.engine.domain.rules
 
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.CertificateType
-import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.rules.RulesRepository
 import java.time.ZonedDateTime
-import java.util.*
 
 /*-
  * ---license-start
@@ -59,26 +57,31 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
         certificateType: CertificateType,
         region: String?
     ): List<Rule> {
-        val acceptanceRules = mutableMapOf<RuleCertificateType, Rule>()
+        val acceptanceRules = mutableMapOf<String, Rule>()
         rulesRepository.getRulesBy(
             acceptanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
                 UTC_ZONE_ID
             ), Type.ACCEPTANCE, certificateType.toRuleCertificateType()
         ).forEach {
-            if ((region.isNullOrEmpty() || region.toLowerCase(Locale.ROOT) == it.region) && (acceptanceRules[it.ruleCertificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)) {
-                acceptanceRules[it.ruleCertificateType] = it
+            if (((it.region.isNullOrEmpty() && region.isNullOrEmpty())
+                        || (it.region?.trim()
+                    .equals(acceptanceCountryIsoCode, ignoreCase = true))
+                        || (it.region?.trim().equals(region?.trim(), ignoreCase = true))
+                        ) && (acceptanceRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)
+            ) {
+                acceptanceRules[it.identifier] = it
             }
         }
 
-        val invalidationRules = mutableMapOf<RuleCertificateType, Rule>()
+        val invalidationRules = mutableMapOf<String, Rule>()
         if (issuanceCountryIsoCode.isNotBlank()) {
             rulesRepository.getRulesBy(
                 issuanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
                     UTC_ZONE_ID
                 ), Type.INVALIDATION, certificateType.toRuleCertificateType()
             ).forEach {
-                if (invalidationRules[it.ruleCertificateType]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {
-                    invalidationRules[it.ruleCertificateType] = it
+                if (invalidationRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {
+                    invalidationRules[it.identifier] = it
                 }
             }
         }

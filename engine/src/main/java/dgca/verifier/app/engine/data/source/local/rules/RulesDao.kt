@@ -69,6 +69,12 @@ abstract class RulesDao {
         generalRuleCertificateType: RuleCertificateType
     ): List<RuleWithDescriptionsLocal>
 
+    @Transaction
+    @Query("SELECT * FROM rules WHERE :countryIsoCode = countryCode")
+    abstract fun getRulesWithDescriptionsBy(
+        countryIsoCode: String
+    ): List<RuleWithDescriptionsLocal>
+
     @Insert
     abstract fun insertRule(rule: RuleLocal): Long
 
