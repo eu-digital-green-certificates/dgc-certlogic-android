@@ -36,6 +36,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.doThrow
 import java.io.InputStream
 import java.nio.charset.Charset
 import java.time.ZonedDateTime
@@ -66,7 +67,7 @@ internal class DefaultCertLogicEngineTest {
     companion object {
         const val RULE_JSON_FILE_NAME = "rule.json"
         const val HCERT_JSON_FILE_NAME = "hcert.json"
-        private const val JSON_SCHEMA = "{}"
+        const val STANDARD_VERSION = "1.0.0"
     }
 
     private val objectMapper = ObjectMapper().apply { findAndRegisterModules() }
@@ -89,16 +90,16 @@ internal class DefaultCertLogicEngineTest {
 
     @Test
     fun testInconsistentOpenVersions() {
-        val ruleVersion = "2.0.0"
+        val schemaVersion = "2.0.0"
         val hcertJson = mockHcertJson()
-        val rules = listOf(mockRuleRemote(ruleVersion)).toRules()
+        val rules = listOf(mockRuleRemote(schemaVersion)).toRules()
         val externalParameter = mockExternalParameter()
 
         assertEquals(
             Result.OPEN,
             certLogicEngine.validate(
                 CertificateType.VACCINATION,
-                "1.0.0",
+                STANDARD_VERSION,
                 rules,
                 externalParameter,
                 hcertJson
@@ -121,9 +122,9 @@ internal class DefaultCertLogicEngineTest {
 
     @Test
     fun testInconsistentFailedVersions() {
-        val ruleVersion = "2.2.0"
+        val schemaVersion = "2.2.0"
         val hcertJson = mockHcertJson()
-        val rules = listOf(mockRuleRemote(ruleVersion)).toRules()
+        val rules = listOf(mockRuleRemote(schemaVersion)).toRules()
         val externalParameter = mockExternalParameter()
 
         assertEquals(
@@ -141,9 +142,9 @@ internal class DefaultCertLogicEngineTest {
 
     @Test
     fun testConsistentVersions() {
-        val ruleVersion = "2.0.0"
+        val schemaVersion = "2.0.0"
         val hcertJson = mockHcertJson()
-        val rules = listOf(mockRuleRemote(ruleVersion)).toRules()
+        val rules = listOf(mockRuleRemote(schemaVersion)).toRules()
         val externalParameter = mockExternalParameter()
 
         assertEquals(
@@ -159,28 +160,95 @@ internal class DefaultCertLogicEngineTest {
         )
     }
 
+    @Test
+    fun testInconsistentEngine() {
+        val engineVersion = "2.0.0"
+        val hcertJson = mockHcertJson()
+        val rules = listOf(mockRuleRemote(engineVersion = engineVersion)).toRules()
+        val externalParameter = mockExternalParameter()
+
+        assertEquals(
+            Result.OPEN,
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                STANDARD_VERSION,
+                rules,
+                externalParameter,
+                hcertJson
+            )
+                .first().result
+        )
+    }
+
+    @Test
+    fun testInconsistentEngineVersion() {
+        val customEngine = "CUSTOMENGINE"
+        val hcertJson = mockHcertJson()
+        val rules = listOf(mockRuleRemote(engine = customEngine)).toRules()
+        val externalParameter = mockExternalParameter()
+
+        assertEquals(
+            Result.OPEN,
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                STANDARD_VERSION,
+                rules,
+                externalParameter,
+                hcertJson
+            )
+                .first().result
+        )
+    }
+
+    @Test
+    fun testValidatedWithException() {
+        doReturn(null).`when`(jsonLogicValidator).isDataValid(any(), any())
+        val hcertJson = mockHcertJson()
+        val rules = listOf(mockRuleRemote()).toRules()
+        val externalParameter = mockExternalParameter()
+
+        assertEquals(
+            Result.OPEN,
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                STANDARD_VERSION,
+                rules,
+                externalParameter,
+                hcertJson
+            )
+                .first().result
+        )
+    }
+
     private fun mockHcertJson(): String {
         val hcertExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(HCERT_JSON_FILE_NAME)
         return IOUtils.toString(hcertExampleIs, Charset.defaultCharset())
     }
 
-    private fun mockRuleRemote(version: String = "1.0.0"): RuleRemote {
+    private fun mockRuleRemote(
+        schemaVersion: String = STANDARD_VERSION,
+        engine: String = "CERTLOGIC",
+        engineVersion: String = STANDARD_VERSION
+    ): RuleRemote {
         val ruleExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
-        return objectMapper.readValue(ruleJson, RuleRemote::class.java).copy(version = version)
+        return objectMapper.readValue(ruleJson, RuleRemote::class.java)
+            .copy(schemaVersion = schemaVersion, engine = engine, engineVersion = engineVersion)
     }
 
     private fun mockExternalParameter(
         kid: String = "kid",
         countryIsoCode: String = "de"
     ): ExternalParameter = ExternalParameter(
-        kid,
-        ZonedDateTime.now(),
-        emptyMap(),
-        countryIsoCode,
-        ZonedDateTime.now(),
-        ZonedDateTime.now()
+        validationClock = ZonedDateTime.now(),
+        valueSets = emptyMap(),
+        countryCode = countryIsoCode,
+        exp = ZonedDateTime.now(),
+        iat = ZonedDateTime.now(),
+        issuerCountryCode = countryIsoCode,
+        kid = kid,
+        region = ""
     )
 }

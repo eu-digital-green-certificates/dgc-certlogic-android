@@ -38,6 +38,8 @@ class DefaultCertLogicEngine(
     companion object {
         private const val EXTERNAL_KEY = "external"
         private const val PAYLOAD_KEY = "payload"
+        private const val CERTLOGIC_KEY = "CERTLOGIC"
+        private const val CERTLOGIC_VERSION = "1.0.0"
     }
 
     init {
@@ -70,14 +72,19 @@ class DefaultCertLogicEngine(
             val dataJsonNode = prepareData(externalParameter, payload)
             val hcertVersion = hcertVersionString.toVersion()
             rules.forEach { rule ->
-                val ruleVersion = rule.version.toVersion()
+                val schemaVersion = rule.schemaVersion.toVersion()
                 val res = when {
-                    hcertVersion == null || ruleVersion == null || hcertVersion.first != ruleVersion.first -> Result.OPEN
-                    hcertVersion.isGreaterOrEqualThan(ruleVersion) &&
-                            jsonLogicValidator.isDataValid(
-                                rule.logic,
-                                dataJsonNode
-                            ) -> Result.PASSED
+                    rule.engine != CERTLOGIC_KEY || rule.engineVersion != CERTLOGIC_VERSION
+                            || hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
+                    hcertVersion.isGreaterOrEqualThan(schemaVersion) ->
+                        when (jsonLogicValidator.isDataValid(
+                            rule.logic,
+                            dataJsonNode
+                        )) {
+                            true -> Result.PASSED
+                            false -> Result.FAIL
+                            else -> Result.OPEN
+                        }
                     else -> Result.FAIL
                 }
                 val cur: String = affectedFieldsDataRetriever.getAffectedFieldsData(

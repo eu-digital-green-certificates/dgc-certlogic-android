@@ -17,14 +17,16 @@
  *  limitations under the License.
  *  ---license-end
  *
- *  Created by osarapulov on 6/25/21 9:28 AM
+ *  Created by osarapulov on 7/8/21 12:08 PM
  */
 
-package dgca.verifier.app.engine.data.source.countries
+package dgca.verifier.app.engine
 
-import dgca.verifier.app.engine.data.source.local.countries.CountriesLocalDataSource
-import dgca.verifier.app.engine.data.source.remote.countries.CountriesRemoteDataSrouce
-import kotlinx.coroutines.flow.Flow
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import org.junit.Test
+import org.junit.jupiter.api.Assertions.*
 
 /*-
  * ---license-start
@@ -45,20 +47,23 @@ import kotlinx.coroutines.flow.Flow
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 25.06.21 9:28
+ * Created by osarapulov on 08.07.21 12:08
  */
-class DefaultCountriesRepository(
-    private val remoteDataSource: CountriesRemoteDataSrouce,
-    private val localDataSource: CountriesLocalDataSource
-) : CountriesRepository {
+class DefaultJsonLogicValidatorTest {
+ private val jsonLogicValidator = DefaultJsonLogicValidator()
 
-    override suspend fun preLoadCountries(countriesUrl: String) {
-        remoteDataSource.getCountries(countriesUrl).apply {
-            localDataSource.updateCountries(this)
-        }
+    @Test
+    fun testException() {
+        assertNull(jsonLogicValidator.isDataValid(jacksonObjectMapper().readValue("{}"), jacksonObjectMapper().readValue("{}")))
     }
 
-    override fun getCountries(): Flow<List<String>> {
-        return localDataSource.getCountries()
+    @Test
+    fun testPassed() {
+        assertEquals(true, jsonLogicValidator.isDataValid(jacksonObjectMapper().readValue("{\"var\": \"res\"}"), jacksonObjectMapper().readValue("{\"res\": true}")))
+    }
+
+    @Test
+    fun testFailed() {
+        assertEquals(false, jsonLogicValidator.isDataValid(jacksonObjectMapper().readValue("{\"var\": \"res\"}"), jacksonObjectMapper().readValue("{\"res\": false}")))
     }
 }

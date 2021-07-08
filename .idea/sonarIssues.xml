@@ -63,7 +63,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/DefaultJsonLogicValidator.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/JsonLogicValidator.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/CertificateType.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/ExternalParameter.kt">
           <value>
             <set />
           </value>
@@ -104,6 +119,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/engine/src/test/java/dgca/verifier/app/engine/DefaultCertLogicEngineTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/test/java/dgca/verifier/app/engine/DefaultJsonLogicValidatorTest.kt">
           <value>
             <set />
           </value>
