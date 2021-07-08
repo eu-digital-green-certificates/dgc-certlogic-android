@@ -48,12 +48,12 @@ import kotlinx.coroutines.flow.Flow
  * Created by osarapulov on 25.06.21 9:28
  */
 class DefaultCountriesRepository(
-    private val remoteDataSrouce: CountriesRemoteDataSrouce,
+    private val remoteDataSource: CountriesRemoteDataSrouce,
     private val localDataSource: CountriesLocalDataSource
 ) : CountriesRepository {
 
     override suspend fun preLoadCountries(countriesUrl: String) {
-        remoteDataSrouce.getCountries(countriesUrl).apply {
+        remoteDataSource.getCountries(countriesUrl).apply {
             localDataSource.updateCountries(this)
         }
     }
