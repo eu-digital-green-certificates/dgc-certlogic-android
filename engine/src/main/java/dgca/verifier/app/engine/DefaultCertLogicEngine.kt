@@ -70,10 +70,10 @@ class DefaultCertLogicEngine(
             val dataJsonNode = prepareData(externalParameter, payload)
             val hcertVersion = hcertVersionString.toVersion()
             rules.forEach { rule ->
-                val ruleVersion = rule.version.toVersion()
+                val schemaVersion = rule.schemaVersion.toVersion()
                 val res = when {
-                    hcertVersion == null || ruleVersion == null || hcertVersion.first != ruleVersion.first -> Result.OPEN
-                    hcertVersion.isGreaterOrEqualThan(ruleVersion) &&
+                    hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
+                    hcertVersion.isGreaterOrEqualThan(schemaVersion) &&
                             jsonLogicValidator.isDataValid(
                                 rule.logic,
                                 dataJsonNode
