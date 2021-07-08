@@ -76,11 +76,15 @@ class DefaultCertLogicEngine(
                 val res = when {
                     rule.engine != CERTLOGIC_KEY || rule.engineVersion != CERTLOGIC_VERSION
                             || hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
-                    hcertVersion.isGreaterOrEqualThan(schemaVersion) &&
-                            jsonLogicValidator.isDataValid(
-                                rule.logic,
-                                dataJsonNode
-                            ) -> Result.PASSED
+                    hcertVersion.isGreaterOrEqualThan(schemaVersion) ->
+                        when (jsonLogicValidator.isDataValid(
+                            rule.logic,
+                            dataJsonNode
+                        )) {
+                            true -> Result.PASSED
+                            false -> Result.FAIL
+                            else -> Result.OPEN
+                        }
                     else -> Result.FAIL
                 }
                 val cur: String = affectedFieldsDataRetriever.getAffectedFieldsData(
