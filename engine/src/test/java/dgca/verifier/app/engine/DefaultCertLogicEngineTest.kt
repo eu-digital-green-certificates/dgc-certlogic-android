@@ -89,9 +89,9 @@ internal class DefaultCertLogicEngineTest {
 
     @Test
     fun testInconsistentOpenVersions() {
-        val ruleVersion = "2.0.0"
+        val schemaVersion = "2.0.0"
         val hcertJson = mockHcertJson()
-        val rules = listOf(mockRuleRemote(ruleVersion)).toRules()
+        val rules = listOf(mockRuleRemote(schemaVersion)).toRules()
         val externalParameter = mockExternalParameter()
 
         assertEquals(
@@ -121,9 +121,9 @@ internal class DefaultCertLogicEngineTest {
 
     @Test
     fun testInconsistentFailedVersions() {
-        val ruleVersion = "2.2.0"
+        val schemaVersion = "2.2.0"
         val hcertJson = mockHcertJson()
-        val rules = listOf(mockRuleRemote(ruleVersion)).toRules()
+        val rules = listOf(mockRuleRemote(schemaVersion)).toRules()
         val externalParameter = mockExternalParameter()
 
         assertEquals(
@@ -141,9 +141,9 @@ internal class DefaultCertLogicEngineTest {
 
     @Test
     fun testConsistentVersions() {
-        val ruleVersion = "2.0.0"
+        val schemaVersion = "2.0.0"
         val hcertJson = mockHcertJson()
-        val rules = listOf(mockRuleRemote(ruleVersion)).toRules()
+        val rules = listOf(mockRuleRemote(schemaVersion)).toRules()
         val externalParameter = mockExternalParameter()
 
         assertEquals(
@@ -165,22 +165,24 @@ internal class DefaultCertLogicEngineTest {
         return IOUtils.toString(hcertExampleIs, Charset.defaultCharset())
     }
 
-    private fun mockRuleRemote(version: String = "1.0.0"): RuleRemote {
+    private fun mockRuleRemote(schemaVersion: String = "1.0.0"): RuleRemote {
         val ruleExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
-        return objectMapper.readValue(ruleJson, RuleRemote::class.java).copy(version = version)
+        return objectMapper.readValue(ruleJson, RuleRemote::class.java).copy(schemaVersion = schemaVersion)
     }
 
     private fun mockExternalParameter(
         kid: String = "kid",
         countryIsoCode: String = "de"
     ): ExternalParameter = ExternalParameter(
-        kid,
-        ZonedDateTime.now(),
-        emptyMap(),
-        countryIsoCode,
-        ZonedDateTime.now(),
-        ZonedDateTime.now()
+        validationClock = ZonedDateTime.now(),
+        valueSets = emptyMap(),
+        countryCode = countryIsoCode,
+        exp = ZonedDateTime.now(),
+        iat = ZonedDateTime.now(),
+        issuerCountryCode = countryIsoCode,
+        kid = kid,
+        region = ""
     )
 }

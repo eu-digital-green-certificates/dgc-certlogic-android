@@ -46,19 +46,32 @@ import java.time.ZonedDateTime
  * Created by osarapulov on 11.06.21 11:08
  */
 class ExternalParameter private constructor(
-    val kid: String,
     val validationClock: String,
     val valueSets: Map<String, List<String>>,
     val countryCode: String,
     val exp: String,
-    val iat: String
+    val iat: String,
+    val issuerCountryCode: String,
+    val kid: String,
+    val region: String = ""
 ) {
     constructor(
-        kid: String,
         validationClock: ZonedDateTime,
         valueSets: Map<String, List<String>>,
         countryCode: String,
         exp: ZonedDateTime,
-        iat: ZonedDateTime
-    ) : this(kid, validationClock.toString(), valueSets, countryCode, exp.toString(), iat.toString())
+        iat: ZonedDateTime,
+        issuerCountryCode: String,
+        kid: String,
+        region: String = ""
+    ) : this(
+        validationClock = validationClock.toString(),
+        valueSets = valueSets,
+        countryCode = countryCode,
+        exp = exp.toString(),
+        iat = iat.toString(),
+        issuerCountryCode = issuerCountryCode,
+        kid = kid,
+        region = region
+    )
 }
