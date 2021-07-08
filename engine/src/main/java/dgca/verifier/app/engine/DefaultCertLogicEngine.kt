@@ -38,6 +38,8 @@ class DefaultCertLogicEngine(
     companion object {
         private const val EXTERNAL_KEY = "external"
         private const val PAYLOAD_KEY = "payload"
+        private const val CERTLOGIC_KEY = "CERTLOGIC"
+        private const val CERTLOGIC_VERSION = "1.0.0"
     }
 
     init {
@@ -72,7 +74,8 @@ class DefaultCertLogicEngine(
             rules.forEach { rule ->
                 val schemaVersion = rule.schemaVersion.toVersion()
                 val res = when {
-                    hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
+                    rule.engine != CERTLOGIC_KEY || rule.engineVersion != CERTLOGIC_VERSION
+                            || hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
                     hcertVersion.isGreaterOrEqualThan(schemaVersion) &&
                             jsonLogicValidator.isDataValid(
                                 rule.logic,
