@@ -66,7 +66,6 @@ internal class DefaultCertLogicEngineTest {
     companion object {
         const val RULE_JSON_FILE_NAME = "rule.json"
         const val HCERT_JSON_FILE_NAME = "hcert.json"
-        private const val JSON_SCHEMA = "{}"
     }
 
     private val objectMapper = ObjectMapper().apply { findAndRegisterModules() }
@@ -159,17 +158,62 @@ internal class DefaultCertLogicEngineTest {
         )
     }
 
+    @Test
+    fun testInconsistentEngine() {
+        val engineVersion = "2.0.0"
+        val hcertJson = mockHcertJson()
+        val rules = listOf(mockRuleRemote(engineVersion = engineVersion)).toRules()
+        val externalParameter = mockExternalParameter()
+
+        assertEquals(
+            Result.OPEN,
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                "1.0.0",
+                rules,
+                externalParameter,
+                hcertJson
+            )
+                .first().result
+        )
+    }
+
+    @Test
+    fun testInconsistentEngineVersion() {
+        val customEngine = "CUSTOMENGINE"
+        val hcertJson = mockHcertJson()
+        val rules = listOf(mockRuleRemote(engine = customEngine)).toRules()
+        val externalParameter = mockExternalParameter()
+
+        assertEquals(
+            Result.OPEN,
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                "1.0.0",
+                rules,
+                externalParameter,
+                hcertJson
+            )
+                .first().result
+        )
+    }
+
     private fun mockHcertJson(): String {
         val hcertExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(HCERT_JSON_FILE_NAME)
         return IOUtils.toString(hcertExampleIs, Charset.defaultCharset())
     }
 
-    private fun mockRuleRemote(schemaVersion: String = "1.0.0"): RuleRemote {
+    private fun mockRuleRemote(
+        schemaVersion: String = "1.0.0",
+        engine: String = "CERTLOGIC",
+        engineVersion: String = "1.0.0"
+    ): RuleRemote {
         val ruleExampleIs: InputStream =
             javaClass.classLoader!!.getResourceAsStream(RULE_JSON_FILE_NAME)
         val ruleJson = IOUtils.toString(ruleExampleIs, Charset.defaultCharset())
-        return objectMapper.readValue(ruleJson, RuleRemote::class.java).copy(schemaVersion = schemaVersion)
+        return objectMapper.readValue(ruleJson, RuleRemote::class.java)
+            .copy(schemaVersion = schemaVersion, engine = engine, engineVersion = engineVersion)
     }
 
     private fun mockExternalParameter(
