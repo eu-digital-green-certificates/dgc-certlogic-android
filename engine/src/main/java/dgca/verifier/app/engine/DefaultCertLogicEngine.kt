@@ -39,7 +39,7 @@ class DefaultCertLogicEngine(
         private const val EXTERNAL_KEY = "external"
         private const val PAYLOAD_KEY = "payload"
         private const val CERTLOGIC_KEY = "CERTLOGIC"
-        private const val CERTLOGIC_VERSION = "1.0.0"
+        private val CERTLOGIC_VERSION: Triple<Int, Int, Int> = Triple(1, 0, 0)
     }
 
     init {
@@ -72,9 +72,12 @@ class DefaultCertLogicEngine(
             val dataJsonNode = prepareData(externalParameter, payload)
             val hcertVersion = hcertVersionString.toVersion()
             rules.forEach { rule ->
+                val ruleEngineVersion = rule.engineVersion.toVersion()
                 val schemaVersion = rule.schemaVersion.toVersion()
                 val res = when {
-                    rule.engine != CERTLOGIC_KEY || rule.engineVersion != CERTLOGIC_VERSION
+                    rule.engine != CERTLOGIC_KEY
+                            || ruleEngineVersion == null || !CERTLOGIC_VERSION
+                        .isGreaterOrEqualThan(ruleEngineVersion)
                             || hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
                     hcertVersion.isGreaterOrEqualThan(schemaVersion) ->
                         when (jsonLogicValidator.isDataValid(

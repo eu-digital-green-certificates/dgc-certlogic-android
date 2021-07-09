@@ -36,7 +36,6 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.doThrow
 import java.io.InputStream
 import java.nio.charset.Charset
 import java.time.ZonedDateTime
@@ -185,6 +184,45 @@ internal class DefaultCertLogicEngineTest {
         val customEngine = "CUSTOMENGINE"
         val hcertJson = mockHcertJson()
         val rules = listOf(mockRuleRemote(engine = customEngine)).toRules()
+        val externalParameter = mockExternalParameter()
+
+        assertEquals(
+            Result.OPEN,
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                STANDARD_VERSION,
+                rules,
+                externalParameter,
+                hcertJson
+            )
+                .first().result
+        )
+    }
+
+    @Test
+    fun testEngineVersionIsGreater() {
+        val hcertJson = mockHcertJson()
+        val rules = listOf(mockRuleRemote(engineVersion = "0.7.5")).toRules()
+        val externalParameter = mockExternalParameter()
+        doReturn(true).`when`(jsonLogicValidator).isDataValid(any(), any())
+
+        assertEquals(
+            Result.PASSED,
+            certLogicEngine.validate(
+                CertificateType.VACCINATION,
+                STANDARD_VERSION,
+                rules,
+                externalParameter,
+                hcertJson
+            )
+                .first().result
+        )
+    }
+
+    @Test
+    fun testEngineVersionIsLower() {
+        val hcertJson = mockHcertJson()
+        val rules = listOf(mockRuleRemote(engineVersion = "1.7.5")).toRules()
         val externalParameter = mockExternalParameter()
 
         assertEquals(
