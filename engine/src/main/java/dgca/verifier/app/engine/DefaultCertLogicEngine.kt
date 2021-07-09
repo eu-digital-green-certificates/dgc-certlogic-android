@@ -74,7 +74,8 @@ class DefaultCertLogicEngine(
             rules.forEach { rule ->
                 val schemaVersion = rule.schemaVersion.toVersion()
                 val res = when {
-                    rule.engine != CERTLOGIC_KEY || rule.engineVersion != CERTLOGIC_VERSION
+                    rule.engine != CERTLOGIC_KEY
+//                            || rule.engineVersion != CERTLOGIC_VERSION
                             || hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
                     hcertVersion.isGreaterOrEqualThan(schemaVersion) ->
                         when (jsonLogicValidator.isDataValid(
