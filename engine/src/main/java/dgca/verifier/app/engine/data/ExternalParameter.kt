@@ -23,6 +23,7 @@
 package dgca.verifier.app.engine.data
 
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 /*-
  * ---license-start
@@ -47,12 +48,12 @@ import java.time.ZonedDateTime
  */
 class ExternalParameter private constructor(
     val validationClock: String,
-    val valueSets: Map<String, List<String>>,
+    private val valueSets: Map<String, List<String>>,
     val countryCode: String,
-    val exp: String,
-    val iat: String,
-    val issuerCountryCode: String,
-    val kid: String,
+    private val exp: String,
+    private val iat: String,
+    private val issuerCountryCode: String,
+    private val kid: String,
     val region: String = ""
 ) {
     constructor(
@@ -65,7 +66,7 @@ class ExternalParameter private constructor(
         kid: String,
         region: String = ""
     ) : this(
-        validationClock = validationClock.toString(),
+        validationClock = DateTimeFormatter.ISO_ZONED_DATE_TIME.format(validationClock),
         valueSets = valueSets,
         countryCode = countryCode,
         exp = exp.toString(),
