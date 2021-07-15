@@ -83,7 +83,7 @@ internal class RulesDaoTest {
     fun testInsert() {
         val ruleRemote = fetchRule(RULE_JSON_FILE_NAME).toRule()
         val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
-        rulesDao.insertAll(expected)
+        rulesDao.insertAll(listOf(expected))
 
         assertTrue(
             rulesDao.getRulesWithDescriptionsBy(
@@ -105,7 +105,7 @@ internal class RulesDaoTest {
 
         assertTrue(actual.size == 1)
         assertEquals(expected.rule.copy(ruleId = 1), actual[0].rule)
-        assertEquals(2, actual[0].descriptions)
+        assertEquals(2, actual[0].descriptions.size)
         expected.descriptions.forEachIndexed { index, descriptionLocal ->
             assertEquals(
                 descriptionLocal.copy(
@@ -121,7 +121,7 @@ internal class RulesDaoTest {
     fun testInsertRuleWithRegion() {
         val ruleRemote = fetchRule(RULE_WITH_REGION_JSON_FILE_NAME).toRule()
         val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
-        rulesDao.insertAll(expected)
+        rulesDao.insertAll(listOf(expected))
 
         assertTrue(
             rulesDao.getRulesWithDescriptionsBy(
@@ -158,12 +158,12 @@ internal class RulesDaoTest {
     fun testDelete() {
         val ruleRemote = fetchRule(RULE_JSON_FILE_NAME).toRule()
         val expected: RuleWithDescriptionsLocal = ruleRemote.toRuleWithDescriptionLocal()
-        rulesDao.insertAll(expected)
+        rulesDao.insertAll(listOf(expected))
 
         assertEquals(1, rulesDao.getAll().size)
-        assertEquals(1, rulesDao.getDescriptionAll().size)
+        assertEquals(2, rulesDao.getDescriptionAll().size)
 
-        rulesDao.deleteRulesBy(ruleRemote.identifier)
+        rulesDao.deleteRulesBy(listOf(ruleRemote.identifier))
 
         assertEquals(0, rulesDao.getAll().size)
         assertEquals(0, rulesDao.getDescriptionAll().size)
@@ -181,7 +181,7 @@ internal class RulesDaoTest {
         val ruleWithDescriptionsLocalSecond: RuleWithDescriptionsLocal =
             ruleSecond.toRuleWithDescriptionLocal()
 
-        rulesDao.insertAll(ruleWithDescriptionsLocalFirst, ruleWithDescriptionsLocalSecond)
+        rulesDao.insertAll(listOf(ruleWithDescriptionsLocalFirst, ruleWithDescriptionsLocalSecond))
 
         assertEquals(2, rulesDao.getAll().size)
 
