@@ -22,8 +22,9 @@
 
 package dgca.verifier.app.engine.data.source.local.rules
 
-import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Rule
+import dgca.verifier.app.engine.data.RuleCertificateType
+import dgca.verifier.app.engine.data.RuleIdentifier
 import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
@@ -50,13 +51,18 @@ import java.time.ZonedDateTime
  */
 class DefaultRulesLocalDataSource(private val rulesDao: RulesDao) : RulesLocalDataSource {
 
-    override fun addRules(rules: List<Rule>) {
-        rulesDao.insertAll(*rules.toRulesWithDescriptionLocal().toTypedArray())
+    override fun addRules(ruleIdentifiers: Collection<RuleIdentifier>, rules: Collection<Rule>) {
+        rulesDao.insertRulesData(
+            ruleIdentifiers.map { it.toRuleIdentifierLocal() },
+            rules.map { it.toRuleWithDescriptionLocal() })
     }
 
-    override fun removeRules() {
-        rulesDao.deleteAll()
+    override fun removeRulesBy(identifiers: Collection<String>) {
+        rulesDao.deleteRulesDataBy(identifiers)
     }
+
+    override fun getRuleIdentifiers(): List<RuleIdentifier> =
+        rulesDao.getRuleIdentifiers().map { it.toRuleIdentifier() }
 
     override fun getRulesBy(
         countryIsoCode: String,

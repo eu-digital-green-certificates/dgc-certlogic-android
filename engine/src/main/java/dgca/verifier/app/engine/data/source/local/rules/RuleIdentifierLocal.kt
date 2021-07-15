@@ -17,19 +17,20 @@
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 13.06.21 16:55
+ * Created by osarapulov on 15.07.21 22:52
  */
 
 package dgca.verifier.app.engine.data.source.local.rules
 
-import dgca.verifier.app.engine.data.Rule
-import dgca.verifier.app.engine.data.RuleIdentifier
-import dgca.verifier.app.engine.data.source.rules.RulesDataSource
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-interface RulesLocalDataSource : RulesDataSource {
-    fun addRules(ruleIdentifiers: Collection<RuleIdentifier>, rules: Collection<Rule>)
-
-    fun removeRulesBy(identifiers: Collection<String>)
-
-    fun getRuleIdentifiers(): List<RuleIdentifier>
-}
+@Entity(tableName = "rule_identifiers")
+data class RuleIdentifierLocal(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val identifier: String,
+    val version: String,
+    val country: String,
+    val hash: String
+)

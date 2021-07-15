@@ -52,7 +52,7 @@ import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsDao
  * Created by osarapulov on 16.06.21 9:05
  */
 @Database(
-    entities = [RuleLocal::class, DescriptionLocal::class, CountryLocal::class, ValueSetLocal::class],
+    entities = [RuleIdentifierLocal::class, RuleLocal::class, DescriptionLocal::class, CountryLocal::class, ValueSetLocal::class],
     version = 1
 )
 @TypeConverters(Converters::class)
