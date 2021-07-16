@@ -17,19 +17,17 @@
  * limitations under the License.
  * ---license-end
  *
- * Created by osarapulov on 13.06.21 16:55
+ * Created by osarapulov on 15.07.21 23:36
  */
 
-package dgca.verifier.app.engine.data.source.local.rules
+package dgca.verifier.app.engine.data.source.remote.rules
 
-import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.RuleIdentifier
-import dgca.verifier.app.engine.data.source.rules.RulesDataSource
+import java.util.*
 
-interface RulesLocalDataSource : RulesDataSource {
-    fun addRules(ruleIdentifiers: Collection<RuleIdentifier>, rules: Collection<Rule>)
-
-    fun removeRulesBy(identifiers: Collection<String>)
-
-    fun getRuleIdentifiers(): List<RuleIdentifier>
-}
+fun RuleIdentifierRemote.toRuleIdentifier(): RuleIdentifier = RuleIdentifier(
+    identifier = this.identifier,
+    version = this.version,
+    country = this.country.toLowerCase(Locale.ROOT),
+    hash = this.hash
+)

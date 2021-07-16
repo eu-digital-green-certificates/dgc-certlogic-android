@@ -79,12 +79,15 @@ abstract class RulesDao {
     abstract fun insertRule(rule: RuleLocal): Long
 
     @Query("DELETE FROM rules WHERE identifier IN (:identifiers)")
-    abstract fun deleteRulesBy(vararg identifiers: String)
+    abstract fun deleteRulesBy(identifiers: Collection<String>)
 
     @Insert
     abstract fun insertDescriptions(vararg descriptions: DescriptionLocal)
 
-    fun insertAll(vararg rulesWithDescription: RuleWithDescriptionsLocal) {
+    @Insert
+    abstract fun insertRuleIdentifiers(ruleIdentifiers: Collection<RuleIdentifierLocal>)
+
+    fun insertAll(rulesWithDescription: Collection<RuleWithDescriptionsLocal>) {
         rulesWithDescription.forEach { ruleWithDescriptionsLocal ->
             val rule = ruleWithDescriptionsLocal.rule
             val descriptions = ruleWithDescriptionsLocal.descriptions
@@ -104,6 +107,24 @@ abstract class RulesDao {
     @Query("DELETE FROM rules WHERE identifier NOT IN (:identifiers)")
     abstract fun deleteAllExcept(identifiers: Array<String>)
 
-    @Query("DELETE FROM rules")
-    abstract fun deleteAll()
+    @Query("DELETE FROM rule_identifiers WHERE identifier IN (:identifiers)")
+    abstract fun deleteRuleIdentifiersBy(identifiers: Collection<String>)
+
+    @Transaction
+    open fun deleteRulesDataBy(identifiers: Collection<String>) {
+        deleteRulesBy(identifiers)
+        deleteRuleIdentifiersBy(identifiers)
+    }
+
+    @Transaction
+    open fun insertRulesData(
+        ruleIdentifiers: Collection<RuleIdentifierLocal>,
+        rulesWithDescription: Collection<RuleWithDescriptionsLocal>
+    ) {
+        insertRuleIdentifiers(ruleIdentifiers)
+        insertAll(rulesWithDescription)
+    }
+
+    @Query("SELECT * from rule_identifiers")
+    abstract fun getRuleIdentifiers(): List<RuleIdentifierLocal>
 }
