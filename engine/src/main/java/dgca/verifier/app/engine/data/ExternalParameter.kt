@@ -48,12 +48,12 @@ import java.time.format.DateTimeFormatter
  */
 class ExternalParameter private constructor(
     val validationClock: String,
-    private val valueSets: Map<String, List<String>>,
+    val valueSets: Map<String, List<String>>,
     val countryCode: String,
-    private val exp: String,
-    private val iat: String,
-    private val issuerCountryCode: String,
-    private val kid: String,
+    val exp: String,
+    val iat: String,
+    val issuerCountryCode: String,
+    val kid: String,
     val region: String = ""
 ) {
     constructor(
