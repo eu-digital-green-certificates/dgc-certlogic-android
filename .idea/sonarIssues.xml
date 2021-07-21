@@ -88,6 +88,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/rules/Converters.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/engine/src/main/java/dgca/verifier/app/engine/data/source/local/rules/EngineDatabase.kt">
           <value>
             <set />
@@ -124,6 +129,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/engine/src/test/java/dgca/verifier/app/engine/DefaultJsonLogicValidatorTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/engine/src/test/java/dgca/verifier/app/engine/data/source/local/ConvertersTest.kt">
           <value>
             <set />
           </value>
