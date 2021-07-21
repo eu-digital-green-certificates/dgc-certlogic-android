@@ -45,6 +45,19 @@ internal class ConvertersTest {
     }
 
     @Test
+    fun testConverterEdgeCase() {
+        val converters = Converters()
+        val zonedDateTimeZone = ZonedDateTime.parse("2021-06-30T14:54:51.748565Z")
+        val timestamp = converters.zonedDateTimeToTimestamp(zonedDateTimeZone)
+        val actualZonedDateTime = converters.fromTimestamp(timestamp)
+
+        assertEquals(
+            zonedDateTimeZone.withZoneSameInstant(utcZoneId),
+            actualZonedDateTime
+        )
+    }
+
+    @Test
     fun testListOfStringConverter() {
         val expected = listOf("one", "two", "three")
 
