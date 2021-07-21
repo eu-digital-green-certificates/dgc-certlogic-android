@@ -30,6 +30,7 @@ import dgca.verifier.app.engine.UTC_ZONE_ID
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
 
 
 /*-
@@ -70,7 +71,7 @@ class Converters {
 
     @TypeConverter
     fun fromTimestamp(value: Long?): ZonedDateTime = if (value != null) {
-        val instant: Instant = Instant.ofEpochMilli(value)
+        val instant: Instant = Instant.EPOCH.plus(value, ChronoUnit.MICROS)
         ZonedDateTime.ofInstant(instant, UTC_ZONE_ID)
     } else {
         ZonedDateTime.now(UTC_ZONE_ID)
@@ -78,8 +79,11 @@ class Converters {
 
     @TypeConverter
     fun zonedDateTimeToTimestamp(zonedDateTime: ZonedDateTime?): Long {
-        return (zonedDateTime?.withZoneSameInstant(UTC_ZONE_ID)
-            ?: ZonedDateTime.now(UTC_ZONE_ID)).toInstant().toEpochMilli()
+        return ChronoUnit.MICROS.between(
+            Instant.EPOCH,
+            (zonedDateTime?.withZoneSameInstant(UTC_ZONE_ID)
+                ?: ZonedDateTime.now(UTC_ZONE_ID)).toInstant()
+        )
     }
 
     @TypeConverter
