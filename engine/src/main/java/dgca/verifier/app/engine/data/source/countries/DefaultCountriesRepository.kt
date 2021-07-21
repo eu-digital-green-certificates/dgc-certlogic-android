@@ -56,16 +56,10 @@ class DefaultCountriesRepository(
     override suspend fun preLoadCountries(countriesUrl: String) {
         remoteDataSource.getCountries(countriesUrl)
             .map { it.toLowerCase(Locale.ROOT) }
-            .distinct()
-            .filter { !CODES_TO_FILTER_OUT.contains(it) }
             .apply { localDataSource.updateCountries(this) }
     }
 
     override fun getCountries(): Flow<List<String>> {
         return localDataSource.getCountries()
-    }
-
-    companion object {
-        private val CODES_TO_FILTER_OUT = setOf("gr")
     }
 }
