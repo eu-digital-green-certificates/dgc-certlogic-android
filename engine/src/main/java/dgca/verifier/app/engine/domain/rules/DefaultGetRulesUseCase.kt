@@ -52,6 +52,7 @@ import java.time.ZonedDateTime
  */
 class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : GetRulesUseCase {
     override fun invoke(
+        validationClock: ZonedDateTime,
         acceptanceCountryIsoCode: String,
         issuanceCountryIsoCode: String,
         certificateType: CertificateType,
@@ -60,9 +61,7 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
         val acceptanceRules = mutableMapOf<String, Rule>()
         val selectedRegion: String = region?.trim() ?: ""
         rulesRepository.getRulesBy(
-            acceptanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
-                UTC_ZONE_ID
-            ), Type.ACCEPTANCE, certificateType.toRuleCertificateType()
+            acceptanceCountryIsoCode, validationClock, Type.ACCEPTANCE, certificateType.toRuleCertificateType()
         ).forEach {
             val ruleRegion: String = it.region?.trim() ?: ""
             if (selectedRegion.equals(
@@ -77,9 +76,7 @@ class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : Get
         val invalidationRules = mutableMapOf<String, Rule>()
         if (issuanceCountryIsoCode.isNotBlank()) {
             rulesRepository.getRulesBy(
-                issuanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
-                    UTC_ZONE_ID
-                ), Type.INVALIDATION, certificateType.toRuleCertificateType()
+                issuanceCountryIsoCode, validationClock, Type.INVALIDATION, certificateType.toRuleCertificateType()
             ).forEach {
                 if (invalidationRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {
                     invalidationRules[it.identifier] = it

@@ -110,6 +110,7 @@ internal class DefaultGetRulesUseCaseTest {
         doReturn(invalidationRules).`when`(rulesRepository)
             .getRulesBy(eq(invalidationCountryIso), any(), eq(Type.INVALIDATION), any())
         val actual = getRulesUseCase.invoke(
+            ZonedDateTime.now().withZoneSameInstant(UTC_ZONE_ID),
             acceptanceCountryIso,
             invalidationCountryIso,
             CertificateType.VACCINATION
@@ -137,6 +138,7 @@ internal class DefaultGetRulesUseCaseTest {
         doReturn(listOf(invalidationRule)).`when`(rulesRepository)
             .getRulesBy(eq(invalidationCountryIso), any(), eq(Type.INVALIDATION), any())
         var actual = getRulesUseCase.invoke(
+            ZonedDateTime.now().withZoneSameInstant(UTC_ZONE_ID),
             acceptanceCountryIso,
             invalidationCountryIso,
             CertificateType.VACCINATION,
@@ -151,6 +153,7 @@ internal class DefaultGetRulesUseCaseTest {
             .getRulesBy(eq(acceptanceCountryIso), any(), eq(Type.ACCEPTANCE), any())
 
         actual = getRulesUseCase.invoke(
+            ZonedDateTime.now().withZoneSameInstant(UTC_ZONE_ID),
             acceptanceCountryIso,
             invalidationCountryIso,
             CertificateType.VACCINATION,
