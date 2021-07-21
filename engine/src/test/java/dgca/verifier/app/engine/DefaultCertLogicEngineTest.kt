@@ -36,6 +36,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.doThrow
 import java.io.InputStream
 import java.nio.charset.Charset
 import java.time.ZonedDateTime
@@ -240,7 +241,7 @@ internal class DefaultCertLogicEngineTest {
 
     @Test
     fun testValidatedWithException() {
-        doReturn(null).`when`(jsonLogicValidator).isDataValid(any(), any())
+        doThrow(RuntimeException()).`when`(jsonLogicValidator).isDataValid(any(), any())
         val hcertJson = mockHcertJson()
         val rules = listOf(mockRuleRemote()).toRules()
         val externalParameter = mockExternalParameter()
