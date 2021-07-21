@@ -127,7 +127,7 @@ internal class DefaultCertLogicEngineTest {
         val externalParameter = mockExternalParameter()
 
         assertEquals(
-            Result.FAIL,
+            Result.OPEN,
             certLogicEngine.validate(
                 CertificateType.VACCINATION,
                 "2.1.0",

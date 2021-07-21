@@ -75,11 +75,11 @@ class DefaultCertLogicEngine(
                 val ruleEngineVersion = rule.engineVersion.toVersion()
                 val schemaVersion = rule.schemaVersion.toVersion()
                 val res = when {
-                    rule.engine != CERTLOGIC_KEY
-                            || ruleEngineVersion == null || !CERTLOGIC_VERSION
-                        .isGreaterOrEqualThan(ruleEngineVersion)
-                            || hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
-                    hcertVersion.isGreaterOrEqualThan(schemaVersion) ->
+                    rule.engine == CERTLOGIC_KEY && ruleEngineVersion != null && CERTLOGIC_VERSION.isGreaterOrEqualThan(
+                        ruleEngineVersion
+                    ) && hcertVersion != null && schemaVersion != null && hcertVersion.first == schemaVersion.first && hcertVersion.isGreaterOrEqualThan(
+                        schemaVersion
+                    ) ->
                         when (jsonLogicValidator.isDataValid(
                             rule.logic,
                             dataJsonNode
@@ -88,7 +88,7 @@ class DefaultCertLogicEngine(
                             false -> Result.FAIL
                             else -> Result.OPEN
                         }
-                    else -> Result.FAIL
+                    else -> Result.OPEN
                 }
                 val cur: String = affectedFieldsDataRetriever.getAffectedFieldsData(
                     rule,
