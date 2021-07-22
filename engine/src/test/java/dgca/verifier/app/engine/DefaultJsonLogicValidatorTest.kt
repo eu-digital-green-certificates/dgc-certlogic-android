@@ -52,7 +52,7 @@ import org.junit.jupiter.api.Assertions.*
 class DefaultJsonLogicValidatorTest {
  private val jsonLogicValidator = DefaultJsonLogicValidator()
 
-    @Test
+    @Test(expected = RuntimeException::class)
     fun testException() {
         assertNull(jsonLogicValidator.isDataValid(jacksonObjectMapper().readValue("{}"), jacksonObjectMapper().readValue("{}")))
     }
