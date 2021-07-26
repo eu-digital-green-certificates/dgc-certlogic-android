@@ -44,11 +44,5 @@ object Deps {
     const val jackson_cbor = "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:${Versions.jackson_cbor}"
     const val jackson_kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.jackson_kotlin}"
     const val jackson_datetype = "com.fasterxml.jackson.datatype:${Versions.jackson_datetype}"
-    const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val appache_commons = "commons-io:commons-io:${Versions.appache_commons}"
-
-    const val room_runtime = "androidx.room:room-runtime:${Versions.room_version}"
-    const val room_compiler = "androidx.room:room-compiler:${Versions.room_version}"
-    const val lifecycle_livedata_version = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle_livedata_version}"
-    const val room_ktx = "androidx.room:room-ktx:${Versions.room_ktx}"
 }

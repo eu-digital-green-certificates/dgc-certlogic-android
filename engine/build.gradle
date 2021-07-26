@@ -50,7 +50,6 @@ dependencies {
     implementation Deps.jackson_cbor
     implementation Deps.jackson_kotlin
     implementation Deps.jackson_datetype
-    implementation Deps.retrofit2
 
     testImplementation Deps.test_junit
     testImplementation Deps.test_junit_jupiter_api
