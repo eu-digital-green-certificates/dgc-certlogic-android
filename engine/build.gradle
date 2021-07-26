@@ -27,6 +27,7 @@ android {
     compileOptions {
         sourceCompatibility Config.javaVersion
         targetCompatibility Config.javaVersion
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -72,4 +73,5 @@ dependencies {
     androidTestImplementation Deps.test_rules
     androidTestImplementation Deps.test_ext
     androidTestImplementation Deps.appache_commons
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }
