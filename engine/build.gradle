@@ -43,18 +43,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation project(':certlogic')
 
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_reflect
+    implementation Deps.kotlinx_coroutines_core
     implementation Deps.jackson_cbor
     implementation Deps.jackson_kotlin
     implementation Deps.jackson_datetype
-    implementation Deps.retrofit2
-    implementation Deps.room_ktx
-
-    implementation Deps.room_runtime
-    kapt Deps.room_compiler
 
     testImplementation Deps.test_junit
     testImplementation Deps.test_junit_jupiter_api

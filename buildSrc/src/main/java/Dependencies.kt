@@ -27,6 +27,7 @@ object Deps {
 
     const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin_reflect}"
+    const val kotlinx_coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinx_coroutines_core}"
 
     const val test_junit = "junit:junit:${Versions.junit}"
     const val test_junit_jupiter_api = "org.junit.jupiter:junit-jupiter-api:${Versions.junit_jupiter}"
@@ -43,11 +44,5 @@ object Deps {
     const val jackson_cbor = "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:${Versions.jackson_cbor}"
     const val jackson_kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.jackson_kotlin}"
     const val jackson_datetype = "com.fasterxml.jackson.datatype:${Versions.jackson_datetype}"
-    const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val appache_commons = "commons-io:commons-io:${Versions.appache_commons}"
-
-    const val room_runtime = "androidx.room:room-runtime:${Versions.room_version}"
-    const val room_compiler = "androidx.room:room-compiler:${Versions.room_version}"
-    const val lifecycle_livedata_version = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle_livedata_version}"
-    const val room_ktx = "androidx.room:room-ktx:${Versions.room_ktx}"
 }
