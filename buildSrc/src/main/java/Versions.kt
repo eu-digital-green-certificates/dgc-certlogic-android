@@ -28,6 +28,7 @@ object Versions {
 
     // Decoder
     const val kotlin_reflect = "1.4.32"
+    const val kotlinx_coroutines_core = "1.5.1"
     const val jackson_cbor = "2.12.3"
     const val jackson_kotlin = "2.12.0"
     const val jackson_datetype = "jackson-datatype-jsr310"
