@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/buildSrc/src/main/java/AppConfig.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/buildSrc/src/main/java/Dependencies.kt">
           <value>
             <set />
@@ -344,6 +349,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/test/java/dgca/verifier/app/android/data/local/rules/ConvertersTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/buildSrc/src/main/java/AppConfig.kt">
           <value>
             <set />
           </value>
