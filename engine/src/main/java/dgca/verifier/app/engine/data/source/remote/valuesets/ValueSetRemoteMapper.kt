@@ -22,8 +22,7 @@
 
 package dgca.verifier.app.engine.data.source.remote.valuesets
 
-import dgca.verifier.app.engine.data.*
-import java.util.*
+import dgca.verifier.app.engine.data.ValueSet
 
 /*-
  * ---license-start
@@ -54,8 +53,9 @@ fun ValueSetRemote.toValueSet(): ValueSet = ValueSet(
 
 fun List<ValueSetRemote>.toValueSets(): List<ValueSet> {
     val valueSets = mutableListOf<ValueSet>()
-    forEach {
-        valueSets.add(it.toValueSet())
+    for (i in this.indices) {
+        val valueSetRemote = this[i]
+        valueSets.add(valueSetRemote.toValueSet())
     }
     return valueSets
 }
