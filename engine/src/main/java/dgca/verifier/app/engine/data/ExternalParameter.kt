@@ -66,7 +66,7 @@ class ExternalParameter private constructor(
         kid: String,
         region: String = ""
     ) : this(
-        validationClock = DateTimeFormatter.ISO_ZONED_DATE_TIME.format(validationClock),
+        validationClock = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(validationClock),
         valueSets = valueSets,
         countryCode = countryCode,
         exp = exp.toString(),

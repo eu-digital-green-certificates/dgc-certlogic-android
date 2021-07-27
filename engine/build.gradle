@@ -25,6 +25,8 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
+
         sourceCompatibility Config.javaVersion
         targetCompatibility Config.javaVersion
     }
@@ -43,7 +45,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    
     implementation Deps.kotlin_stdlib
     implementation Deps.kotlin_reflect
     implementation Deps.kotlinx_coroutines_core
