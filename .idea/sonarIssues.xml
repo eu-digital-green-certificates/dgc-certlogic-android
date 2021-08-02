@@ -218,6 +218,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/androidTest/java/dgca/verifier/app/engine/data/source/local/RulesDaoTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../dgca-verifier-app-android/app/src/main/java/dgca/verifier/app/android/data/local/countries/CountriesDao.kt">
           <value>
             <set />
