@@ -52,7 +52,7 @@ class DefaultValueSetsRepository(
         }
 
         if (valueSets.isNotEmpty()) {
-            localDataSource.addValueSets(valueSetsIdentifiersRemote, valueSets)
+            localDataSource.addValueSets(added, valueSets)
         }
     }
 
