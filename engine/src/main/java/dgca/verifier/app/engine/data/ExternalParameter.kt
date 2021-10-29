@@ -22,6 +22,7 @@
 
 package dgca.verifier.app.engine.data
 
+import dgca.verifier.app.engine.UTC_ZONE_ID
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
@@ -69,8 +70,8 @@ class ExternalParameter private constructor(
         validationClock = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(validationClock),
         valueSets = valueSets,
         countryCode = countryCode,
-        exp = exp.toString(),
-        iat = iat.toString(),
+        exp = exp.withZoneSameInstant(UTC_ZONE_ID).toLocalDate().toString(),
+        iat = iat.withZoneSameInstant(UTC_ZONE_ID).toLocalDate().toString(),
         issuerCountryCode = issuerCountryCode,
         kid = kid,
         region = region
