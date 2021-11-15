@@ -50,4 +50,8 @@ interface CountriesDataSource {
      * Provides list of countries ISO codes.
      */
     fun getCountries(): Flow<List<String>>
+
+    fun getLastCountriesSync(): Long
+
+    fun getSelectedCountryIsoCode(): String?
 }

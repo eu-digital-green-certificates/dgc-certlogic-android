@@ -48,6 +48,7 @@ import java.util.*
  *
  * Created by osarapulov on 25.06.21 9:28
  */
+
 class DefaultCountriesRepository(
     private val remoteDataSource: CountriesRemoteDataSrouce,
     private val localDataSource: CountriesLocalDataSource
@@ -62,4 +63,8 @@ class DefaultCountriesRepository(
     override fun getCountries(): Flow<List<String>> {
         return localDataSource.getCountries()
     }
+
+    override fun getLastCountriesSync(): Long = localDataSource.getLastCountriesSync()
+
+    override fun getSelectedCountryIsoCode(): String? = localDataSource.getSelectedCountryIsoCode()
 }
