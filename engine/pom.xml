@@ -24,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- dependencies -->
-        <Versions.kotlin>1.4.32</Versions.kotlin>
+        <Versions.kotlin>1.6.0</Versions.kotlin>
         <Versions.kotlin_reflect>1.4.32</Versions.kotlin_reflect>
         <Versions.kotlinx_coroutines_core>1.5.1</Versions.kotlinx_coroutines_core>
         <Versions.jackson_cbor>2.12.3</Versions.jackson_cbor>
