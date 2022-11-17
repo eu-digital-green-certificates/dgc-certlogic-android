@@ -24,12 +24,12 @@ object Versions {
 
     // Base
     const val gradle = "4.1.3"
-    const val kotlin = "1.4.32"
+    const val kotlin = "1.6.21"
 
     // Decoder
-    const val kotlin_reflect = "1.4.32"
-    const val kotlinx_coroutines_core = "1.5.1"
-    const val jackson_cbor = "2.12.3"
+    const val kotlin_reflect = "1.6.21"
+    const val kotlinx_coroutines_core = "1.5.2"
+    const val jackson_cbor = "2.14.0"
     const val jackson_kotlin = "2.12.0"
     const val jackson_datetype = "jackson-datatype-jsr310"
     const val appache_commons = "2.9.0"
