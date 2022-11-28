@@ -16,8 +16,6 @@
 
 <p align="center">
   <a href="#about">About</a> •
-  <a href="#development">Development</a> •
-  <a href="#documentation">Documentation</a> •
   <a href="#support-and-feedback">Support</a> •
   <a href="#how-to-contribute">Contribute</a> •
   <a href="#contributors">Contributors</a> •
@@ -30,19 +28,10 @@ This repository contains the source code of the EU Digital COVID Certificate Cer
 
 This module allows integrating the certlogic in Android apps.
 
-## Development
+Further descriptions and how to use it can be found here:
+[Wallet app](https://github.com/eu-digital-green-certificates/dgca-wallet-app-android) 
+[Verifier app](https://github.com/eu-digital-green-certificates/dgca-verifier-app-android)
 
-### Prerequisites
-
-- [ ] TODO: Prerequisites
-
-### Build
-
-- [ ] TODO: Build Instructions
-
-## Documentation
-
-- [ ] TODO: Add docs or link to docs
 
 ## Support and feedback
 
