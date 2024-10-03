@@ -30,7 +30,7 @@
         <Versions.jackson_cbor>2.12.3</Versions.jackson_cbor>
         <Versions.jackson_kotlin>2.12.0</Versions.jackson_kotlin>
         <Versions.jackson_datetype>jackson-datatype-jsr310</Versions.jackson_datetype>
-        <Versions.appache_commons>2.9.0</Versions.appache_commons>
+        <Versions.appache_commons>2.14.0</Versions.appache_commons>
 
         <Versions.junit>4.13.1</Versions.junit>
         <Versions.junit_jupiter>5.7.1</Versions.junit_jupiter>
